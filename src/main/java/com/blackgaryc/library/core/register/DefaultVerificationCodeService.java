@@ -2,6 +2,7 @@ package com.blackgaryc.library.core.register;
 
 import com.blackgaryc.library.core.error.VerificationCodeErrorException;
 import com.blackgaryc.library.core.error.VerificationCodeExpressException;
+import com.blackgaryc.library.core.error.VerificationCodeNotExistException;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
@@ -21,9 +22,12 @@ public class DefaultVerificationCodeService implements VerificationCodeService {
     }
 
     @Override
-    public boolean check(String user, String code) throws VerificationCodeExpressException, VerificationCodeErrorException {
+    public boolean check(String user, String code) throws VerificationCodeExpressException, VerificationCodeErrorException, VerificationCodeNotExistException {
         Data data = HASH_MAP.get(user);
-        if (null == data || !data.getCode().equals(code)) {
+        if (null == data) {
+            throw new VerificationCodeNotExistException();
+        }
+        if (!data.getCode().equals(code)) {
             throw new VerificationCodeErrorException();
         }
         if (!Instant.now().isBefore(data.getTimeCreate().plusSeconds(data.getTimeToLive()))) {

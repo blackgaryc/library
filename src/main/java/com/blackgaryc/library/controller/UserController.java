@@ -2,6 +2,8 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
+import com.blackgaryc.library.core.error.RegisterException;
+import com.blackgaryc.library.core.error.RegisterTypeNotFoundException;
 import com.blackgaryc.library.core.error.VerificationCodeException;
 import com.blackgaryc.library.core.register.AbstractUserRegisterService;
 import com.blackgaryc.library.core.register.EmailVerificationStrategy;
@@ -50,15 +52,19 @@ public class UserController {
      * @param vCode    verification code
      */
     @PostMapping("register")
-    public BaseResult register(String account, String password, String vCode, String type) throws VerificationCodeException {
-        emailVerificationStrategy.check(account, vCode);
+    public BaseResult register(String account, String password, String vCode, String type) throws VerificationCodeException, RegisterException {
         //user service to create user;
-        RegisterTypeEnum registerTypeEnum = RegisterTypeEnum.valueOf(type);
-        AbstractUserRegisterService service = userRegisterFactory.getService(registerTypeEnum);
-        Long uid = service.registerUser(account, password);
-        //sa login as new user
-        StpUtil.login(uid);
-        return Results.successData(StpUtil.getTokenInfo());
+        try {
+            RegisterTypeEnum registerTypeEnum = RegisterTypeEnum.valueOf(type);
+            emailVerificationStrategy.check(account, vCode);
+            AbstractUserRegisterService service = userRegisterFactory.getService(registerTypeEnum);
+            Long uid = service.registerUser(account, password);
+            //sa login as new user
+            StpUtil.login(uid);
+            return Results.successData(StpUtil.getTokenInfo());
+        }catch (IllegalArgumentException e){
+            throw new RegisterTypeNotFoundException(type);
+        }
     }
 
     /**
