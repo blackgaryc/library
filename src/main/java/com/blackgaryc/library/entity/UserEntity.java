@@ -1,5 +1,6 @@
 package com.blackgaryc.library.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -14,7 +15,7 @@ public class UserEntity implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id")
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -22,6 +23,9 @@ public class UserEntity implements Serializable {
      */
     @TableField(value = "email")
     private String email;
+
+    @TableField(value = "account")
+    private String account;
 
     /**
      * 
@@ -92,6 +96,14 @@ public class UserEntity implements Serializable {
      */
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     @Override

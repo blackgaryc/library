@@ -1,5 +1,6 @@
 package com.blackgaryc.library.service;
 
+import com.blackgaryc.library.core.register.IUserRegisterService;
 import com.blackgaryc.library.entity.UserEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 

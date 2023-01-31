@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.blackgaryc.library.core.minio.MinioAutoConfiguration
+com.blackgaryc.library.core.minio.MinioAutoConfiguration,\
+  com.blackgaryc.library.core.register.RegisterAutoConfiguration

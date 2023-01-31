@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailVerificationStrategy extends AbstractVerificationCodeStrategy implements InitializingBean {
+
     private final VerificationCodeMailSender mailSender;
 
-    public EmailVerificationStrategy(ApplicationContext applicationContext, VerificationCodeMailSender mailSender,VerificationCodeService verificationCodeService) {
+    public EmailVerificationStrategy(ApplicationContext applicationContext, VerificationCodeMailSender mailSender) {
         super(applicationContext);
         this.mailSender = mailSender;
     }

@@ -12,7 +12,9 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,email,password,
-        nickname
+        id,email,password,nickname,account
     </sql>
+    <select id="existUserByAccount" resultType="java.lang.Boolean">
+        EXISTS(SELECT 1 FROM my_table WHERE account=#{account})
+    </select>
 </mapper>

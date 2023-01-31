@@ -32,8 +32,8 @@ public abstract class AbstractVerificationCodeStrategy implements VerificationCo
     }
 
     @Override
-    public boolean check(String user, String code) throws VerificationCodeException {
-        return verificationCodeService.check(user, code);
+    public void check(String user, String code) throws VerificationCodeException {
+        verificationCodeService.check(user, code);
     }
 
     protected abstract void handleSendMessage(String user, String code);
