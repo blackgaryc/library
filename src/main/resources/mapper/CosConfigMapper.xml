@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackgaryc.library.mapper.CosConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.CosConfigEntity">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="endpoint" column="endpoint" jdbcType="VARCHAR"/>
+            <result property="accessKey" column="access_key" jdbcType="VARCHAR"/>
+            <result property="secretKey" column="secret_key" jdbcType="VARCHAR"/>
+            <result property="region" column="region" jdbcType="VARCHAR"/>
+            <result property="bucket" column="bucket" jdbcType="VARCHAR"/>
+            <result property="maxBucketSize" column="max_bucket_size" jdbcType="BIGINT"/>
+            <result property="currentBucketSize" column="current_bucket_size" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,endpoint,access_key,
+        secret_key,region,bucket,
+        max_bucket_size,current_bucket_size
+    </sql>
+</mapper>

@@ -1,0 +1,29 @@
+{
+
+  "properties": [
+    {
+      "name": "minio",
+      "type": "com.blackgaryc.library.core.minio.MinioAutoConfiguration",
+      "description": "Description for minio.endpoint."
+    },
+    {
+      "name": "minio.endpoint",
+      "type": "java.lang.String",
+      "description": "Description for minio.endpoint."
+    },
+    {
+      "name": "minio.bucket",
+      "type": "java.lang.String",
+      "description": "Description for minio.bucket."
+    },
+    {
+      "name": "minio.access-key",
+      "type": "java.lang.String",
+      "description": "Description for minio.access-key."
+    },
+    {
+      "name": "minio.secret-key",
+      "type": "java.lang.String",
+      "description": "Description for minio.secret-key."
+    }
+  ] }

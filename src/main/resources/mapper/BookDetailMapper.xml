@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackgaryc.library.mapper.BookDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookDetailEntity">
+            <result property="bookId" column="book_id" jdbcType="BIGINT"/>
+            <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
+            <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+            <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        book_id,publisher_id,isbn,
+        file_id
+    </sql>
+</mapper>
