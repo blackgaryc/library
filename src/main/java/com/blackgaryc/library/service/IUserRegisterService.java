@@ -1,5 +1,8 @@
-package com.blackgaryc.library.core.register;
+package com.blackgaryc.library.service;
 
+
+import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+import com.blackgaryc.library.core.register.RegisterTypeEnum;
 
 /**
  * interface to register new user, u needn't to implements

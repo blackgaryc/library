@@ -1,8 +1,13 @@
 package com.blackgaryc.library.core.register;
 
+import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * factory to load service by enum
+ */
 public class UserRegisterFactory {
     private static final Map<RegisterTypeEnum, AbstractUserRegisterService> instances = new EnumMap<>(RegisterTypeEnum.class);
 

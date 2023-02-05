@@ -1,14 +1,14 @@
-package com.blackgaryc.library.core.register;
+package com.blackgaryc.library.service.impl;
 
+import com.blackgaryc.library.core.register.UserRegisterFactory;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.mapper.UserMapper;
+import com.blackgaryc.library.service.IUserRegisterService;
 import com.blackgaryc.library.tools.RandStringTools;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-
-import java.util.Objects;
 
 /**
  * abstract class to register new user

@@ -2,10 +2,10 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
-import com.blackgaryc.library.core.error.RegisterException;
-import com.blackgaryc.library.core.error.RegisterTypeNotFoundException;
-import com.blackgaryc.library.core.error.VerificationCodeException;
-import com.blackgaryc.library.core.register.AbstractUserRegisterService;
+import com.blackgaryc.library.core.error.*;
+import com.blackgaryc.library.core.login.IUserLoginService;
+import com.blackgaryc.library.entity.UserEntity;
+import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
 import com.blackgaryc.library.core.register.EmailVerificationStrategy;
 import com.blackgaryc.library.core.register.RegisterTypeEnum;
 import com.blackgaryc.library.core.register.UserRegisterFactory;
@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/")
 public class UserController {
 
+
+    private final IUserLoginService userLoginService;
     @GetMapping("login")
-    public Object doLogin() {
-        StpUtil.login(10001);
-        return "";
+    public BaseResult doLogin(String account,String password) throws LoginException {
+        UserEntity check = userLoginService.check(account, password);
+        StpUtil.login(check.getId());
+        return Results.success();
     }
 
     @SaCheckLogin
@@ -31,16 +34,6 @@ public class UserController {
     public BaseResult userInfo() {
         return Results.successData(StpUtil.getTokenInfo());
     }
-
-    private final EmailVerificationStrategy emailVerificationStrategy;
-
-    public UserController(EmailVerificationStrategy emailVerificationStrategy, UserRegisterFactory userRegisterFactory) {
-        this.emailVerificationStrategy = emailVerificationStrategy;
-        this.userRegisterFactory = userRegisterFactory;
-    }
-
-
-    private final UserRegisterFactory userRegisterFactory;
 
     /**
      * register new user <br>
@@ -53,11 +46,15 @@ public class UserController {
      */
     @PostMapping("register")
     public BaseResult register(String account, String password, String vCode, String type) throws VerificationCodeException, RegisterException {
-        //user service to create user;
         try {
             RegisterTypeEnum registerTypeEnum = RegisterTypeEnum.valueOf(type);
-            emailVerificationStrategy.check(account, vCode);
             AbstractUserRegisterService service = userRegisterFactory.getService(registerTypeEnum);
+            boolean userRegistered = service.isUserRegistered(account);
+            if (userRegistered){
+                throw new RegisterUserAlreadyExistException(account);
+            }
+            emailVerificationStrategy.check(account, vCode);
+            //user service to create user;
             Long uid = service.registerUser(account, password);
             //sa login as new user
             StpUtil.login(uid);
@@ -75,5 +72,13 @@ public class UserController {
     @GetMapping("register/verification_code")
     public void registerVerificationCode(String user) {
         emailVerificationStrategy.sendTo(user);
+    }
+
+    private final EmailVerificationStrategy emailVerificationStrategy;
+    private final UserRegisterFactory userRegisterFactory;
+    public UserController(IUserLoginService userLoginService, EmailVerificationStrategy emailVerificationStrategy, UserRegisterFactory userRegisterFactory) {
+        this.userLoginService = userLoginService;
+        this.emailVerificationStrategy = emailVerificationStrategy;
+        this.userRegisterFactory = userRegisterFactory;
     }
 }

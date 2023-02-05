@@ -1,5 +1,7 @@
-package com.blackgaryc.library.core.register;
+package com.blackgaryc.library.service.impl;
 
+import com.blackgaryc.library.core.register.RegisterTypeEnum;
+import com.blackgaryc.library.core.register.UserRegisterFactory;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.mapper.UserMapper;
 import org.jasypt.util.password.PasswordEncryptor;
