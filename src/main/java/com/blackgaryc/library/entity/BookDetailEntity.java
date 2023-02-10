@@ -2,6 +2,7 @@ package com.blackgaryc.library.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -32,7 +33,13 @@ public class BookDetailEntity implements Serializable {
      * 
      */
     @TableField(value = "file_id")
-    private String fileId;
+    private Long fileId;
+
+    /**
+     * 
+     */
+    @TableField(value = "page")
+    private Integer page;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -82,15 +89,29 @@ public class BookDetailEntity implements Serializable {
     /**
      * 
      */
-    public String getFileId() {
+    public Long getFileId() {
         return fileId;
     }
 
     /**
      * 
      */
-    public void setFileId(String fileId) {
+    public void setFileId(Long fileId) {
         this.fileId = fileId;
+    }
+
+    /**
+     * 
+     */
+    public Integer getPage() {
+        return page;
+    }
+
+    /**
+     * 
+     */
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
     @Override
@@ -108,7 +129,8 @@ public class BookDetailEntity implements Serializable {
         return (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
             && (this.getPublisherId() == null ? other.getPublisherId() == null : this.getPublisherId().equals(other.getPublisherId()))
             && (this.getIsbn() == null ? other.getIsbn() == null : this.getIsbn().equals(other.getIsbn()))
-            && (this.getFileId() == null ? other.getFileId() == null : this.getFileId().equals(other.getFileId()));
+            && (this.getFileId() == null ? other.getFileId() == null : this.getFileId().equals(other.getFileId()))
+            && (this.getPage() == null ? other.getPage() == null : this.getPage().equals(other.getPage()));
     }
 
     @Override
@@ -119,6 +141,7 @@ public class BookDetailEntity implements Serializable {
         result = prime * result + ((getPublisherId() == null) ? 0 : getPublisherId().hashCode());
         result = prime * result + ((getIsbn() == null) ? 0 : getIsbn().hashCode());
         result = prime * result + ((getFileId() == null) ? 0 : getFileId().hashCode());
+        result = prime * result + ((getPage() == null) ? 0 : getPage().hashCode());
         return result;
     }
 
@@ -132,6 +155,7 @@ public class BookDetailEntity implements Serializable {
         sb.append(", publisherId=").append(publisherId);
         sb.append(", isbn=").append(isbn);
         sb.append(", fileId=").append(fileId);
+        sb.append(", page=").append(page);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

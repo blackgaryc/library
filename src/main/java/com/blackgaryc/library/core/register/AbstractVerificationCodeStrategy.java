@@ -1,7 +1,7 @@
 package com.blackgaryc.library.core.register;
 
 import com.blackgaryc.library.core.error.VerificationCodeException;
-import com.blackgaryc.library.tools.RandStringTools;
+import com.blackgaryc.library.tools.StringTools;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 
@@ -24,7 +24,7 @@ public abstract class AbstractVerificationCodeStrategy implements VerificationCo
     @Override
     public void sendTo(String user) {
         //generate code
-        String code = RandStringTools.randNumberString(6);
+        String code = StringTools.randNumberString(6);
         //save user
         verificationCodeService.save(user, code);
         // handle how to send

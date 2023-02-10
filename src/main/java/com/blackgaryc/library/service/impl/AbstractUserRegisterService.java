@@ -4,7 +4,7 @@ import com.blackgaryc.library.core.register.UserRegisterFactory;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.mapper.UserMapper;
 import com.blackgaryc.library.service.IUserRegisterService;
-import com.blackgaryc.library.tools.RandStringTools;
+import com.blackgaryc.library.tools.StringTools;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public abstract class AbstractUserRegisterService implements IUserRegisterServic
         user.setPassword(passwordEncryptor.encryptPassword(password));
         String nickname = user.getNickname();
         if (null == nickname || nickname.isEmpty() || nickname.isBlank()) {
-            user.setNickname("用户-" + RandStringTools.randNumberString(4));
+            user.setNickname("用户-" + StringTools.randNumberString(4));
         }
         if (1 != userMapper.insert(user)) {
             throw new RuntimeException("unable to insert new user");

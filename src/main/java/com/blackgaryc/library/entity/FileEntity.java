@@ -1,8 +1,10 @@
 package com.blackgaryc.library.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -14,8 +16,8 @@ public class FileEntity implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id")
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 
@@ -38,20 +40,14 @@ public class FileEntity implements Serializable {
     /**
      * 
      */
-    @TableField(value = "cos_config_id")
-    private Integer cosConfigId;
+    @TableField(value = "object")
+    private String object;
 
     /**
      * 
      */
-    @TableField(value = "cos_path")
-    private String cosPath;
-
-    /**
-     * 
-     */
-    @TableField(value = "sha256")
-    private String sha256;
+    @TableField(value = "md5")
+    private String md5;
 
     /**
      * 
@@ -59,20 +55,26 @@ public class FileEntity implements Serializable {
     @TableField(value = "uid")
     private Long uid;
 
+    /**
+     * 
+     */
+    @TableField(value = "size")
+    private Long size;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
      * 
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * 
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -121,43 +123,29 @@ public class FileEntity implements Serializable {
     /**
      * 
      */
-    public Integer getCosConfigId() {
-        return cosConfigId;
+    public String getObject() {
+        return object;
     }
 
     /**
      * 
      */
-    public void setCosConfigId(Integer cosConfigId) {
-        this.cosConfigId = cosConfigId;
+    public void setObject(String object) {
+        this.object = object;
     }
 
     /**
      * 
      */
-    public String getCosPath() {
-        return cosPath;
+    public String getMd5() {
+        return md5;
     }
 
     /**
      * 
      */
-    public void setCosPath(String cosPath) {
-        this.cosPath = cosPath;
-    }
-
-    /**
-     * 
-     */
-    public String getSha256() {
-        return sha256;
-    }
-
-    /**
-     * 
-     */
-    public void setSha256(String sha256) {
-        this.sha256 = sha256;
+    public void setMd5(String md5) {
+        this.md5 = md5;
     }
 
     /**
@@ -172,6 +160,20 @@ public class FileEntity implements Serializable {
      */
     public void setUid(Long uid) {
         this.uid = uid;
+    }
+
+    /**
+     * 
+     */
+    public Long getSize() {
+        return size;
+    }
+
+    /**
+     * 
+     */
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     @Override
@@ -190,10 +192,10 @@ public class FileEntity implements Serializable {
             && (this.getFilename() == null ? other.getFilename() == null : this.getFilename().equals(other.getFilename()))
             && (this.getExtension() == null ? other.getExtension() == null : this.getExtension().equals(other.getExtension()))
             && (this.getMimetype() == null ? other.getMimetype() == null : this.getMimetype().equals(other.getMimetype()))
-            && (this.getCosConfigId() == null ? other.getCosConfigId() == null : this.getCosConfigId().equals(other.getCosConfigId()))
-            && (this.getCosPath() == null ? other.getCosPath() == null : this.getCosPath().equals(other.getCosPath()))
-            && (this.getSha256() == null ? other.getSha256() == null : this.getSha256().equals(other.getSha256()))
-            && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()));
+            && (this.getObject() == null ? other.getObject() == null : this.getObject().equals(other.getObject()))
+            && (this.getMd5() == null ? other.getMd5() == null : this.getMd5().equals(other.getMd5()))
+            && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
+            && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()));
     }
 
     @Override
@@ -204,10 +206,10 @@ public class FileEntity implements Serializable {
         result = prime * result + ((getFilename() == null) ? 0 : getFilename().hashCode());
         result = prime * result + ((getExtension() == null) ? 0 : getExtension().hashCode());
         result = prime * result + ((getMimetype() == null) ? 0 : getMimetype().hashCode());
-        result = prime * result + ((getCosConfigId() == null) ? 0 : getCosConfigId().hashCode());
-        result = prime * result + ((getCosPath() == null) ? 0 : getCosPath().hashCode());
-        result = prime * result + ((getSha256() == null) ? 0 : getSha256().hashCode());
+        result = prime * result + ((getObject() == null) ? 0 : getObject().hashCode());
+        result = prime * result + ((getMd5() == null) ? 0 : getMd5().hashCode());
         result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
+        result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
         return result;
     }
 
@@ -221,10 +223,10 @@ public class FileEntity implements Serializable {
         sb.append(", filename=").append(filename);
         sb.append(", extension=").append(extension);
         sb.append(", mimetype=").append(mimetype);
-        sb.append(", cosConfigId=").append(cosConfigId);
-        sb.append(", cosPath=").append(cosPath);
-        sb.append(", sha256=").append(sha256);
+        sb.append(", object=").append(object);
+        sb.append(", md5=").append(md5);
         sb.append(", uid=").append(uid);
+        sb.append(", size=").append(size);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

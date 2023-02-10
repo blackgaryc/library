@@ -9,10 +9,11 @@
             <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
             <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
             <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
+            <result property="page" column="page" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         book_id,publisher_id,isbn,
-        file_id
+        file_id,page
     </sql>
 </mapper>
