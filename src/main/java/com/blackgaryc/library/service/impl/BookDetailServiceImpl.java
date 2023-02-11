@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 public class BookDetailServiceImpl extends ServiceImpl<BookDetailMapper, BookDetailEntity>
     implements BookDetailService{
 
+
+    @Override
+    public BookDetailEntity findByFileId(Long id) {
+        return baseMapper.findByFileId(id);
+    }
 }
 
 

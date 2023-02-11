@@ -14,7 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity>
     implements FileService{
+    @Override
+    public FileEntity findByMd5AndObjectKey(String md5, String objectKey) {
+        return baseMapper.findByMd5AndObject(md5, objectKey);
+    }
 
+    @Override
+    public Boolean existByMd5(String md5) {
+        return baseMapper.existByMd5(md5);
+    }
 }
 
 

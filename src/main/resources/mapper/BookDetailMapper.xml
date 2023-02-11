@@ -16,4 +16,7 @@
         book_id,publisher_id,isbn,
         file_id,page
     </sql>
+    <select id="findByFileId" resultType="com.blackgaryc.library.entity.BookDetailEntity">
+        select <include refid="Base_Column_List"></include> from book_detail where file_id=#{id} limit 1
+    </select>
 </mapper>

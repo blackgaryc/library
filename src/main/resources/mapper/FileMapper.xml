@@ -19,4 +19,10 @@
         mimetype,object,md5,
         uid
     </sql>
+    <select id="findByMd5AndObject" resultType="com.blackgaryc.library.entity.FileEntity">
+        select <include refid="Base_Column_List" /> FROM file where md5=#{md5} and object=#{object}
+    </select>
+    <select id="existByMd5" resultType="java.lang.Boolean">
+        SELECT EXISTS(select 1 from file where md5=#{md5} limit 1)
+    </select>
 </mapper>

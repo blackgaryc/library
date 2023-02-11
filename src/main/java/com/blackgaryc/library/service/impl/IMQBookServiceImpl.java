@@ -1,5 +1,7 @@
 package com.blackgaryc.library.service.impl;
 
+import com.blackgaryc.library.core.elasticsearch.domain.Book;
+import com.blackgaryc.library.core.elasticsearch.domain.BookDetail;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
 import com.blackgaryc.library.core.file.processor.IFileProcessPageableResult;
 import com.blackgaryc.library.entity.BookDetailEntity;
@@ -11,6 +13,7 @@ import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.service.IMQBookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 
@@ -44,5 +47,14 @@ public class IMQBookServiceImpl implements IMQBookService {
             bookDetailEntity.setPage(pageableResult.getNumberOfPage());
         }
         bookDetailService.save(bookDetailEntity);
+    }
+
+    @Override
+    public Book findBookByMd5AndObjectKey(String md5, String objectKey) {
+        FileEntity fileEntity = fileService.findByMd5AndObjectKey(md5, objectKey);
+        Assert.notNull(fileEntity,"无法找到文件md5="+md5+" objectKey="+objectKey);
+        BookDetailEntity bookDetailEntity = bookDetailService.findByFileId(fileEntity.getId());
+        BookEntity bookEntity = bookService.getBaseMapper().selectById(bookDetailEntity.getBookId());
+        return new Book(bookEntity,bookDetailEntity,fileEntity);
     }
 }

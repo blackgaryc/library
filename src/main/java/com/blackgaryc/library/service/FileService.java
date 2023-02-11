@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-01-27 12:35:59
 */
 public interface FileService extends IService<FileEntity> {
+    FileEntity findByMd5AndObjectKey(String md5,String objectKey);
 
+    Boolean existByMd5(String md5);
 }

@@ -1,6 +1,7 @@
 package com.blackgaryc.library.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.blackgaryc.library.core.elasticsearch.domain.BookDetail;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BookDetailMapper extends BaseMapper<BookDetailEntity> {
 
+    BookDetailEntity findByFileId(Long id);
 }
 
 

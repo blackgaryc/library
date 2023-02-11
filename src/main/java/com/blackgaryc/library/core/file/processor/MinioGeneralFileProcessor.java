@@ -73,14 +73,6 @@ public class MinioGeneralFileProcessor implements IGeneralFileProcessor<MinioFil
                 result.setMimetype(mimetype);
                 // do more process
                 result = moreProcess(file, result);
-                // to hidden user info when download file
-                // move user file to project file
-                CopySource copySource = CopySource.builder().bucket(bucketName).object(objectKey).build();
-                String projectObjectKey = "book/" + UUID.randomUUID() + "/" + originFilename;
-                minioClient.copyObject(CopyObjectArgs.builder().bucket(bucketName).source(copySource).object(projectObjectKey).build());
-                minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectKey).build());
-                //update objectKey
-                result.setObjectKey(projectObjectKey);
                 log.info(result.toString());
                 return result;
             } catch (Exception e) {

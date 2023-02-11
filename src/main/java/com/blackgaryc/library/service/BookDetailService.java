@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-01-27 12:35:59
 */
 public interface BookDetailService extends IService<BookDetailEntity> {
-
+    BookDetailEntity findByFileId(Long id);
 }

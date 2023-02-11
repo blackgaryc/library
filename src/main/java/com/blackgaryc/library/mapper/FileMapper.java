@@ -3,6 +3,7 @@ package com.blackgaryc.library.mapper;
 import com.blackgaryc.library.entity.FileEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.elasticsearch.annotations.Query;
 
 /**
 * @author blackgaryc
@@ -12,7 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface FileMapper extends BaseMapper<FileEntity> {
-
+    FileEntity findByMd5AndObject(String md5,String object);
+    Boolean existByMd5(String md5);
 }
 
 
