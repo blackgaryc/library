@@ -21,6 +21,9 @@ public class BookFile {
         this.size = fileEntity.getSize();
     }
 
+    public BookFile() {
+    }
+
     public Long getId() {
         return id;
     }

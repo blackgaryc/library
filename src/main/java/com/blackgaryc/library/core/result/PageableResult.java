@@ -1,12 +1,14 @@
 package com.blackgaryc.library.core.result;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
-public class PageableResult extends BaseResult{
+public class PageableResult<T> extends BaseResult{
     private int page;
     private int totalPage;
-    private int totalResult;
-    private List<Object> data;
+    private long totalResult;
+    private List<T> data;
 
     public int getPage() {
         return page;
@@ -24,20 +26,20 @@ public class PageableResult extends BaseResult{
         this.totalPage = totalPage;
     }
 
-    public int getTotalResult() {
+    public long getTotalResult() {
         return totalResult;
     }
 
-    public void setTotalResult(int totalResult) {
+    public void setTotalResult(long totalResult) {
         this.totalResult = totalResult;
     }
 
     @Override
-    public List<Object> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<Object> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
@@ -49,5 +51,12 @@ public class PageableResult extends BaseResult{
                 ", totalResult=" + totalResult +
                 ", data=" + data +
                 '}';
+    }
+
+    public PageableResult(Page<T> data) {
+        this.data = data.getContent();
+        this.totalResult = data.getTotalElements();
+        this.page = data.getPageable().getPageNumber();
+        this.totalPage = data.getTotalPages();
     }
 }

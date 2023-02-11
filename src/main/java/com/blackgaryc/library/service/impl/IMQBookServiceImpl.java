@@ -11,6 +11,8 @@ import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.service.IMQBookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
 
 @Service
 public class IMQBookServiceImpl implements IMQBookService {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     @Resource
     BookService bookService;
     @Resource
@@ -51,8 +54,22 @@ public class IMQBookServiceImpl implements IMQBookService {
 
     @Override
     public Book findBookByMd5AndObjectKey(String md5, String objectKey) {
+        int queryTimes=0;
         FileEntity fileEntity = fileService.findByMd5AndObjectKey(md5, objectKey);
-        Assert.notNull(fileEntity,"无法找到文件md5="+md5+" objectKey="+objectKey);
+        while (null == fileEntity && queryTimes <= 5){
+            //delay to query in database, to wait transactional complete
+            queryTimes++;
+            try {
+                Thread.sleep(1000);
+                fileEntity = fileService.findByMd5AndObjectKey(md5, objectKey);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (null == fileEntity){
+            log.error("无法找到文件md5="+md5+" objectKey="+objectKey);
+        }
+        assert fileEntity != null;
         BookDetailEntity bookDetailEntity = bookDetailService.findByFileId(fileEntity.getId());
         BookEntity bookEntity = bookService.getBaseMapper().selectById(bookDetailEntity.getBookId());
         return new Book(bookEntity,bookDetailEntity,fileEntity);

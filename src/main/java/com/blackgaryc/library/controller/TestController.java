@@ -37,14 +37,9 @@ public class TestController {
     @Autowired
     RestClient restClient;
     @GetMapping("test")
-    public List<Book> test(String text) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        Book entity = new Book();
-        entity.setTitle("test save book");
-        Book save = operations.save(entity);
-
-//        PageRequest pageable = PageRequest.of(1,10).withPage(1);
-//        Page<Book> test = bookRepository.findBooksByTitle("test", pageable);
-//        return test.getContent();
-        return null;
+    public List<Book> test(String title) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        PageRequest pageable = PageRequest.of(0,10);
+        Page<Book> test = bookRepository.findByTitleOrMd5(title, pageable);
+        return test.getContent();
     }
 }

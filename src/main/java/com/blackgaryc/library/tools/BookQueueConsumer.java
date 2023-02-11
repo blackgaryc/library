@@ -26,7 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -83,6 +86,7 @@ public class BookQueueConsumer {
                     // handle minio file move
                     try {
                         minioClient.copyObject(CopyObjectArgs.builder().bucket(bucket).source(copySource).object(projectObjectKey).build());
+                        //when file is copied to project space, end transactional
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -93,8 +97,6 @@ public class BookQueueConsumer {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-
-
             }
 
         } catch (JsonProcessingException | FileProcessorNotSupportException e) {
