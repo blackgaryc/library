@@ -18,6 +18,7 @@ public class Book {
     private String title;
     private String description;
     private String language;
+    private String thumbnail;
     @Field(type = FieldType.Nested, includeInParent = true)
     private Category category;
     @Field(type = FieldType.Nested, includeInParent = true)
@@ -26,13 +27,14 @@ public class Book {
     private List<BookDetail> bookDetails;
 
     public Book(BookEntity bookEntity, BookDetailEntity bookDetailEntity, FileEntity fileEntity) {
-        this.id=bookEntity.getId();
-        this.title=bookEntity.getTitle();
-        this.description=bookEntity.getDescription();
-        this.language=bookEntity.getLanguage();
-        this.category=null;
-        this.authors= Collections.emptyList();
-        this.bookDetails=Collections.singletonList(new BookDetail(bookDetailEntity,fileEntity));
+        this.id = bookEntity.getId();
+        this.title = bookEntity.getTitle();
+        this.description = bookEntity.getDescription();
+        this.language = bookEntity.getLanguage();
+        this.thumbnail = bookEntity.getThumbnail();
+        this.category = null;
+        this.authors = Collections.emptyList();
+        this.bookDetails = Collections.singletonList(new BookDetail(bookDetailEntity, fileEntity));
     }
 
     public Book() {
@@ -92,6 +94,14 @@ public class Book {
 
     public void setBookDetails(List<BookDetail> bookDetails) {
         this.bookDetails = bookDetails;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public static final class Builder {

@@ -24,7 +24,6 @@ public class MinioAutoConfiguration {
      */
     @Bean
     MinioClient minioClient(MinioProperty minioProperty) {
-        System.out.println(new ObjectMapper().valueToTree(minioProperty));
         return MinioClient.builder().endpoint(minioProperty.getEndpoint()).credentials(minioProperty.getAccessKey(), minioProperty.getSecretKey()).build();
     }
 }

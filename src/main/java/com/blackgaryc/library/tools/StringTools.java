@@ -1,6 +1,13 @@
 package com.blackgaryc.library.tools;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.UUID;
 
 public class StringTools {
     public static String randNumberString(int length) {
@@ -54,4 +61,36 @@ public class StringTools {
         return strings;
     }
 
+    public static String getRandUUIDFilenameWithOriginException(String originalFilename) {
+        String[] strings = splitFilename2NameAndExtension(originalFilename);
+        if (strings.length>=2){
+            return UUID.randomUUID()+strings[strings.length-1];
+        }
+        return UUID.randomUUID().toString();
+    }
+
+    public static String getMd5AsFilenameWithOriginException(String originalFilename, File file) {
+        String[] strings = splitFilename2NameAndExtension(originalFilename);
+        if (strings.length>=2){
+            return getFileMd5(file)+strings[strings.length-1];
+        }
+        return getFileMd5(file);
+    }
+
+    public static String getMd5Filename(String extensionWithDot,File fIle){
+        return getFileMd5(fIle)+extensionWithDot;
+    }
+    public static String getFileMd5(File file){
+        try (FileInputStream fileInputStream = new FileInputStream(file)){
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] buff = new byte[4096];
+            while (fileInputStream.available()>0){
+                int readLength = fileInputStream.read(buff);
+                md5.update(buff,0,readLength);
+            }
+            return bytes2HexString(md5.digest());
+        } catch (NoSuchAlgorithmException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

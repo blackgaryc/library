@@ -59,6 +59,5 @@ public class MinioProperty implements Serializable, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println(this);
     }
 }

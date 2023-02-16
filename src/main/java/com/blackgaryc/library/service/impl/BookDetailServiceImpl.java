@@ -6,6 +6,8 @@ import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.mapper.BookDetailMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author blackgaryc
 * @description 针对表【book_detail】的数据库操作Service实现
@@ -14,7 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookDetailServiceImpl extends ServiceImpl<BookDetailMapper, BookDetailEntity>
     implements BookDetailService{
-
+    @Override
+    public List<BookDetailEntity> findAllByBookId(Long bookId) {
+        return baseMapper.findAllByBookId(bookId);
+    }
 
     @Override
     public BookDetailEntity findByFileId(Long id) {

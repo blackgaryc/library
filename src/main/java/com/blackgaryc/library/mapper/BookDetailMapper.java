@@ -5,6 +5,8 @@ import com.blackgaryc.library.core.elasticsearch.domain.BookDetail;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author alex
 * @description 针对表【book_detail】的数据库操作Mapper
@@ -15,6 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface BookDetailMapper extends BaseMapper<BookDetailEntity> {
 
     BookDetailEntity findByFileId(Long id);
+    List<BookDetailEntity> findAllByBookId(Long bookId);
 }
 
 

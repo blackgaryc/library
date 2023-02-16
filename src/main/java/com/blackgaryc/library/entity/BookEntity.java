@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -41,6 +42,12 @@ public class BookEntity implements Serializable {
      */
     @TableField(value = "category_id")
     private Integer categoryId;
+
+    /**
+     * 
+     */
+    @TableField(value = "thumbnail")
+    private String thumbnail;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -115,6 +122,20 @@ public class BookEntity implements Serializable {
         this.categoryId = categoryId;
     }
 
+    /**
+     * 
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * 
+     */
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -131,7 +152,8 @@ public class BookEntity implements Serializable {
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getLanguage() == null ? other.getLanguage() == null : this.getLanguage().equals(other.getLanguage()))
-            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()));
+            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
+            && (this.getThumbnail() == null ? other.getThumbnail() == null : this.getThumbnail().equals(other.getThumbnail()));
     }
 
     @Override
@@ -143,6 +165,7 @@ public class BookEntity implements Serializable {
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getLanguage() == null) ? 0 : getLanguage().hashCode());
         result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
+        result = prime * result + ((getThumbnail() == null) ? 0 : getThumbnail().hashCode());
         return result;
     }
 
@@ -157,6 +180,7 @@ public class BookEntity implements Serializable {
         sb.append(", description=").append(description);
         sb.append(", language=").append(language);
         sb.append(", categoryId=").append(categoryId);
+        sb.append(", thumbnail=").append(thumbnail);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

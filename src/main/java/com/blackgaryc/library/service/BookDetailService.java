@@ -3,6 +3,8 @@ package com.blackgaryc.library.service;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author blackgaryc
 * @description 针对表【book_detail】的数据库操作Service
@@ -10,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BookDetailService extends IService<BookDetailEntity> {
     BookDetailEntity findByFileId(Long id);
+    List<BookDetailEntity> findAllByBookId(Long bookId);
+
 }

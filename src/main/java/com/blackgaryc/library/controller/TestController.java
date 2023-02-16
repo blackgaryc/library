@@ -31,8 +31,6 @@ public class TestController {
     ElasticsearchOperations operations;
 
     @Autowired
-    ElasticsearchClient elasticsearchClient;
-    @Autowired
     BookRepository bookRepository;
     @Autowired
     RestClient restClient;
