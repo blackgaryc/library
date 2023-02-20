@@ -7,6 +7,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.error.*;
 import com.blackgaryc.library.core.login.IUserLoginService;
 import com.blackgaryc.library.domain.user.LoginRequest;
+import com.blackgaryc.library.domain.user.UpdateUserInfoRequest;
 import com.blackgaryc.library.domain.user.UserInfoResponse;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.service.UserService;
@@ -58,6 +59,15 @@ public class UserController {
         long loginId = StpUtil.getLoginIdAsLong();
         UserEntity userEntity = userService.getBaseMapper().selectById(loginId);
         return Results.successData(new UserInfoResponse(userEntity));
+    }
+
+    @PostMapping("/info/update")
+    public BaseResult updateUserInfo(@RequestBody UpdateUserInfoRequest request){
+        UserEntity userEntity = userService.getBaseMapper().selectById(StpUtil.getLoginIdAsLong());
+        userEntity.setNickname(request.getNickname());
+        userEntity.setAvatar(request.getAvatar());
+        userService.updateById(userEntity);
+        return Results.success();
     }
 
 
