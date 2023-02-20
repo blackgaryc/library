@@ -6,6 +6,7 @@ import com.blackgaryc.library.core.minio.ObjectKeyPrefixEnum;
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.tools.StringTools;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.ObjectWriteResponse;
 import io.minio.UploadObjectArgs;

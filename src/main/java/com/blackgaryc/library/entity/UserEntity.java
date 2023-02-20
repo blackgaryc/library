@@ -1,9 +1,9 @@
 package com.blackgaryc.library.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -15,7 +15,7 @@ public class UserEntity implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id",type = IdType.ASSIGN_ID)
+    @TableId(value = "id")
     private Long id;
 
     /**
@@ -23,9 +23,6 @@ public class UserEntity implements Serializable {
      */
     @TableField(value = "email")
     private String email;
-
-    @TableField(value = "account")
-    private String account;
 
     /**
      * 
@@ -38,6 +35,18 @@ public class UserEntity implements Serializable {
      */
     @TableField(value = "nickname")
     private String nickname;
+
+    /**
+     * 
+     */
+    @TableField(value = "account")
+    private String account;
+
+    /**
+     * 
+     */
+    @TableField(value = "avatar")
+    private String avatar;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -98,12 +107,32 @@ public class UserEntity implements Serializable {
         this.nickname = nickname;
     }
 
+    /**
+     * 
+     */
     public String getAccount() {
         return account;
     }
 
+    /**
+     * 
+     */
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    /**
+     * 
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * 
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override
@@ -121,7 +150,9 @@ public class UserEntity implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()));
+            && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
+            && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()));
     }
 
     @Override
@@ -132,6 +163,8 @@ public class UserEntity implements Serializable {
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
+        result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
+        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
         return result;
     }
 
@@ -145,6 +178,8 @@ public class UserEntity implements Serializable {
         sb.append(", email=").append(email);
         sb.append(", password=").append(password);
         sb.append(", nickname=").append(nickname);
+        sb.append(", account=").append(account);
+        sb.append(", avatar=").append(avatar);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

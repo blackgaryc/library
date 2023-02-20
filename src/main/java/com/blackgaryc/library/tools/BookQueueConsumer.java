@@ -1,6 +1,7 @@
 package com.blackgaryc.library.tools;
 
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
+import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
 import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
 import com.blackgaryc.library.core.file.processor.FileProcessBaseResult;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
@@ -104,9 +105,8 @@ public class BookQueueConsumer {
         }
     }
 
-    @Autowired
-    ElasticsearchOperations operations;
-
+    @Resource
+    BookRepository bookRepository;
     @RabbitListener(queues = {"${queue.es.book.add}"}, ackMode = "NONE")
     public void processProjectBookAdd2Es(@Payload String body) {
         log.info(body);
@@ -117,9 +117,8 @@ public class BookQueueConsumer {
                 //load data form database
                 Book book = imqBookService.findBookByMd5AndObjectKey(record.getS3().getObject().getETag(), URLDecoder.decode(record.getS3().getObject().getKey(), Charset.defaultCharset()));
                 //push to elasticsearch
-                operations.save(book);
+                bookRepository.save(book);
             }
-
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
