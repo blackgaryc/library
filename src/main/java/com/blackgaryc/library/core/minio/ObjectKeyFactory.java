@@ -8,8 +8,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class ObjectKeyFactory {
+
+    private static HashMap<String,IObjectKey> data=new HashMap<>();
+    static {
+
+    }
 
     /***
      * upload file in target filename and path,

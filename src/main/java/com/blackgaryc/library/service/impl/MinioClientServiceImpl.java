@@ -57,4 +57,9 @@ public class MinioClientServiceImpl implements MinioClientService {
     public String getFullUrl(String objectKey) {
         return minioProperty.getEndpoint()+'/'+minioProperty.getBucket()+'/'+objectKey;
     }
+
+    @Override
+    public String getUploadSignedUrl(IObjectKey objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        return getUploadSignedUrl(objectKey.getKey());
+    }
 }

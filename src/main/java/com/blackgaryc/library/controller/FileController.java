@@ -19,6 +19,7 @@ import io.minio.ObjectWriteResponse;
 import io.minio.UploadObjectArgs;
 import io.minio.errors.*;
 import org.apache.tika.Tika;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +72,7 @@ public class FileController {
         file.transferTo(tempFile);
         File tmpfile = tempFile.toFile();
         IObjectKey instanceWithMd5Filename = ObjectKeyFactory.getInstanceWithMd5Filename(type, tmpfile, file.getOriginalFilename());
+        Assert.notNull(instanceWithMd5Filename,"无法找到"+type+"对应的文件路径");
         String finalObjectKey = minioClientService.uploadObject(tmpfile, instanceWithMd5Filename);
         tmpfile.delete();
         return Results.successData(minioClientService.getFullUrl(finalObjectKey));
@@ -90,17 +92,20 @@ public class FileController {
     @Resource
     MinioClientService minioClientService;
 
-    @GetMapping("user/info/avatar")
-    public BaseResult getUserAvatarUploadUrl(){
-        String loginId = StpUtil.getLoginIdAsString();
-        String path= "user/"+loginId+"/info/avatar/"+ UUID.randomUUID();
-        try {
-            return Results.successData(minioClientService.getUploadSignedUrl(path));
-        } catch (ServerException | InsufficientDataException | ErrorResponseException | IOException |
-                 NoSuchAlgorithmException | InvalidKeyException | InvalidResponseException | XmlParserException |
-                 InternalException e) {
-            throw new RuntimeException(e);
-        }
+    @GetMapping("upload/url")
+    public BaseResult getMinioUploadUrl(String type) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        IObjectKey userInfoAvatar = ObjectKeyFactory.getInstance(type);
+        Assert.notNull(userInfoAvatar,"无法找到"+type+"对应的文件路径");
+        return Results.successData(minioClientService.getUploadSignedUrl(userInfoAvatar));
+//        String loginId = StpUtil.getLoginIdAsString();
+//        String path= "user/"+loginId+"/info/avatar/"+ UUID.randomUUID();
+//        try {
+//            return Results.successData(minioClientService.getUploadSignedUrl(path));
+//        } catch (ServerException | InsufficientDataException | ErrorResponseException | IOException |
+//                 NoSuchAlgorithmException | InvalidKeyException | InvalidResponseException | XmlParserException |
+//                 InternalException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 }
