@@ -1,6 +1,7 @@
 package com.blackgaryc.library.core.minio;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
 import com.blackgaryc.library.core.minio.objectkeys.UserInfoAvatarKey;
 import com.blackgaryc.library.tools.StringTools;
 import com.rometools.utils.Strings;
@@ -8,14 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.HashMap;
 
 public class ObjectKeyFactory {
-
-    private static HashMap<String,IObjectKey> data=new HashMap<>();
-    static {
-
-    }
 
     /***
      * upload file in target filename and path,
@@ -26,10 +21,14 @@ public class ObjectKeyFactory {
      * other else it will be null
      */
     public static IObjectKey getInstance(String type, String filename) {
-        if (type.equals("user_info_avatar")) {
-            return new UserInfoAvatarKey(StpUtil.getLoginIdAsLong(), filename);
+        switch (type) {
+            case "user_info_avatar":
+                return new UserInfoAvatarKey(StpUtil.getLoginIdAsLong(), filename);
+            case "user_upload_book_file":
+                return new UserBookFileKey(StpUtil.getLoginIdAsLong(), filename);
+            default:
+                return null;
         }
-        return null;
     }
 
     /**
