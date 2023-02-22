@@ -46,12 +46,30 @@ public class ObjectKeyFactory {
         return null;
     }
 
-
-    public static IObjectKey getInstanceWithMd5Filename(@NotNull String type, @NotNull File file, @Nullable String originFilename) {
-        if (Strings.isBlank(originFilename)) {
+    /**
+     * return object key to upload file
+     *
+     * @param type           which kind file to upload,
+     *                       if type contains '_RANDOM_FILE' or originFilename is empty or blank,
+     *                       it's filename will be generated as simple uuid with origin extension.
+     *                       if type contains '_MD5_FILENAME',
+     *                       it's filename will be generated with file md5 and origin extension.
+     *                       any else,it uploaded filename will be origin filename.
+     * @param file           file to upload
+     * @param originFilename origin filename
+     * @return
+     */
+    public static IObjectKey getInstance(@NotNull String type, @NotNull File file, @Nullable String originFilename) {
+        String randomFilename = "_RANDOM_FILENAME";
+        if (Strings.isBlank(originFilename) || type.contains(randomFilename)) {
+            type = type.replace(randomFilename, "");
             originFilename = StringTools.getMd5Filename("", file);
         } else {
-            originFilename = StringTools.getMd5AsFilenameWithOriginException(originFilename, file);
+            String md5Filename = "_MD5_FILENAME";
+            if (type.contains(md5Filename)) {
+                type = type.replace(md5Filename, "");
+                originFilename = StringTools.getMd5AsFilenameWithOriginException(originFilename, file);
+            }
         }
         return getInstance(type, originFilename);
     }

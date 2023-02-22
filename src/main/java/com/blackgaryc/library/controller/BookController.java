@@ -2,7 +2,6 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
-import co.elastic.clients.elasticsearch.xpack.usage.Base;
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
 import com.blackgaryc.library.core.result.BaseResult;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -70,6 +68,17 @@ public class BookController {
     @SaIgnore
     public BaseResult setBookCoverFromBookFile(Long bookId){
         thumbnailTools.generateThumbnailFormFile(bookId);
+        return Results.success();
+    }
+
+    /***
+     * book detail information
+     * @param id book id
+     * @return
+     */
+    @GetMapping("{id}")
+    public BaseResult queryBookInfo(@PathVariable Long id){
+
         return Results.success();
     }
 }
