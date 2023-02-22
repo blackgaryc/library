@@ -1,6 +1,7 @@
 package com.blackgaryc.library.core.minio;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
 import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
 import com.blackgaryc.library.core.minio.objectkeys.UserInfoAvatarKey;
 import com.blackgaryc.library.tools.StringTools;
@@ -20,15 +21,16 @@ public class ObjectKeyFactory {
      * @return if type exist, return IObjectKey,
      * other else it will be null
      */
-    public static IObjectKey getInstance(String type, String filename) {
+    public static IObjectKey getInstance(String type, String filename) throws MinioObjectKeyGenerateException {
         switch (type) {
             case "user_info_avatar":
                 return new UserInfoAvatarKey(StpUtil.getLoginIdAsLong(), filename);
             case "user_upload_book_file":
                 return new UserBookFileKey(StpUtil.getLoginIdAsLong(), filename);
             default:
-                return null;
+                break;
         }
+        throw new MinioObjectKeyGenerateException(type);
     }
 
     /**
@@ -39,11 +41,11 @@ public class ObjectKeyFactory {
      * @return if type exist, return IObjectKey,
      * other else it will be null
      */
-    public static IObjectKey getInstance(String type) {
+    public static IObjectKey getInstance(String type) throws MinioObjectKeyGenerateException {
         if (type.equals("user_info_avatar")) {
             return new UserInfoAvatarKey(StpUtil.getLoginIdAsLong());
         }
-        return null;
+        throw new MinioObjectKeyGenerateException(type);
     }
 
     /**
@@ -59,7 +61,7 @@ public class ObjectKeyFactory {
      * @param originFilename origin filename
      * @return
      */
-    public static IObjectKey getInstance(@NotNull String type, @NotNull File file, @Nullable String originFilename) {
+    public static IObjectKey getInstance(@NotNull String type, @NotNull File file, @Nullable String originFilename) throws MinioObjectKeyGenerateException {
         String randomFilename = "_RANDOM_FILENAME";
         if (Strings.isBlank(originFilename) || type.contains(randomFilename)) {
             type = type.replace(randomFilename, "");
