@@ -49,6 +49,18 @@ public class BookEntity implements Serializable {
     @TableField(value = "thumbnail")
     private String thumbnail;
 
+    /**
+     * 
+     */
+    @TableField(value = "status")
+    private Integer status;
+
+    /**
+     * 
+     */
+    @TableField(value = "created_uid")
+    private Long createdUid;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -136,6 +148,34 @@ public class BookEntity implements Serializable {
         this.thumbnail = thumbnail;
     }
 
+    /**
+     * 
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * 
+     */
+    public Long getCreatedUid() {
+        return createdUid;
+    }
+
+    /**
+     * 
+     */
+    public void setCreatedUid(Long createdUid) {
+        this.createdUid = createdUid;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -153,7 +193,9 @@ public class BookEntity implements Serializable {
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getLanguage() == null ? other.getLanguage() == null : this.getLanguage().equals(other.getLanguage()))
             && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
-            && (this.getThumbnail() == null ? other.getThumbnail() == null : this.getThumbnail().equals(other.getThumbnail()));
+            && (this.getThumbnail() == null ? other.getThumbnail() == null : this.getThumbnail().equals(other.getThumbnail()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getCreatedUid() == null ? other.getCreatedUid() == null : this.getCreatedUid().equals(other.getCreatedUid()));
     }
 
     @Override
@@ -166,6 +208,8 @@ public class BookEntity implements Serializable {
         result = prime * result + ((getLanguage() == null) ? 0 : getLanguage().hashCode());
         result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
         result = prime * result + ((getThumbnail() == null) ? 0 : getThumbnail().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getCreatedUid() == null) ? 0 : getCreatedUid().hashCode());
         return result;
     }
 
@@ -181,6 +225,8 @@ public class BookEntity implements Serializable {
         sb.append(", language=").append(language);
         sb.append(", categoryId=").append(categoryId);
         sb.append(", thumbnail=").append(thumbnail);
+        sb.append(", status=").append(status);
+        sb.append(", createdUid=").append(createdUid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

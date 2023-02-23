@@ -2,6 +2,7 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.blackgaryc.library.LibraryApplication;
+import com.blackgaryc.library.core.error.LibraryException;
 import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
 import com.blackgaryc.library.core.minio.IObjectKey;
 import com.blackgaryc.library.core.minio.ObjectKeyFactory;
@@ -40,7 +41,7 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public BaseResult uploadFileV2(MultipartFile file,String type) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, MinioObjectKeyGenerateException {
+    public BaseResult upload(MultipartFile file,String type) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, LibraryException {
         //transfer file to local file
         Path tempFile = Files.createTempFile(LibraryApplication.PREFIX, UUID.randomUUID() +".tmp");
         file.transferTo(tempFile);

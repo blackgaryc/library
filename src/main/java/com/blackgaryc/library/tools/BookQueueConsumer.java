@@ -41,7 +41,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
-@Component
+//@Component
 public class BookQueueConsumer {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     @Resource
@@ -54,9 +54,9 @@ public class BookQueueConsumer {
     @Resource
     FileService fileService;
 
-    @Autowired
+//    @Autowired
     MinioClient minioClient;
-    @Autowired
+//    @Autowired
     MinioProperty minioProperty;
 
     @RabbitListener(queues = {"${queue.name}"}, ackMode = "NONE")

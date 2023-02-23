@@ -2,13 +2,19 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
+import com.blackgaryc.library.core.error.BookNotExistException;
+import com.blackgaryc.library.core.error.LibraryException;
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.core.result.PageableResult;
 import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.book.UpdateBookRequest;
+import com.blackgaryc.library.entity.BookDetailEntity;
 import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.tools.ThumbnailTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SaCheckLogin
 @RequestMapping("/book")
@@ -27,6 +34,9 @@ public class BookController {
     BookRepository bookRepository;
     @Resource
     BookService bookService;
+    @Resource
+    BookDetailService bookDetailService;
+
     /**
      * main search entry
      *
@@ -55,7 +65,7 @@ public class BookController {
     @PostMapping("update")
     public BaseResult updateBook(@RequestBody UpdateBookRequest request) {
         BookEntity bookEntity = bookService.getBaseMapper().selectById(request.getId());
-        Assert.notNull(bookEntity,"unable to find book by id="+ request.getId());
+        Assert.notNull(bookEntity, "unable to find book by id=" + request.getId());
         bookEntity.setThumbnail(request.getThumbnail());
         bookService.updateById(bookEntity);
         return Results.successData(bookEntity);
@@ -66,7 +76,7 @@ public class BookController {
 
     @GetMapping("test")
     @SaIgnore
-    public BaseResult setBookCoverFromBookFile(Long bookId){
+    public BaseResult setBookCoverFromBookFile(Long bookId) {
         thumbnailTools.generateThumbnailFormFile(bookId);
         return Results.success();
     }
@@ -77,8 +87,34 @@ public class BookController {
      * @return
      */
     @GetMapping("{id}")
-    public BaseResult queryBookInfo(@PathVariable Long id){
-
+    @SaIgnore
+    public BaseResult queryBookInfo(@PathVariable Long id) throws LibraryException {
+        BookEntity bookEntity = bookService.getById(id);
+        if (null == bookEntity || bookEntity.getStatus() == -1) {
+            //被下架，抛出文件不存在的异常
+            throw new BookNotExistException(id);
+        }
+        if (bookEntity.getStatus() == 0) {
+            //待审核，检查是否当前用户为文件上传用户，如果是则允许访问
+            if (!StpUtil.isLogin()){
+                //没有登陆返回书籍不存在
+                throw new BookNotExistException(id);
+            }
+            long uid = StpUtil.getLoginIdAsLong();
+            if (!Long.valueOf(uid).equals(bookEntity.getCreatedUid())){
+                //非上传用户也返回书籍不存在
+                throw new BookNotExistException(id);
+            }
+        }
+        //正常访问
+        //数据库读取书籍
+        Long bookEntityId = bookEntity.getId();
+        List<BookDetailEntity> bookDetails = bookDetailService.findAllByBookId(bookEntityId);
+        if (bookDetails.isEmpty()){
+            return Results.successData(
+                    com.blackgaryc.library.domain.book.Book.NoDetails(bookEntity)
+            );
+        }
         return Results.success();
     }
 }

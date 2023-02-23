@@ -3,11 +3,10 @@ package com.blackgaryc.library.service.impl;
 import com.blackgaryc.library.core.minio.IObjectKey;
 import com.blackgaryc.library.core.minio.MinioProperty;
 import com.blackgaryc.library.service.MinioClientService;
-import io.minio.GetPresignedObjectUrlArgs;
-import io.minio.MinioClient;
-import io.minio.UploadObjectArgs;
+import io.minio.*;
 import io.minio.errors.*;
 import io.minio.http.Method;
+import io.minio.messages.Item;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 
@@ -37,19 +36,19 @@ public class MinioClientServiceImpl implements MinioClientService {
     }
 
     @Override
-    public String uploadObject(File file, String objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public ObjectWriteResponse uploadObject(File file, String objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         String mimetype = tika.detect(file);
         return minioClient.uploadObject(UploadObjectArgs.builder()
                 .bucket(minioProperty.getBucket())
                 .object(objectKey)
                 .contentType(mimetype)
                 .filename(file.getAbsolutePath())
-                .build()).object();
+                .build());
     }
 
 
     @Override
-    public String uploadObject(File file, IObjectKey objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public ObjectWriteResponse uploadObject(File file, IObjectKey objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         return this.uploadObject(file, objectKey.getKey());
     }
 
@@ -61,5 +60,14 @@ public class MinioClientServiceImpl implements MinioClientService {
     @Override
     public String getUploadSignedUrl(IObjectKey objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         return getUploadSignedUrl(objectKey.getKey());
+    }
+
+    @Override
+    public Iterable<Result<Item>> listObjects(String object) {
+        return minioClient.listObjects(
+                ListObjectsArgs.builder()
+                        .bucket(minioProperty.getBucket())
+                        .prefix(object)
+                        .build());
     }
 }
