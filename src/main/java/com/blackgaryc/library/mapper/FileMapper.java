@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.elasticsearch.annotations.Query;
 
 /**
-* @author blackgaryc
+* @author alex
 * @description 针对表【file】的数据库操作Mapper
-* @createDate 2023-01-27 12:35:59
-* @Entity generator.entity.FileEntity
+* @createDate 2023-02-23 15:34:04
+* @Entity com.blackgaryc.library.entity.FileEntity
 */
 @Mapper
 public interface FileMapper extends BaseMapper<FileEntity> {

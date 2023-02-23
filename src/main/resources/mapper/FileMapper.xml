@@ -5,19 +5,20 @@
 <mapper namespace="com.blackgaryc.library.mapper.FileMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.FileEntity">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="filename" column="filename" jdbcType="VARCHAR"/>
             <result property="extension" column="extension" jdbcType="VARCHAR"/>
             <result property="mimetype" column="mimetype" jdbcType="VARCHAR"/>
             <result property="object" column="object" jdbcType="VARCHAR"/>
             <result property="md5" column="md5" jdbcType="VARCHAR"/>
             <result property="uid" column="uid" jdbcType="BIGINT"/>
+            <result property="size" column="size" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,filename,extension,
         mimetype,object,md5,
-        uid
+        uid,size
     </sql>
     <select id="findByMd5AndObject" resultType="com.blackgaryc.library.entity.FileEntity">
         select <include refid="Base_Column_List" /> FROM file where md5=#{md5} and object=#{object}

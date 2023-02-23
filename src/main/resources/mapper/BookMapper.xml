@@ -10,10 +10,18 @@
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="language" column="language" jdbcType="VARCHAR"/>
             <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createdUid" column="created_uid" jdbcType="BIGINT"/>
+            <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
+            <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+            <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,title,description,
-        language,category_id
+        language,category_id,thumbnail,
+        status,created_uid,publisher_id,
+        isbn,isbn13
     </sql>
 </mapper>

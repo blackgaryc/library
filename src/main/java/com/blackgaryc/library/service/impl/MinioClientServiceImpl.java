@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 @Service
 public class MinioClientServiceImpl implements MinioClientService {
@@ -70,4 +71,23 @@ public class MinioClientServiceImpl implements MinioClientService {
                         .prefix(object)
                         .build());
     }
+
+    @Override
+    public String getPresignedUrl(String object, Method method, Map<String,String> extraHeader,int expiry) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+       return minioClient.getPresignedObjectUrl(
+                GetPresignedObjectUrlArgs.builder()
+                        .bucket(minioProperty.getBucket())
+                        .object(object)
+                        .method(method)
+                        .expiry(expiry)
+                        .extraHeaders(extraHeader)
+                        .build());
+    }
+
+    @Override
+    public String getPresignedUrl(GetPresignedObjectUrlArgs.Builder builder) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        builder.bucket(minioProperty.getBucket());
+        return minioClient.getPresignedObjectUrl(builder.build());
+    }
+
 }

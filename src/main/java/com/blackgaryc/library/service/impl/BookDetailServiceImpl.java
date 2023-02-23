@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
-* @author blackgaryc
+* @author alex
 * @description 针对表【book_detail】的数据库操作Service实现
-* @createDate 2023-01-27 12:35:59
+* @createDate 2023-02-23 15:34:04
 */
 @Service
 public class BookDetailServiceImpl extends ServiceImpl<BookDetailMapper, BookDetailEntity>

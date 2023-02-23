@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -60,6 +59,24 @@ public class BookEntity implements Serializable {
      */
     @TableField(value = "created_uid")
     private Long createdUid;
+
+    /**
+     * 
+     */
+    @TableField(value = "publisher_id")
+    private Integer publisherId;
+
+    /**
+     * 
+     */
+    @TableField(value = "isbn")
+    private String isbn;
+
+    /**
+     * 
+     */
+    @TableField(value = "isbn13")
+    private String isbn13;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -176,6 +193,48 @@ public class BookEntity implements Serializable {
         this.createdUid = createdUid;
     }
 
+    /**
+     * 
+     */
+    public Integer getPublisherId() {
+        return publisherId;
+    }
+
+    /**
+     * 
+     */
+    public void setPublisherId(Integer publisherId) {
+        this.publisherId = publisherId;
+    }
+
+    /**
+     * 
+     */
+    public String getIsbn() {
+        return isbn;
+    }
+
+    /**
+     * 
+     */
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    /**
+     * 
+     */
+    public String getIsbn13() {
+        return isbn13;
+    }
+
+    /**
+     * 
+     */
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -195,7 +254,10 @@ public class BookEntity implements Serializable {
             && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
             && (this.getThumbnail() == null ? other.getThumbnail() == null : this.getThumbnail().equals(other.getThumbnail()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getCreatedUid() == null ? other.getCreatedUid() == null : this.getCreatedUid().equals(other.getCreatedUid()));
+            && (this.getCreatedUid() == null ? other.getCreatedUid() == null : this.getCreatedUid().equals(other.getCreatedUid()))
+            && (this.getPublisherId() == null ? other.getPublisherId() == null : this.getPublisherId().equals(other.getPublisherId()))
+            && (this.getIsbn() == null ? other.getIsbn() == null : this.getIsbn().equals(other.getIsbn()))
+            && (this.getIsbn13() == null ? other.getIsbn13() == null : this.getIsbn13().equals(other.getIsbn13()));
     }
 
     @Override
@@ -210,6 +272,9 @@ public class BookEntity implements Serializable {
         result = prime * result + ((getThumbnail() == null) ? 0 : getThumbnail().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreatedUid() == null) ? 0 : getCreatedUid().hashCode());
+        result = prime * result + ((getPublisherId() == null) ? 0 : getPublisherId().hashCode());
+        result = prime * result + ((getIsbn() == null) ? 0 : getIsbn().hashCode());
+        result = prime * result + ((getIsbn13() == null) ? 0 : getIsbn13().hashCode());
         return result;
     }
 
@@ -227,6 +292,9 @@ public class BookEntity implements Serializable {
         sb.append(", thumbnail=").append(thumbnail);
         sb.append(", status=").append(status);
         sb.append(", createdUid=").append(createdUid);
+        sb.append(", publisherId=").append(publisherId);
+        sb.append(", isbn=").append(isbn);
+        sb.append(", isbn13=").append(isbn13);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

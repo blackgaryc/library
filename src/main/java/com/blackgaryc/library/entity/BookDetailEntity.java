@@ -1,8 +1,9 @@
 package com.blackgaryc.library.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -20,18 +21,6 @@ public class BookDetailEntity implements Serializable {
     /**
      * 
      */
-    @TableField(value = "publisher_id")
-    private Integer publisherId;
-
-    /**
-     * 
-     */
-    @TableField(value = "isbn")
-    private String isbn;
-
-    /**
-     * 
-     */
     @TableField(value = "file_id")
     private Long fileId;
 
@@ -40,6 +29,12 @@ public class BookDetailEntity implements Serializable {
      */
     @TableField(value = "page")
     private Integer page;
+
+    /**
+     * 
+     */
+    @TableField(value = "size")
+    private Long size;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -56,34 +51,6 @@ public class BookDetailEntity implements Serializable {
      */
     public void setBookId(Long bookId) {
         this.bookId = bookId;
-    }
-
-    /**
-     * 
-     */
-    public Integer getPublisherId() {
-        return publisherId;
-    }
-
-    /**
-     * 
-     */
-    public void setPublisherId(Integer publisherId) {
-        this.publisherId = publisherId;
-    }
-
-    /**
-     * 
-     */
-    public String getIsbn() {
-        return isbn;
-    }
-
-    /**
-     * 
-     */
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     /**
@@ -114,6 +81,20 @@ public class BookDetailEntity implements Serializable {
         this.page = page;
     }
 
+    /**
+     * 
+     */
+    public Long getSize() {
+        return size;
+    }
+
+    /**
+     * 
+     */
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -127,10 +108,9 @@ public class BookDetailEntity implements Serializable {
         }
         BookDetailEntity other = (BookDetailEntity) that;
         return (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
-            && (this.getPublisherId() == null ? other.getPublisherId() == null : this.getPublisherId().equals(other.getPublisherId()))
-            && (this.getIsbn() == null ? other.getIsbn() == null : this.getIsbn().equals(other.getIsbn()))
             && (this.getFileId() == null ? other.getFileId() == null : this.getFileId().equals(other.getFileId()))
-            && (this.getPage() == null ? other.getPage() == null : this.getPage().equals(other.getPage()));
+            && (this.getPage() == null ? other.getPage() == null : this.getPage().equals(other.getPage()))
+            && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()));
     }
 
     @Override
@@ -138,10 +118,9 @@ public class BookDetailEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getBookId() == null) ? 0 : getBookId().hashCode());
-        result = prime * result + ((getPublisherId() == null) ? 0 : getPublisherId().hashCode());
-        result = prime * result + ((getIsbn() == null) ? 0 : getIsbn().hashCode());
         result = prime * result + ((getFileId() == null) ? 0 : getFileId().hashCode());
         result = prime * result + ((getPage() == null) ? 0 : getPage().hashCode());
+        result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
         return result;
     }
 
@@ -152,10 +131,9 @@ public class BookDetailEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", bookId=").append(bookId);
-        sb.append(", publisherId=").append(publisherId);
-        sb.append(", isbn=").append(isbn);
         sb.append(", fileId=").append(fileId);
         sb.append(", page=").append(page);
+        sb.append(", size=").append(size);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

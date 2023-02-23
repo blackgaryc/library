@@ -2,8 +2,8 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
-import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
 import com.blackgaryc.library.core.error.BookNotExistException;
@@ -14,8 +14,10 @@ import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.book.UpdateBookRequest;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
+import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.tools.ThumbnailTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +38,8 @@ public class BookController {
     BookService bookService;
     @Resource
     BookDetailService bookDetailService;
+    @Resource
+    FileService fileService;
 
     /**
      * main search entry
@@ -112,10 +116,15 @@ public class BookController {
         List<BookDetailEntity> bookDetails = bookDetailService.findAllByBookId(bookEntityId);
         if (bookDetails.isEmpty()){
             return Results.successData(
-                    com.blackgaryc.library.domain.book.Book.NoDetails(bookEntity)
+                    com.blackgaryc.library.domain.book.Book.NoFiles(bookEntity)
             );
         }
-        return Results.success();
+        List<FileEntity> fileEntities = fileService.listByIds(bookDetails.stream().map(BookDetailEntity::getFileId).toList());
+        return Results.successData(
+                com.blackgaryc.library.domain.book.Book.HasFiles(
+                        bookEntity,
+                        fileEntities
+                ));
     }
 }
 

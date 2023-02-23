@@ -9,11 +9,13 @@
             <result property="email" column="email" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="account" column="account" jdbcType="VARCHAR"/>
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,email,password,nickname,account,avatar
+        id,email,password,
+        nickname,account,avatar
     </sql>
     <select id="existUserByAccount" resultType="java.lang.Boolean">
         SELECT EXISTS(SELECT 1 FROM user WHERE account=#{account} limit 1)

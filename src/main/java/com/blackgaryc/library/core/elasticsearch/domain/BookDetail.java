@@ -15,7 +15,6 @@ public class BookDetail {
 
     public BookDetail(BookDetailEntity bookDetailEntity, FileEntity fileEntity) {
         this.publisher = null;
-        this.isbn = bookDetailEntity.getIsbn();
         this.file = new BookFile(fileEntity);
         this.page = bookDetailEntity.getPage();
     }

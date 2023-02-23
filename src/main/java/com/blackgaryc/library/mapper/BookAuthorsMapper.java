@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
-* @author blackgaryc
+* @author alex
 * @description 针对表【book_authors】的数据库操作Mapper
-* @createDate 2023-01-27 12:35:59
-* @Entity generator.entity.BookAuthorsEntity
+* @createDate 2023-02-23 15:34:04
+* @Entity com.blackgaryc.library.entity.BookAuthorsEntity
 */
 @Mapper
 public interface BookAuthorsMapper extends BaseMapper<BookAuthorsEntity> {

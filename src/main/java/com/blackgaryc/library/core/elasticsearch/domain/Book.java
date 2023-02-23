@@ -34,7 +34,7 @@ public class Book {
         this.thumbnail = bookEntity.getThumbnail();
         this.category = null;
         this.authors = Collections.emptyList();
-        this.bookDetails = Collections.singletonList(new BookDetail(bookDetailEntity, fileEntity));
+//        this.bookDetails = Collections.singletonList(new BookDetail(bookDetailEntity, fileEntity));
     }
 
     public Book() {
