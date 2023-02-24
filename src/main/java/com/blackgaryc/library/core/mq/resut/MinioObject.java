@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MinioObject {
+import java.io.Serializable;
+
+public class MinioObject  implements Serializable {
     @JsonProperty("key")
     public String getKey() { 
 		 return this.key; } 

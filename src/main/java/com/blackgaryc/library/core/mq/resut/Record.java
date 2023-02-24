@@ -2,9 +2,10 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Record{
+public class Record implements Serializable {
     @JsonProperty("eventVersion")
     public String getEventVersion() { 
 		 return this.eventVersion; } 

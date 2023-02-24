@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Source{
+import java.io.Serializable;
+
+public class Source implements Serializable {
     @JsonProperty("host")
     public String getHost() { 
 		 return this.host; } 

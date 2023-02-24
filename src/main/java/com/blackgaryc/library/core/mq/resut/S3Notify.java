@@ -2,9 +2,11 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class S3Notify {
+public class S3Notify implements Serializable {
     @JsonProperty("EventName")
     public String getEventName() { 
 		 return this.eventName; } 
@@ -18,11 +20,11 @@ public class S3Notify {
 		 this.key = key; } 
     String key;
     @JsonProperty("Records") 
-    public ArrayList<Record> getRecords() {
+    public List<Record> getRecords() {
 		 return this.records; } 
-    public void setRecords(ArrayList<Record> records) { 
+    public void setRecords(List<Record> records) {
 		 this.records = records; } 
-    ArrayList<Record> records;
+    List<Record> records;
 
     @Override
     public String toString() {

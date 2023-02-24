@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ResponseElements{
+import java.io.Serializable;
+
+public class ResponseElements implements Serializable {
     @JsonProperty("content-length")
     public String getContentLength() {
 		 return this.contentLength; }

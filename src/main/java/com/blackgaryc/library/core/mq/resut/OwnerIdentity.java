@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OwnerIdentity{
+import java.io.Serializable;
+
+public class OwnerIdentity implements Serializable {
     @JsonProperty("principalId")
     public String getPrincipalId() { 
 		 return this.principalId; } 

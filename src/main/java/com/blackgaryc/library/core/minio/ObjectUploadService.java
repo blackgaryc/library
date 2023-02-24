@@ -64,27 +64,22 @@ public class ObjectUploadService implements InitializingBean {
             ObjectWriteResponse objectWriteResponse = minioClientService.uploadObject(tmpfile, objectKey);
             Boolean fileExisted = fileService.existByMd5(objectWriteResponse.etag());
             if (fileExisted){
+                //delete file
+                //throw exception
                 throw new FileAlreadyExistException(Paths.get(objectKey.getKey()).getFileName().toString());
             }
-            //生成一个文件id
-            BookEntity entity = new BookEntity();
-            entity.setTitle(Paths.get(objectKey.getKey()).getFileName().toString());
-            entity.setCreatedUid(StpUtil.getLoginIdAsLong());
-            boolean save = bookService.save(entity);
-            if (!save){
-                throw new RuntimeException("save failed");
-            }
-            //提交到mq
-            //异步处理 文件信息 并根据id更新数据（mq中）后期可以拆分为独立的组件进行部署
-            mqProducer.sendUserUploadBookMessage(
-                    new MqBookCollectorData(
-                            entity.getId(),
-                            StpUtil.getLoginIdAsLong(),
-                            objectKey.getKey(),
-                            objectWriteResponse.etag()));
-            //返回bookId
-            //用户可以根据文件id去访问图书详情页面，图书详情在审核完成前仅为用户与审核员可见
-            return new UserUploadBookResponse(entity.getId());
+            //上一步上传文件会触发s3notify
+//            //异步处理 文件信息 并根据id更新数据（mq中）后期可以拆分为独立的组件进行部署
+//            mqProducer.sendUserUploadBookMessage(
+//                    new MqBookCollectorData(
+//                            entity.getId(),
+//                            StpUtil.getLoginIdAsLong(),
+//                            objectKey.getKey(),
+//                            objectWriteResponse.etag()));
+            //返回object key
+            //前端在上传完成后可以通过查询objectkey，准确查询上传的文件处理的结果
+            //返回对应的信息，例如文件已经存在。
+            return minioClientService.getFullUrl(objectKey.getKey());
         };
     }
 }

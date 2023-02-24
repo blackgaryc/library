@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Bucket{
+import java.io.Serializable;
+
+public class Bucket implements Serializable {
     @JsonProperty("name")
     public String getName() { 
 		 return this.name; } 

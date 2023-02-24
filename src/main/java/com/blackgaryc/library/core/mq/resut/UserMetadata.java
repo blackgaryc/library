@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserMetadata{
+import java.io.Serializable;
+
+public class UserMetadata implements Serializable {
     @JsonProperty("contentType")
     String contentType;
     public String getContentType() {

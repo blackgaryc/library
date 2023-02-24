@@ -2,7 +2,9 @@ package com.blackgaryc.library.core.mq.resut;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class S3{
+import java.io.Serializable;
+
+public class S3 implements Serializable {
     @JsonProperty("s3SchemaVersion")
     public String getS3SchemaVersion() { 
 		 return this.s3SchemaVersion; } 
