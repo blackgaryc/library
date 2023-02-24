@@ -2,6 +2,9 @@ package com.blackgaryc.library.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.LibraryApplication;
 import com.blackgaryc.library.core.error.LibraryException;
 import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
@@ -10,8 +13,12 @@ import com.blackgaryc.library.core.minio.ObjectKeyFactory;
 import com.blackgaryc.library.core.minio.ObjectUploadService;
 import com.blackgaryc.library.core.minio.ObjectUploadStrategy;
 import com.blackgaryc.library.core.result.BaseResult;
+import com.blackgaryc.library.core.result.PageableResult;
 import com.blackgaryc.library.core.result.Results;
+import com.blackgaryc.library.domain.book.HistoryUploadedBook;
+import com.blackgaryc.library.entity.BookUploadRequestEntity;
 import com.blackgaryc.library.entity.FileEntity;
+import com.blackgaryc.library.service.BookUploadRequestService;
 import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.service.MinioClientService;
 import io.minio.GetPresignedObjectUrlArgs;
@@ -19,10 +26,7 @@ import io.minio.errors.*;
 import io.minio.http.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -109,6 +113,19 @@ public class FileController {
                         .extraQueryParams(headers)
         );
         return new RedirectView(presignedUrl);
+    }
+
+    @Resource
+    BookUploadRequestService bookUploadRequestService;
+
+    @GetMapping("upload/history/book")
+    public PageableResult<HistoryUploadedBook> userUploadedBookFiles(@RequestParam(defaultValue = "0") Long page,
+                                                @RequestParam(defaultValue = "10") Long size) {
+        page = page > 0 ? page : 1;
+        size = size > 0 && size < 50 ? size : 50;
+        Page<BookUploadRequestEntity> pageResult = bookUploadRequestService.lambdaQuery()
+                .eq(BookUploadRequestEntity::getUid, StpUtil.getLoginIdAsString()).page(new Page<>(page, size));
+        return Results.successPageableData(pageResult,HistoryUploadedBook::new);
     }
 
 }

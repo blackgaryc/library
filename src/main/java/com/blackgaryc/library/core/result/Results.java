@@ -1,5 +1,12 @@
 package com.blackgaryc.library.core.result;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackgaryc.library.entity.BookUploadRequestEntity;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class Results {
     private static final int SUCCESS_CODE = 0;
     private static final String SUCCESS_MESSAGE = "成功";
@@ -53,5 +60,10 @@ public class Results {
                 .timestamp(System.currentTimeMillis())
                 .message(message)
                 .build();
+    }
+
+    public static <T,R> PageableResult<R> successPageableData(Page<T> pageResult,  Function<? super T, ? extends R> mapper) {
+        List<R> collect = pageResult.getRecords().stream().map(mapper).collect(Collectors.toList());
+        return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), collect);
     }
 }

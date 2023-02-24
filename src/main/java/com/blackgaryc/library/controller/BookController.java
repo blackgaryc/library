@@ -52,7 +52,7 @@ public class BookController {
      */
     @GetMapping("search")
     @SaIgnore
-    public PageableResult<Book> searchBookByTitleOrMd5(String data,
+    public PageableResult searchBookByTitleOrMd5(String data,
                                                        @RequestParam(defaultValue = "0") Integer page,
                                                        @RequestParam(defaultValue = "50") Integer size) {
         page = page < 0 ? 0 : page;

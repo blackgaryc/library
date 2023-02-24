@@ -4,25 +4,25 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public class PageableResult<T> extends BaseResult{
-    private int page;
-    private int totalPage;
+public class PageableResult<T> extends BaseResult {
+    private long page;
+    private long totalPage;
     private long totalResult;
     private List<T> data;
 
-    public int getPage() {
+    public long getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(long page) {
         this.page = page;
     }
 
-    public int getTotalPage() {
+    public long getTotalPage() {
         return totalPage;
     }
 
-    public void setTotalPage(int totalPage) {
+    public void setTotalPage(long totalPage) {
         this.totalPage = totalPage;
     }
 
@@ -58,5 +58,15 @@ public class PageableResult<T> extends BaseResult{
         this.totalResult = data.getTotalElements();
         this.page = data.getPageable().getPageNumber();
         this.totalPage = data.getTotalPages();
+    }
+
+    public PageableResult() {
+    }
+
+    public PageableResult(long page, long totalPage, long totalResult, List<T> data) {
+        this.page = page;
+        this.totalPage = totalPage;
+        this.totalResult = totalResult;
+        this.data = data;
     }
 }
