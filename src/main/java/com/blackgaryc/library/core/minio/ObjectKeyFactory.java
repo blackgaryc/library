@@ -2,6 +2,7 @@ package com.blackgaryc.library.core.minio;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
+import com.blackgaryc.library.core.minio.objectkeys.BookCoverKey;
 import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
 import com.blackgaryc.library.core.minio.objectkeys.UserInfoAvatarKey;
 import com.blackgaryc.library.tools.StringTools;
@@ -27,6 +28,8 @@ public class ObjectKeyFactory {
                 return new UserInfoAvatarKey(StpUtil.getLoginIdAsLong(), filename);
             case "user_upload_book_file":
                 return new UserBookFileKey(StpUtil.getLoginIdAsLong(), filename);
+            case "book_cover_file":
+                return new BookCoverKey(filename);
             default:
                 break;
         }

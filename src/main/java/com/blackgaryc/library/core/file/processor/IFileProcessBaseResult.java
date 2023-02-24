@@ -1,5 +1,7 @@
 package com.blackgaryc.library.core.file.processor;
 
+import java.io.InputStream;
+
 public interface IFileProcessBaseResult {
     String getObjectKey();
     String getUploadUid();
@@ -8,4 +10,7 @@ public interface IFileProcessBaseResult {
     String getMimetype();
     String getMd5();
     Long getSize();
+    InputStream getThumbnail();
+
+    String getThumbnailExtension();
 }

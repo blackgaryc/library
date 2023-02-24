@@ -19,6 +19,7 @@ public class FileProcessPageableBaseResult extends FileProcessBaseResult impleme
         this.setSize(result.getSize());
         this.setUploadUid(result.getUploadUid());
         this.setObjectKey(result.getObjectKey());
+        this.setThumbnail(result.getThumbnail());
     }
 
     public FileProcessPageableBaseResult() {
@@ -36,6 +37,7 @@ public class FileProcessPageableBaseResult extends FileProcessBaseResult impleme
                 ", md5='" + this.getMd5() + '\'' +
                 ", size=" + this.getSize() +
                 ", numberOfPage=" + this.numberOfPage +
+                ", thumbnail='" + this.getThumbnail() + '\'' +
                 '}';
     }
 }

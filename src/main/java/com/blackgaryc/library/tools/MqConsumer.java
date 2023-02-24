@@ -3,30 +3,28 @@ package com.blackgaryc.library.tools;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
+import com.blackgaryc.library.core.file.processor.IFileProcessPageableResult;
 import com.blackgaryc.library.core.file.processor.MinioFileInfo;
 import com.blackgaryc.library.core.file.processor.ProcessorFactory;
+import com.blackgaryc.library.core.file.thumbnail.ThumbnailFactory;
+import com.blackgaryc.library.core.file.thumbnail.ThumbnailGenerator;
+import com.blackgaryc.library.core.minio.IObjectKey;
+import com.blackgaryc.library.core.minio.ObjectKeyFactory;
+import com.blackgaryc.library.core.minio.objectkeys.BookCoverKey;
 import com.blackgaryc.library.core.mq.resut.Record;
 import com.blackgaryc.library.core.mq.resut.S3Notify;
 import com.blackgaryc.library.domain.book.Book;
 import com.blackgaryc.library.domain.book.MqBookCollectorData;
-import com.blackgaryc.library.entity.BookEntity;
-import com.blackgaryc.library.entity.BookUploadRequestEntity;
-import com.blackgaryc.library.entity.BookUploadRequestStatusEnum;
-import com.blackgaryc.library.entity.FileEntity;
-import com.blackgaryc.library.service.BookService;
-import com.blackgaryc.library.service.BookUploadRequestService;
-import com.blackgaryc.library.service.FileService;
-import com.blackgaryc.library.service.MinioClientService;
+import com.blackgaryc.library.entity.*;
+import com.blackgaryc.library.service.*;
 import com.blackgaryc.library.tools.entity.BookUploadRequestEntityTool;
 import com.blackgaryc.library.tools.entity.FileEntityTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
-import io.minio.CopyObjectArgs;
-import io.minio.CopySource;
-import io.minio.RemoveObjectArgs;
-import io.minio.Result;
+import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Item;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -47,6 +45,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -81,6 +80,8 @@ public class MqConsumer {
     ProcessorFactory processorFactory;
     @Resource
     FileService fileService;
+    @Resource
+    BookDetailService bookDetailService;
 
     //处理s3用户上传图书的通知消息
     @RabbitHandler
@@ -101,17 +102,40 @@ public class MqConsumer {
                     bookUploadRequestService.updateById(entity);
                     return;
                 }
+
                 IFileProcessBaseResult result = processorFactory.process(new MinioFileInfo(record));
+                String fullUrl="";
+                if (null!=result.getThumbnail()){
+                    //save thumbnail to minio as url
+                    Path path = FileTool.trans2localTempFile(result.getThumbnail(), result.getThumbnailExtension());
+                    //千万别调用到使用StpUtils的代码//当前环境无法读取用户信息//必然会失败
+                    ObjectWriteResponse objectWriteResponse = minioClientService.uploadObject(path.toFile(), ObjectKeyFactory.getInstance("book_cover_file_MD5_FILENAME",path.toFile(),path.getFileName().toString()));
+                    fullUrl = minioClientService.getFullUrl(objectWriteResponse.object());
+                }
+
                 //保存result到file表中
                 Long uid = Long.valueOf(entity.getUid());
                 FileEntity fileEntity = FileEntityTool.getBy(result, uid);
                 fileService.save(fileEntity);
 
+
                 //创建book
                 BookEntity bookEntity = new BookEntity();
                 bookEntity.setTitle(entity.getFilename());
                 bookEntity.setCreatedUid(uid);
+                bookEntity.setThumbnail(fullUrl);
                 bookService.save(bookEntity);
+
+                //绑定book和file
+                BookDetailEntity bookDetailEntity = new BookDetailEntity();
+                bookDetailEntity.setBookId(bookEntity.getId());
+                bookDetailEntity.setFileId(fileEntity.getId());
+                if (result instanceof IFileProcessPageableResult pageableResult){
+                    bookDetailEntity.setPage(pageableResult.getNumberOfPage());
+                }
+                bookDetailEntity.setSize(fileEntity.getSize());
+                bookDetailService.save(bookDetailEntity);
+
 
                 //更新request
                 entity.setFileId(fileEntity.getId());

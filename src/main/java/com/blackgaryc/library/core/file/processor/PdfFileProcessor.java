@@ -1,22 +1,23 @@
 package com.blackgaryc.library.core.file.processor;
 
+import com.blackgaryc.library.core.file.thumbnail.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class PdfFileProcessor extends AbstractFileProcessor<FileProcessPageableBaseResult>{
+public class PdfFileProcessor extends AbstractFileProcessor<FileProcessPageableBaseResult> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
-    private static final Set<String> extensions=new HashSet<>(Arrays.asList(".pdf"));
-    private static final Set<String> mimetypes=new HashSet<>(Arrays.asList("application/pdf"));
+    private static final Set<String> extensions = new HashSet<>(Arrays.asList(".pdf"));
+    private static final Set<String> mimetypes = new HashSet<>(Arrays.asList("application/pdf"));
+
     public PdfFileProcessor(FileProcessorFactory factory) {
         super(factory);
     }
@@ -25,16 +26,16 @@ public class PdfFileProcessor extends AbstractFileProcessor<FileProcessPageableB
     FileProcessPageableBaseResult doProcess(File file, IFileProcessBaseResult result) {
         //copy result to res
         FileProcessPageableBaseResult res = new FileProcessPageableBaseResult(result);
-        try {
-            PDDocument load = PDDocument.load(file);
+        try (PDDocument load = PDDocument.load(file)) {
             int numberOfPages = load.getNumberOfPages();
             res.setNumberOfPage(numberOfPages);
-            load.close();
+            PdfThumbnailGenerator pdfThumbnailGenerator = new PdfThumbnailGenerator();
+            ByteArrayInputStream generate = pdfThumbnailGenerator.generate(load);
+            res.setThumbnail(generate);
+            res.setThumbnailExtension(pdfThumbnailGenerator.getExtension());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //handle pdf result;
-        log.info(res.toString());
         return res;
     }
 

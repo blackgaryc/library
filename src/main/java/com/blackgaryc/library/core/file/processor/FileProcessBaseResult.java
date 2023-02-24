@@ -1,5 +1,9 @@
 package com.blackgaryc.library.core.file.processor;
 
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+import java.io.InputStream;
+
 public class FileProcessBaseResult implements IFileProcessBaseResult{
     private String objectKey;
     private String uploadUid;
@@ -8,6 +12,27 @@ public class FileProcessBaseResult implements IFileProcessBaseResult{
     private String mimetype;
     private String md5;
     private Long size;
+    private InputStream thumbnail;
+    private String thumbnailExtension;
+
+    @Override
+    public String getThumbnailExtension() {
+        return thumbnailExtension;
+    }
+
+    public void setThumbnailExtension(String thumbnailExtension) {
+        this.thumbnailExtension = thumbnailExtension;
+    }
+
+    @Override
+    public InputStream getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(InputStream thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
     @Override
     public String getFilename() {
         return this.filename;
@@ -74,13 +99,14 @@ public class FileProcessBaseResult implements IFileProcessBaseResult{
     @Override
     public String toString() {
         return "FileProcessBaseResult{" +
-                "uploadUid='" + uploadUid + '\'' +
-                ", objectKey='" + objectKey + '\'' +
+                "objectKey='" + objectKey + '\'' +
+                ", uploadUid='" + uploadUid + '\'' +
                 ", filename='" + filename + '\'' +
                 ", extension='" + extension + '\'' +
                 ", mimetype='" + mimetype + '\'' +
                 ", md5='" + md5 + '\'' +
                 ", size=" + size +
+                ", thumbnail='" + thumbnail + '\'' +
                 '}';
     }
 }
