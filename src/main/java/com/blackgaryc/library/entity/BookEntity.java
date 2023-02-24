@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 
@@ -77,6 +78,12 @@ public class BookEntity implements Serializable {
      */
     @TableField(value = "isbn13")
     private String isbn13;
+
+    /**
+     * 
+     */
+    @TableField(value = "create_time")
+    private LocalDateTime createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -235,6 +242,20 @@ public class BookEntity implements Serializable {
         this.isbn13 = isbn13;
     }
 
+    /**
+     * 
+     */
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 
+     */
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -257,7 +278,8 @@ public class BookEntity implements Serializable {
             && (this.getCreatedUid() == null ? other.getCreatedUid() == null : this.getCreatedUid().equals(other.getCreatedUid()))
             && (this.getPublisherId() == null ? other.getPublisherId() == null : this.getPublisherId().equals(other.getPublisherId()))
             && (this.getIsbn() == null ? other.getIsbn() == null : this.getIsbn().equals(other.getIsbn()))
-            && (this.getIsbn13() == null ? other.getIsbn13() == null : this.getIsbn13().equals(other.getIsbn13()));
+            && (this.getIsbn13() == null ? other.getIsbn13() == null : this.getIsbn13().equals(other.getIsbn13()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
@@ -275,6 +297,7 @@ public class BookEntity implements Serializable {
         result = prime * result + ((getPublisherId() == null) ? 0 : getPublisherId().hashCode());
         result = prime * result + ((getIsbn() == null) ? 0 : getIsbn().hashCode());
         result = prime * result + ((getIsbn13() == null) ? 0 : getIsbn13().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
 
@@ -295,6 +318,7 @@ public class BookEntity implements Serializable {
         sb.append(", publisherId=").append(publisherId);
         sb.append(", isbn=").append(isbn);
         sb.append(", isbn13=").append(isbn13);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

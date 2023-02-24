@@ -26,6 +26,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SaCheckLogin
@@ -125,6 +126,13 @@ public class BookController {
                         bookEntity,
                         fileEntities
                 ));
+    }
+
+    @GetMapping("latest")
+    @SaIgnore
+    public BaseResult latestBooks(){
+        List<BookEntity> list = bookService.lambdaQuery().ge(BookEntity::getCreateTime, LocalDateTime.now().plusDays(-1)).last("limit 50").list();
+        return Results.successData(list);
     }
 }
 

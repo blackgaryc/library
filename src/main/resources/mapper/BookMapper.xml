@@ -16,12 +16,13 @@
             <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
             <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
             <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,title,description,
         language,category_id,thumbnail,
         status,created_uid,publisher_id,
-        isbn,isbn13
+        isbn,isbn13,create_time
     </sql>
 </mapper>
