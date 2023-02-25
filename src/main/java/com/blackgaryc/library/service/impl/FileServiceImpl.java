@@ -9,20 +9,12 @@ import org.springframework.stereotype.Service;
 /**
 * @author alex
 * @description 针对表【file】的数据库操作Service实现
-* @createDate 2023-02-23 15:34:04
+* @createDate 2023-02-25 11:20:50
 */
 @Service
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity>
     implements FileService{
-    @Override
-    public FileEntity findByMd5AndObjectKey(String md5, String objectKey) {
-        return baseMapper.findByMd5AndObject(md5, objectKey);
-    }
 
-    @Override
-    public Boolean existByMd5(String md5) {
-        return baseMapper.existByMd5(md5);
-    }
 }
 
 

@@ -51,9 +51,8 @@ public class ThumbnailTools {
     MinioFileService minioFileService;
 
     public void generateThumbnailFormFile(Long bookId){
-        List<BookDetailEntity> list = bookDetailService.findAllByBookId(bookId);
-        List<Long> longs = list.stream().map(BookDetailEntity::getFileId).toList();
-        List<FileEntity> fileEntities = fileService.listByIds(longs);
+        List<BookDetailEntity> list = bookDetailService.lambdaQuery().eq(BookDetailEntity::getBookId,bookId).list();
+        List<FileEntity> fileEntities = fileService.listByIds(list.stream().map(BookDetailEntity::getFileId).toList());
         Optional<FileEntity> first = fileEntities.stream().filter(
                 fileEntity -> (fileEntity.getExtension().equals(".pdf"))
         ).findFirst();

@@ -2,6 +2,7 @@ package com.blackgaryc.library.tools;
 
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
+import com.blackgaryc.library.core.error.FileProcessorErrorException;
 import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
 import com.blackgaryc.library.core.file.processor.FileProcessBaseResult;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
@@ -54,9 +55,9 @@ public class BookQueueConsumer {
     @Resource
     FileService fileService;
 
-//    @Autowired
+    //    @Autowired
     MinioClient minioClient;
-//    @Autowired
+    //    @Autowired
     MinioProperty minioProperty;
 
     @RabbitListener(queues = {"${queue.name}"}, ackMode = "NONE")
@@ -67,7 +68,7 @@ public class BookQueueConsumer {
             S3Notify s3Notify = objectMapper.readValue(body, S3Notify.class);
             for (Record record : s3Notify.getRecords()) {
                 String md5 = record.getS3().getObject().getETag();
-                Boolean exist = fileService.existByMd5(md5);
+                Boolean exist = fileService.lambdaQuery().eq(FileEntity::getMd5, md5).exists();
                 String userFileUploadKey = URLDecoder.decode(record.getS3().getObject().getKey(), Charset.defaultCharset());
                 String bucket = minioProperty.getBucket();
                 if (exist) {
@@ -80,7 +81,10 @@ public class BookQueueConsumer {
                     String copySourceKey = baseResult.getObjectKey();
                     CopySource copySource = CopySource.builder().bucket(bucket).object(copySourceKey).build();
                     String projectObjectKey = "book/" + UUID.randomUUID() + "/" + Paths.get(copySourceKey).getFileName().toString();
-                    FileEntity fileEntity = fileService.findByMd5AndObjectKey(md5, copySourceKey);
+                    FileEntity fileEntity = fileService.lambdaQuery()
+                            .eq(FileEntity::getMd5, md5).
+                            eq(FileEntity::getObject, copySourceKey)
+                            .getEntity();
                     fileEntity.setObject(projectObjectKey);
                     // update db record
                     fileService.updateById(fileEntity);
@@ -102,11 +106,14 @@ public class BookQueueConsumer {
 
         } catch (JsonProcessingException | FileProcessorNotSupportException e) {
             throw new RuntimeException(e);
+        } catch (FileProcessorErrorException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Resource
     BookRepository bookRepository;
+
     @RabbitListener(queues = {"${queue.es.book.add}"}, ackMode = "NONE")
     public void processProjectBookAdd2Es(@Payload String body) {
         log.info(body);

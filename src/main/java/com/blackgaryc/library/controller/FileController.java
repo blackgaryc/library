@@ -101,7 +101,7 @@ public class FileController {
 
     @GetMapping("download")
     @SaIgnore
-    public RedirectView download(Long id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public RedirectView download(String id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         FileEntity file = fileService.getById(id);
         HashMap<String, String> headers = new HashMap<>();
         String presignedUrl = minioClientService.getPresignedUrl(
@@ -118,13 +118,22 @@ public class FileController {
     @Resource
     BookUploadRequestService bookUploadRequestService;
 
+
+    /**
+     * to query user history uploads
+     * @param page current page
+     * @param size page size
+     * @return
+     */
     @GetMapping("upload/history/book")
     public PageableResult<HistoryUploadedBook> userUploadedBookFiles(@RequestParam(defaultValue = "0") Long page,
                                                 @RequestParam(defaultValue = "10") Long size) {
         page = page > 0 ? page : 1;
         size = size > 0 && size < 50 ? size : 50;
         Page<BookUploadRequestEntity> pageResult = bookUploadRequestService.lambdaQuery()
-                .eq(BookUploadRequestEntity::getUid, StpUtil.getLoginIdAsString()).page(new Page<>(page, size));
+                .eq(BookUploadRequestEntity::getUid, StpUtil.getLoginIdAsString())
+                .orderByDesc(true,BookUploadRequestEntity::getId)
+                .page(Page.of(page, size));
         return Results.successPageableData(pageResult,HistoryUploadedBook::new);
     }
 

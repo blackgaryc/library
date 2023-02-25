@@ -66,4 +66,8 @@ public class Results {
         List<R> collect = pageResult.getRecords().stream().map(mapper).collect(Collectors.toList());
         return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), collect);
     }
+
+    public static <T> PageableResult<T> successPageableData(Page<T> pageResult) {
+        return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), pageResult.getRecords());
+    }
 }

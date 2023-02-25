@@ -14,6 +14,7 @@ import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.book.UpdateBookRequest;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.entity.BookStatusEnum;
 import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
@@ -113,8 +114,9 @@ public class BookController {
         }
         //正常访问
         //数据库读取书籍
-        Long bookEntityId = bookEntity.getId();
-        List<BookDetailEntity> bookDetails = bookDetailService.findAllByBookId(bookEntityId);
+        List<BookDetailEntity> bookDetails = bookDetailService.lambdaQuery()
+                .eq(BookDetailEntity::getBookId,bookEntity.getId())
+                .list();
         if (bookDetails.isEmpty()){
             return Results.successData(
                     com.blackgaryc.library.domain.book.Book.NoFiles(bookEntity)
@@ -131,7 +133,10 @@ public class BookController {
     @GetMapping("latest")
     @SaIgnore
     public BaseResult latestBooks(){
-        List<BookEntity> list = bookService.lambdaQuery().ge(BookEntity::getCreateTime, LocalDateTime.now().plusDays(-1)).last("limit 50").list();
+        List<BookEntity> list = bookService.lambdaQuery()
+                .orderByDesc(true,BookEntity::getCreateTime)
+                .eq(BookEntity::getStatus, BookStatusEnum.ENABLE.getCode())
+                .last("limit 25").list();
         return Results.successData(list);
     }
 }

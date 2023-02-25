@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.blackgaryc.library.entity.FileEntity;
 
 public class BookFile {
-    private Long id;
+    private String id;
     private String extension;
     private String mimetype;
     private String md5;
@@ -17,7 +17,7 @@ public class BookFile {
         this.size = file.getSize();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

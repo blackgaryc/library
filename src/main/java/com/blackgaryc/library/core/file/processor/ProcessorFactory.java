@@ -1,5 +1,6 @@
 package com.blackgaryc.library.core.file.processor;
 
+import com.blackgaryc.library.core.error.FileProcessorErrorException;
 import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
 import io.minio.MinioClient;
 import org.apache.tika.Tika;
@@ -26,7 +27,7 @@ public class ProcessorFactory implements InitializingBean {
         processorHashMap.put(MinioGeneralFileProcessor.class, new MinioGeneralFileProcessor(tika,this.minioClient));
     }
 
-    public IFileProcessBaseResult process(IFileInfo file) throws FileProcessorNotSupportException {
+    public IFileProcessBaseResult process(IFileInfo file) throws FileProcessorNotSupportException, FileProcessorErrorException {
         Collection<IGeneralFileProcessor> values = processorHashMap.values();
         for (IGeneralFileProcessor processor : values) {
             if (processor.support(file.getClass())) {

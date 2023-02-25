@@ -8,6 +8,7 @@ import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
 import com.blackgaryc.library.core.minio.response.UserUploadBookResponse;
 import com.blackgaryc.library.domain.book.MqBookCollectorData;
 import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.service.MinioClientService;
@@ -62,7 +63,7 @@ public class ObjectUploadService implements InitializingBean {
             }
             //upload
             ObjectWriteResponse objectWriteResponse = minioClientService.uploadObject(tmpfile, objectKey);
-            Boolean fileExisted = fileService.existByMd5(objectWriteResponse.etag());
+            Boolean fileExisted = fileService.lambdaQuery().eq(FileEntity::getMd5,objectWriteResponse.etag()).exists();
             if (fileExisted){
                 //delete file
                 //throw exception

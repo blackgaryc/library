@@ -3,7 +3,7 @@ package com.blackgaryc.library.core.elasticsearch.domain;
 import com.blackgaryc.library.entity.FileEntity;
 
 public class BookFile {
-    private Long id;
+    private String id;
     private String filename;
     private String extension;
     private String mimetype;
@@ -24,11 +24,11 @@ public class BookFile {
     public BookFile() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

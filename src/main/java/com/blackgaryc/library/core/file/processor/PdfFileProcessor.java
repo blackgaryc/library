@@ -1,5 +1,6 @@
 package com.blackgaryc.library.core.file.processor;
 
+import com.blackgaryc.library.core.error.FileProcessorErrorException;
 import com.blackgaryc.library.core.file.thumbnail.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class PdfFileProcessor extends AbstractFileProcessor<FileProcessPageableB
     }
 
     @Override
-    FileProcessPageableBaseResult doProcess(File file, IFileProcessBaseResult result) {
+    FileProcessPageableBaseResult doProcess(File file, IFileProcessBaseResult result) throws FileProcessorErrorException {
         //copy result to res
         FileProcessPageableBaseResult res = new FileProcessPageableBaseResult(result);
         try (PDDocument load = PDDocument.load(file)) {
@@ -34,7 +35,7 @@ public class PdfFileProcessor extends AbstractFileProcessor<FileProcessPageableB
             res.setThumbnail(generate);
             res.setThumbnailExtension(pdfThumbnailGenerator.getExtension());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessorErrorException(res);
         }
         return res;
     }

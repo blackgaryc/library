@@ -5,7 +5,7 @@
 <mapper namespace="com.blackgaryc.library.mapper.BookUploadRequestMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookUploadRequestEntity">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="filename" column="filename" jdbcType="VARCHAR"/>
             <result property="md5" column="md5" jdbcType="VARCHAR"/>
             <result property="object" column="object" jdbcType="VARCHAR"/>
@@ -14,7 +14,7 @@
             <result property="uid" column="uid" jdbcType="VARCHAR"/>
             <result property="uploadTime" column="upload_time" jdbcType="TIMESTAMP"/>
             <result property="bookId" column="book_id" jdbcType="BIGINT"/>
-            <result property="fileId" column="file_id" jdbcType="BIGINT"/>
+            <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">

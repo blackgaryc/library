@@ -6,7 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookDetailEntity">
             <result property="bookId" column="book_id" jdbcType="BIGINT"/>
-            <result property="fileId" column="file_id" jdbcType="BIGINT"/>
+            <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
             <result property="page" column="page" jdbcType="INTEGER"/>
             <result property="size" column="size" jdbcType="BIGINT"/>
     </resultMap>
@@ -15,10 +15,4 @@
         book_id,file_id,page,
         size
     </sql>
-    <select id="findByFileId" resultType="com.blackgaryc.library.entity.BookDetailEntity">
-        select <include refid="Base_Column_List"></include> from book_detail where file_id=#{id} limit 1
-    </select>
-    <select id="findAllByBookId" resultType="com.blackgaryc.library.entity.BookDetailEntity">
-        select <include refid="Base_Column_List"></include> from book_detail where book_id=#{bookId}
-    </select>
 </mapper>

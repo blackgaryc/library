@@ -16,8 +16,8 @@ public class BookUploadRequestEntity implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id")
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 文件名称
@@ -71,7 +71,7 @@ public class BookUploadRequestEntity implements Serializable {
      * 
      */
     @TableField(value = "file_id")
-    private Long fileId;
+    private String fileId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -79,14 +79,14 @@ public class BookUploadRequestEntity implements Serializable {
     /**
      * 主键
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * 主键
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -205,14 +205,14 @@ public class BookUploadRequestEntity implements Serializable {
     /**
      * 
      */
-    public Long getFileId() {
+    public String getFileId() {
         return fileId;
     }
 
     /**
      * 
      */
-    public void setFileId(Long fileId) {
+    public void setFileId(String fileId) {
         this.fileId = fileId;
     }
 

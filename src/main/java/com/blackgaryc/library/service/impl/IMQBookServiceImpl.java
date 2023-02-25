@@ -55,13 +55,19 @@ public class IMQBookServiceImpl implements IMQBookService {
     @Override
     public Book findBookByMd5AndObjectKey(String md5, String objectKey) {
         int queryTimes=0;
-        FileEntity fileEntity = fileService.findByMd5AndObjectKey(md5, objectKey);
+        FileEntity fileEntity = fileService.lambdaQuery()
+                .eq(FileEntity::getMd5,md5).
+                eq(FileEntity::getObject,objectKey)
+                .getEntity();
         while (null == fileEntity && queryTimes <= 5){
             //delay to query in database, to wait transactional complete
             queryTimes++;
             try {
                 Thread.sleep(1000);
-                fileEntity = fileService.findByMd5AndObjectKey(md5, objectKey);
+                fileEntity = fileService.lambdaQuery()
+                        .eq(FileEntity::getMd5,md5).
+                        eq(FileEntity::getObject,objectKey)
+                        .getEntity();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -70,7 +76,7 @@ public class IMQBookServiceImpl implements IMQBookService {
             log.error("无法找到文件md5="+md5+" objectKey="+objectKey);
         }
         assert fileEntity != null;
-        BookDetailEntity bookDetailEntity = bookDetailService.findByFileId(fileEntity.getId());
+        BookDetailEntity bookDetailEntity = bookDetailService.lambdaQuery().eq(BookDetailEntity::getFileId,fileEntity.getId()).getEntity();
         BookEntity bookEntity = bookService.getBaseMapper().selectById(bookDetailEntity.getBookId());
         return new Book(bookEntity,bookDetailEntity,fileEntity);
     }
