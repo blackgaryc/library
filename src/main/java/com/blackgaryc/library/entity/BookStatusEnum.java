@@ -21,4 +21,17 @@ public enum BookStatusEnum {
     public int getCode() {
         return code;
     }
+    public static BookStatusEnum valueOf(BookUploadRequestStatusEnum statusEnum){
+        switch (statusEnum){
+            case REFUSED -> {
+                return DELETED;
+            }
+            case CONFORMED -> {
+                return ENABLE;
+            }
+            default -> {
+                return DEFAULT;
+            }
+        }
+    }
 }

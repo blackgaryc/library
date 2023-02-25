@@ -62,6 +62,14 @@ public class Results {
                 .build();
     }
 
+    /**
+     *
+     * @param pageResult 分页数据
+     * @param mapper 通过stream.map 将原始数据进行转换
+     * @return
+     * @param <T>
+     * @param <R>
+     */
     public static <T,R> PageableResult<R> successPageableData(Page<T> pageResult,  Function<? super T, ? extends R> mapper) {
         List<R> collect = pageResult.getRecords().stream().map(mapper).collect(Collectors.toList());
         return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), collect);

@@ -96,11 +96,13 @@ public class BookController {
     @SaIgnore
     public BaseResult queryBookInfo(@PathVariable Long id) throws LibraryException {
         BookEntity bookEntity = bookService.getById(id);
-        if (null == bookEntity || bookEntity.getStatus() == -1) {
+        if (null == bookEntity ||
+                bookEntity.getStatus() == BookStatusEnum.DISABLE.getCode() ||
+                bookEntity.getStatus() == BookStatusEnum.DELETED.getCode() ) {
             //被下架，抛出文件不存在的异常
             throw new BookNotExistException(id);
         }
-        if (bookEntity.getStatus() == 0) {
+        if (bookEntity.getStatus() == BookStatusEnum.DEFAULT.getCode()) {
             //待审核，检查是否当前用户为文件上传用户，如果是则允许访问
             if (!StpUtil.isLogin()){
                 //没有登陆返回书籍不存在

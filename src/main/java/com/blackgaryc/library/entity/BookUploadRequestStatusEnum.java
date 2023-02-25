@@ -1,5 +1,7 @@
 package com.blackgaryc.library.entity;
 
+import java.util.Arrays;
+
 public enum BookUploadRequestStatusEnum {
 
     WAIT_PROCESS(0, "待处理"), CONFORMED(2, "已确认"),
@@ -22,5 +24,8 @@ public enum BookUploadRequestStatusEnum {
     BookUploadRequestStatusEnum(int code, String message) {
         this.code = code;
         this.message = message;
+    }
+    public static BookUploadRequestStatusEnum valueOf(int code){
+       return Arrays.stream(BookUploadRequestStatusEnum.values()).filter(e-> e.getCode()==code).findFirst().orElse(WAIT_PROCESS);
     }
 }
