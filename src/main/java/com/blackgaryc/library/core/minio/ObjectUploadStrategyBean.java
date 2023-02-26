@@ -1,13 +1,9 @@
 package com.blackgaryc.library.core.minio;
 
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.error.FileAlreadyExistException;
 import com.blackgaryc.library.core.error.FileNotAllowedToUploadException;
 import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
-import com.blackgaryc.library.core.minio.response.UserUploadBookResponse;
-import com.blackgaryc.library.domain.book.MqBookCollectorData;
-import com.blackgaryc.library.entity.BookEntity;
 import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
@@ -22,7 +18,7 @@ import javax.annotation.Resource;
 import java.nio.file.Paths;
 
 @Component
-public class ObjectUploadService implements InitializingBean {
+public class ObjectUploadStrategyBean implements InitializingBean {
     @Resource
     MinioClientService minioClientService;
 

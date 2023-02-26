@@ -6,15 +6,15 @@ import com.blackgaryc.library.core.error.VerificationCodeNotExistException;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * class to store verification code in local
  */
 public class DefaultVerificationCodeService implements VerificationCodeService {
     public static int VERIFICATION_CODE_TIME2LIVE = 60 * 10; //600s
-    private static final Map<String, Data> HASH_MAP = new HashMap<>();
+    private static final Map<String, Data> HASH_MAP = new ConcurrentHashMap<>();
 
     @Override
     public void save(@NotNull String user, @NotNull String code) {
