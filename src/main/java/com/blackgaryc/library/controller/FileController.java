@@ -3,9 +3,9 @@ package com.blackgaryc.library.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.LibraryApplication;
+import com.blackgaryc.library.core.error.FileDownloadTimesEndException;
 import com.blackgaryc.library.core.error.LibraryException;
 import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
 import com.blackgaryc.library.core.minio.IObjectKey;
@@ -17,19 +17,14 @@ import com.blackgaryc.library.core.result.PageableResult;
 import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.book.HistoryUploadedBook;
 import com.blackgaryc.library.entity.BookUploadRequestEntity;
-import com.blackgaryc.library.entity.FileEntity;
+import com.blackgaryc.library.myservice.UserFileService;
 import com.blackgaryc.library.service.BookUploadRequestService;
-import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.service.MinioClientService;
-import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.errors.*;
-import io.minio.http.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -38,9 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/file")
@@ -95,29 +88,15 @@ public class FileController {
         IObjectKey userInfoAvatar = ObjectKeyFactory.getInstance(type);
         return Results.successData(minioClientService.getUploadSignedUrl(userInfoAvatar));
     }
-
     @Resource
-    FileService fileService;
-
+    UserFileService userFileService;
     @GetMapping("download")
     @SaIgnore
-    public RedirectView download(String id) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        FileEntity file = fileService.getById(id);
-        HashMap<String, String> headers = new HashMap<>();
-        String presignedUrl = minioClientService.getPresignedUrl(
-                GetPresignedObjectUrlArgs.builder()
-                        .expiry(15, TimeUnit.MINUTES)
-                        .method(Method.GET)
-                        .object(file.getObject())
-                        .extraHeaders(headers)
-                        .extraQueryParams(headers)
-        );
-        return new RedirectView(presignedUrl);
+    public BaseResult download(String id) throws FileDownloadTimesEndException {
+        return Results.successData(userFileService.download(id));
     }
-
     @Resource
     BookUploadRequestService bookUploadRequestService;
-
 
     /**
      * to query user history uploads
