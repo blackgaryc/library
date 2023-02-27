@@ -55,13 +55,13 @@ public class UserFileServiceImpl implements UserFileService {
             String realIp = request.getHeader(X_REAL_IP);
             //如果存在x-real-ip则优先x-real-ip,其次是remoteAddr
             String key = IP_DOWNLOAD_PREFIX + (Strings.isNotBlank(realIp) ? realIp : remoteAddr);
-            checkDownloadTimes(key);
+            checkDownloadTimes(key,0);
         }
         //when user has login,update download times by redis using user id
         else {
             log.info("user：{} , download file.", StpUtil.getLoginId());
             String key = User_DOWNLOAD_PREFIX + StpUtil.getLoginIdAsString();
-            checkDownloadTimes(key);
+            checkDownloadTimes(key,10);
         }
         //generate download url
         FileEntity file = fileService.getById(fileId);
@@ -95,7 +95,7 @@ public class UserFileServiceImpl implements UserFileService {
         return preSignedUrl;
     }
 
-    private void checkDownloadTimes(String key) throws FileDownloadTimesEndException {
+    private void checkDownloadTimes(String key,int maxDownloadTimes) throws FileDownloadTimesEndException {
         String s = stringRedisTemplate.opsForValue().get(key);
         //如果不存在设置值
         if (Objects.isNull(s)) {
@@ -106,7 +106,7 @@ public class UserFileServiceImpl implements UserFileService {
             log.error("download counter can't work...");
         } else {
             long numberOfDownloadTimes = Long.parseLong(s1);
-            if (numberOfDownloadTimes >= 10) {
+            if (numberOfDownloadTimes >= maxDownloadTimes) {
                 log.warn("key: {} 日下载量已达到上限。", key);
                 throw new FileDownloadTimesEndException();
             }

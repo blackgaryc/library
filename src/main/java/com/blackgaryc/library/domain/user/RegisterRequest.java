@@ -37,4 +37,14 @@ public class RegisterRequest {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "RegisterRequest{" +
+                "account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
