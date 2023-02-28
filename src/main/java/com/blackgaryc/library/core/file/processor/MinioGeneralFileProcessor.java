@@ -5,6 +5,7 @@ import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
 import com.blackgaryc.library.core.mq.resut.Record;
 import com.blackgaryc.library.core.mq.resut.S3;
 import com.blackgaryc.library.core.mq.resut.S3Notify;
+import com.blackgaryc.library.tools.FileTool;
 import com.blackgaryc.library.tools.StringTools;
 import io.minio.*;
 import io.minio.errors.*;
@@ -17,9 +18,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -39,7 +38,7 @@ public class MinioGeneralFileProcessor implements IGeneralFileProcessor<MinioFil
     private final MinioClient minioClient;
 
     @Override
-    public IFileProcessBaseResult process(MinioFileInfo fileInfo) throws FileProcessorNotSupportException, FileProcessorErrorException {
+    public IFileProcessBaseResult process(MinioFileInfo fileInfo) throws FileProcessorNotSupportException, FileProcessorErrorException, IOException {
         if (fileInfo.getInfo() instanceof Record record) {
             S3 s3 = record.getS3();
             //data
@@ -73,32 +72,8 @@ public class MinioGeneralFileProcessor implements IGeneralFileProcessor<MinioFil
             } catch (XmlParserException e) {
                 throw new RuntimeException(e);
             }
-            Path tmpFile = null;
-            try {
-                tmpFile = Files.createTempFile("SPRING_LIBRARY", ".tmp");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            File file = tmpFile.toFile();
-            file.deleteOnExit();
-            FileOutputStream outputStream = null;
-            try {
-                outputStream = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                IOUtils.copy(object, outputStream);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                object.close();
-                outputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+            Path tempFile = FileTool.trans2localTempFile(object, null);
+            File file = tempFile.toFile();
             String originFilename = Paths.get(objectKey).toFile().getName();
             //data
             String mimetype = null;

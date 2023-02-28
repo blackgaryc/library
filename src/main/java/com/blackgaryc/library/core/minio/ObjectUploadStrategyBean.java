@@ -53,13 +53,13 @@ public class ObjectUploadStrategyBean implements InitializingBean {
         //upload book file and save to database , then return file id
         userUploadBookResponse = (objectKey, tmpfile)-> {
             //check file mimetype is permitted or not
-            String detect = tika.detect(tmpfile);
-            if (!detect.equals("application/pdf")){
-                throw new FileNotAllowedToUploadException(Paths.get(objectKey.getKey()).getFileName().toString());
-            }
+//            String detect = tika.detect(tmpfile);
+//            if (!detect.equals("application/pdf")){
+//                throw new FileNotAllowedToUploadException(Paths.get(objectKey.getKey()).getFileName().toString());
+//            }
             //upload
             ObjectWriteResponse objectWriteResponse = minioClientService.uploadObject(tmpfile, objectKey);
-            Boolean fileExisted = fileService.lambdaQuery().eq(FileEntity::getMd5,objectWriteResponse.etag()).exists();
+            boolean fileExisted = fileService.lambdaQuery().eq(FileEntity::getMd5,objectWriteResponse.etag()).exists();
             if (fileExisted){
                 //delete file
                 //throw exception

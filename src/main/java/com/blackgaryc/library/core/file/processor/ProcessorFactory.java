@@ -10,6 +10,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ public class ProcessorFactory implements InitializingBean {
         processorHashMap.put(MinioGeneralFileProcessor.class, new MinioGeneralFileProcessor(tika,this.minioClient));
     }
 
-    public IFileProcessBaseResult process(IFileInfo file) throws FileProcessorNotSupportException, FileProcessorErrorException {
+    public IFileProcessBaseResult process(IFileInfo file) throws FileProcessorNotSupportException, FileProcessorErrorException, IOException {
         Collection<IGeneralFileProcessor> values = processorHashMap.values();
         for (IGeneralFileProcessor processor : values) {
             if (processor.support(file.getClass())) {

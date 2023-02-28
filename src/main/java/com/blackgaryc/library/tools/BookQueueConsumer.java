@@ -26,6 +26,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
@@ -96,6 +97,8 @@ public class BookQueueConsumer {
         } catch (JsonProcessingException | FileProcessorNotSupportException e) {
             throw new RuntimeException(e);
         } catch (FileProcessorErrorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

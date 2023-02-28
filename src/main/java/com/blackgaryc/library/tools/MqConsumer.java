@@ -104,6 +104,7 @@ public class MqConsumer {
                 entity.setStatus(BookUploadRequestStatusEnum.REFUSED.getCode());
                 entity.setMessage("该文件在过去曾被上传过");
                 bookUploadRequestService.save(entity);
+                channel.basicAck(deliveryTag, true);
                 return;
             }
             //如果捕获到了异常或者无法读取base result，则拒绝上传请求，并设置相应的消息
@@ -134,7 +135,7 @@ public class MqConsumer {
 
             //创建book
             BookEntity bookEntity = new BookEntity();
-            bookEntity.setTitle(entity.getFilename());
+            bookEntity.setTitle(StringTools.splitFilename2NameAndExtension(entity.getFilename())[0]);
             bookEntity.setCreatedUid(uid);
             bookEntity.setThumbnail(fullUrl);
             bookService.save(bookEntity);

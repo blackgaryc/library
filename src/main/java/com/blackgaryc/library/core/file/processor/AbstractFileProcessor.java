@@ -2,15 +2,9 @@ package com.blackgaryc.library.core.file.processor;
 
 import com.blackgaryc.library.core.error.FileProcessorErrorException;
 import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
-import com.blackgaryc.library.tools.StringTools;
 import org.springframework.beans.factory.InitializingBean;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public abstract class AbstractFileProcessor<T extends FileProcessBaseResult> implements IFileProcessor , InitializingBean {
     private final FileProcessorFactory factory;
@@ -22,10 +16,10 @@ public abstract class AbstractFileProcessor<T extends FileProcessBaseResult> imp
     @Override
     public T process(File file, FileProcessBaseResult result) throws FileProcessorNotSupportException, FileProcessorErrorException {
 
-        return doProcess(file,result);
+        return doProcess(file, result);
     }
 
-    abstract T doProcess(File file, IFileProcessBaseResult result) throws FileProcessorErrorException;
+    abstract T doProcess(File file, FileProcessBaseResult result) throws FileProcessorErrorException;
 
 
 

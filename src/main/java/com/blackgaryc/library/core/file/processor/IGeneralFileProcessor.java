@@ -12,6 +12,6 @@ import java.security.NoSuchAlgorithmException;
  * different file processor interface
  */
 public interface IGeneralFileProcessor<T extends IFileInfo> {
-    IFileProcessBaseResult process(T fileInfo) throws FileProcessorNotSupportException, FileProcessorErrorException;
+    IFileProcessBaseResult process(T fileInfo) throws FileProcessorNotSupportException, FileProcessorErrorException, IOException;
     boolean support(Class<T> clazz);
 }

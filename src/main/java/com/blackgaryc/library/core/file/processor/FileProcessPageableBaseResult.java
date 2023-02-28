@@ -11,7 +11,7 @@ public class FileProcessPageableBaseResult extends FileProcessBaseResult impleme
         this.numberOfPage = numberOfPage;
     }
 
-    public FileProcessPageableBaseResult(IFileProcessBaseResult result) {
+    public <T extends FileProcessBaseResult> FileProcessPageableBaseResult(T result) {
         this.setMimetype(result.getMimetype());
         this.setExtension(result.getExtension());
         this.setFilename(result.getFilename());
