@@ -62,7 +62,7 @@ public abstract class AbstractUserRegisterService implements IUserRegisterServic
         if (null == nickname || nickname.isEmpty() || nickname.isBlank()) {
             user.setNickname("用户-" + StringTools.randNumberString(4));
         }
-        if (userService.save(user)) {
+        if (!userService.save(user)) {
             throw new RuntimeException("unable to insert new user");
         }
     }

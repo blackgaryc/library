@@ -21,6 +21,7 @@ import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.tools.ThumbnailTools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.util.Assert;
@@ -134,6 +135,7 @@ public class BookController {
 
     @GetMapping("latest")
     @SaIgnore
+    @Cacheable
     public BaseResult latestBooks(){
         List<BookEntity> list = bookService.lambdaQuery()
                 .orderByDesc(true,BookEntity::getCreateTime)
