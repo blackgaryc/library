@@ -1,6 +1,6 @@
 package com.blackgaryc.library.core.register;
 
-import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+import com.blackgaryc.library.myservice.impl.AbstractUserRegisterService;
 
 import java.util.EnumMap;
 import java.util.Map;

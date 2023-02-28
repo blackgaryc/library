@@ -17,11 +17,4 @@
         id,email,password,
         nickname,account,avatar
     </sql>
-    <select id="existUserByAccount" resultType="java.lang.Boolean">
-        SELECT EXISTS(SELECT 1 FROM user WHERE account=#{account} limit 1)
-    </select>
-    <select id="selectByAccount" resultType="com.blackgaryc.library.entity.UserEntity">
-        SELECT <include refid="Base_Column_List"></include>
-        FROM user WHERE account=#{account} limit 1
-    </select>
 </mapper>

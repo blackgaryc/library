@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author alex
 * @description 针对表【book_upload_request】的数据库操作Service实现
-* @createDate 2023-02-25 11:24:42
+* @createDate 2023-02-28 16:08:18
 */
 @Service
 public class BookUploadRequestServiceImpl extends ServiceImpl<BookUploadRequestMapper, BookUploadRequestEntity>

@@ -1,4 +1,4 @@
-package com.blackgaryc.library.service;
+package com.blackgaryc.library.myservice;
 
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;

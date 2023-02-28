@@ -7,7 +7,7 @@ import com.blackgaryc.library.core.minio.objectkeys.UserBookFileKey;
 import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
-import com.blackgaryc.library.service.MinioClientService;
+import com.blackgaryc.library.myservice.MinioClientService;
 import com.blackgaryc.library.tools.MqProducer;
 import io.minio.ObjectWriteResponse;
 import org.apache.tika.Tika;

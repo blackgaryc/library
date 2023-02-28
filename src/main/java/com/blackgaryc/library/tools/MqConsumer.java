@@ -1,7 +1,5 @@
 package com.blackgaryc.library.tools;
 
-import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.blackgaryc.library.core.error.FileProcessorErrorException;
 import com.blackgaryc.library.core.error.FileProcessorNotSupportException;
 import com.blackgaryc.library.core.error.MinioObjectKeyGenerateException;
@@ -9,16 +7,11 @@ import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
 import com.blackgaryc.library.core.file.processor.IFileProcessPageableResult;
 import com.blackgaryc.library.core.file.processor.MinioFileInfo;
 import com.blackgaryc.library.core.file.processor.ProcessorFactory;
-import com.blackgaryc.library.core.file.thumbnail.ThumbnailFactory;
-import com.blackgaryc.library.core.file.thumbnail.ThumbnailGenerator;
-import com.blackgaryc.library.core.minio.IObjectKey;
 import com.blackgaryc.library.core.minio.ObjectKeyFactory;
-import com.blackgaryc.library.core.minio.objectkeys.BookCoverKey;
 import com.blackgaryc.library.core.mq.resut.Record;
 import com.blackgaryc.library.core.mq.resut.S3Notify;
-import com.blackgaryc.library.domain.book.Book;
-import com.blackgaryc.library.domain.book.MqBookCollectorData;
 import com.blackgaryc.library.entity.*;
+import com.blackgaryc.library.myservice.MinioClientService;
 import com.blackgaryc.library.service.*;
 import com.blackgaryc.library.tools.entity.BookUploadRequestEntityTool;
 import com.blackgaryc.library.tools.entity.FileEntityTool;
@@ -27,35 +20,21 @@ import com.rabbitmq.client.Channel;
 import com.rometools.utils.Strings;
 import io.minio.*;
 import io.minio.errors.*;
-import io.minio.messages.Item;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.AmqpHeaders;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @RabbitListener(queues = {"book_data_collector_queue"}, ackMode = "MANUAL")

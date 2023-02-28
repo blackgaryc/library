@@ -15,7 +15,7 @@ public class FileEntity implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id",type = IdType.ASSIGN_UUID)
+    @TableId(value = "id")
     private String id;
 
     /**

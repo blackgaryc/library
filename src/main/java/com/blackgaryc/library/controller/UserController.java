@@ -11,7 +11,7 @@ import com.blackgaryc.library.domain.user.UpdateUserInfoRequest;
 import com.blackgaryc.library.domain.user.UserInfoResponse;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.service.UserService;
-import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+import com.blackgaryc.library.myservice.impl.AbstractUserRegisterService;
 import com.blackgaryc.library.core.register.EmailVerificationStrategy;
 import com.blackgaryc.library.core.register.RegisterTypeEnum;
 import com.blackgaryc.library.core.register.UserRegisterFactory;

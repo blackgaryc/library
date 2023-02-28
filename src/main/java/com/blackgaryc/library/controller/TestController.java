@@ -1,43 +1,34 @@
 package com.blackgaryc.library.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
 import com.blackgaryc.library.core.elasticsearch.repository.BookRepository;
 import com.blackgaryc.library.core.minio.MinioProperty;
+import com.blackgaryc.library.core.result.BaseResult;
+import com.blackgaryc.library.core.result.Results;
+import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.myservice.AdminBookSearchService;
+import com.blackgaryc.library.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.elasticsearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @RestController
 public class TestController {
-    ObjectMapper objectMapper = new ObjectMapper();
-    @Autowired
-    MinioProperty config;
-    @Autowired
-    MinioClient minioClient;
-    @Autowired
-    ElasticsearchOperations operations;
 
-    @Autowired
-    BookRepository bookRepository;
-    @Autowired
-    RestClient restClient;
-    @GetMapping("test")
-    public List<Book> test(String title) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        PageRequest pageable = PageRequest.of(0,10);
-        Page<Book> test = bookRepository.findByTitleOrMd5(title, pageable);
-        return test.getContent();
-    }
 }

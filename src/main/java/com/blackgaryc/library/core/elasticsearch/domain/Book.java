@@ -8,8 +8,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Document(indexName = "book_library_elasticsearch")
 public class Book {
@@ -19,6 +19,9 @@ public class Book {
     private String description;
     private String language;
     private String thumbnail;
+    private String isbn10;
+    private String isbn12;
+
     @Field(type = FieldType.Nested, includeInParent = true)
     private Category category;
     @Field(type = FieldType.Nested, includeInParent = true)
@@ -34,7 +37,34 @@ public class Book {
         this.thumbnail = bookEntity.getThumbnail();
         this.category = null;
         this.authors = Collections.emptyList();
-//        this.bookDetails = Collections.singletonList(new BookDetail(bookDetailEntity, fileEntity));
+        this.bookDetails = Collections.singletonList(new BookDetail(bookDetailEntity, fileEntity));
+    }
+    public Book(BookEntity bookEntity) {
+        this.id = bookEntity.getId();
+        this.title = bookEntity.getTitle();
+        this.description = bookEntity.getDescription();
+        this.language = bookEntity.getLanguage();
+        this.thumbnail = bookEntity.getThumbnail();
+        this.category = null;
+        this.authors = Collections.emptyList();
+    }
+    public Book(BookEntity bookEntity, Collection<BookDetailEntity> bookDetailEntities, Collection<FileEntity> fileEntities) {
+        this(bookEntity);
+        //current book detail list
+        List<BookDetailEntity> currentBookDetails = bookDetailEntities.stream().filter(e -> e.getBookId().equals(bookEntity.getId())).toList();
+        bookDetailEntities.removeAll(currentBookDetails);
+
+        Set<String> fileIdSet = currentBookDetails.stream().map(BookDetailEntity::getFileId).collect(Collectors.toSet());
+        //current book file list
+        List<FileEntity> currentFileList = fileEntities.stream().filter(file -> fileIdSet.contains(file.getId())).toList();
+        fileEntities.removeAll(currentFileList);
+        HashMap<String, FileEntity> map = new HashMap<>(currentFileList.size());
+        currentFileList.forEach(file -> {
+            map.put(file.getId(), file);
+        });
+        this.bookDetails = currentBookDetails.stream()
+                .map(bookDetailEntity -> new BookDetail(bookDetailEntity, map.get(bookDetailEntity.getFileId())))
+                .collect(Collectors.toList());
     }
 
     public Book() {

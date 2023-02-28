@@ -1,16 +1,15 @@
-package com.blackgaryc.library.service.impl;
+package com.blackgaryc.library.myservice.impl;
 
 import com.blackgaryc.library.core.register.RegisterTypeEnum;
 import com.blackgaryc.library.core.register.UserRegisterFactory;
 import com.blackgaryc.library.entity.UserEntity;
-import com.blackgaryc.library.mapper.UserMapper;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmailUserRegisterStrategy extends AbstractUserRegisterService {
-    public EmailUserRegisterStrategy(PasswordEncryptor passwordEncryptor,UserMapper userMapper, UserRegisterFactory userRegisterFactory) {
-        super(passwordEncryptor, userMapper, userRegisterFactory);
+    public EmailUserRegisterStrategy(PasswordEncryptor passwordEncryptor, UserRegisterFactory userRegisterFactory) {
+        super(passwordEncryptor, userRegisterFactory);
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.blackgaryc.library.core.register;
 
 import com.blackgaryc.library.mapper.UserMapper;
-import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+import com.blackgaryc.library.myservice.impl.AbstractUserRegisterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

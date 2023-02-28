@@ -70,8 +70,8 @@ public class BookEntity implements Serializable {
     /**
      * 
      */
-    @TableField(value = "isbn")
-    private String isbn;
+    @TableField(value = "isbn10")
+    private String isbn10;
 
     /**
      * 
@@ -217,15 +217,15 @@ public class BookEntity implements Serializable {
     /**
      * 
      */
-    public String getIsbn() {
-        return isbn;
+    public String getIsbn10() {
+        return isbn10;
     }
 
     /**
      * 
      */
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
     }
 
     /**
@@ -277,7 +277,7 @@ public class BookEntity implements Serializable {
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreatedUid() == null ? other.getCreatedUid() == null : this.getCreatedUid().equals(other.getCreatedUid()))
             && (this.getPublisherId() == null ? other.getPublisherId() == null : this.getPublisherId().equals(other.getPublisherId()))
-            && (this.getIsbn() == null ? other.getIsbn() == null : this.getIsbn().equals(other.getIsbn()))
+            && (this.getIsbn10() == null ? other.getIsbn10() == null : this.getIsbn10().equals(other.getIsbn10()))
             && (this.getIsbn13() == null ? other.getIsbn13() == null : this.getIsbn13().equals(other.getIsbn13()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
@@ -295,7 +295,7 @@ public class BookEntity implements Serializable {
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreatedUid() == null) ? 0 : getCreatedUid().hashCode());
         result = prime * result + ((getPublisherId() == null) ? 0 : getPublisherId().hashCode());
-        result = prime * result + ((getIsbn() == null) ? 0 : getIsbn().hashCode());
+        result = prime * result + ((getIsbn10() == null) ? 0 : getIsbn10().hashCode());
         result = prime * result + ((getIsbn13() == null) ? 0 : getIsbn13().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
@@ -316,7 +316,7 @@ public class BookEntity implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", createdUid=").append(createdUid);
         sb.append(", publisherId=").append(publisherId);
-        sb.append(", isbn=").append(isbn);
+        sb.append(", isbn10=").append(isbn10);
         sb.append(", isbn13=").append(isbn13);
         sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

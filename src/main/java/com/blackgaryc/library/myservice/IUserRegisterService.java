@@ -1,7 +1,7 @@
-package com.blackgaryc.library.service;
+package com.blackgaryc.library.myservice;
 
 
-import com.blackgaryc.library.service.impl.AbstractUserRegisterService;
+import com.blackgaryc.library.myservice.impl.AbstractUserRegisterService;
 import com.blackgaryc.library.core.register.RegisterTypeEnum;
 
 /**

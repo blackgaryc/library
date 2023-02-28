@@ -4,7 +4,6 @@ import com.blackgaryc.library.entity.FileEntity;
 
 public class BookFile {
     private String id;
-    private String filename;
     private String extension;
     private String mimetype;
     private String md5;
@@ -13,11 +12,9 @@ public class BookFile {
 
     public BookFile(FileEntity fileEntity) {
         this.id= fileEntity.getId();
-        this.filename = fileEntity.getFilename();
         this.extension = fileEntity.getExtension();
         this.mimetype = fileEntity.getMimetype();
         this.md5 = fileEntity.getMd5();
-        this.uid = fileEntity.getUid();
         this.size = fileEntity.getSize();
     }
 
@@ -30,14 +27,6 @@ public class BookFile {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
     public String getExtension() {

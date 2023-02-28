@@ -7,9 +7,17 @@
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.PublisherEntity">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="isbnCode" column="isbn_code" jdbcType="VARCHAR"/>
+            <result property="isbnPublisher" column="isbn_publisher" jdbcType="VARCHAR"/>
+            <result property="chinaUnionPublisherId" column="china_union_publisher_id" jdbcType="VARCHAR"/>
+            <result property="comments" column="comments" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name
+        id,name,city,
+        type,isbn_code,isbn_publisher,
+        china_union_publisher_id,comments
     </sql>
 </mapper>

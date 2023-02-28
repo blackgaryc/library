@@ -1,7 +1,6 @@
-package com.blackgaryc.library.service.impl;
+package com.blackgaryc.library.myservice.impl;
 
 import com.blackgaryc.library.core.elasticsearch.domain.Book;
-import com.blackgaryc.library.core.elasticsearch.domain.BookDetail;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
 import com.blackgaryc.library.core.file.processor.IFileProcessPageableResult;
 import com.blackgaryc.library.entity.BookDetailEntity;
@@ -10,12 +9,11 @@ import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
-import com.blackgaryc.library.service.IMQBookService;
+import com.blackgaryc.library.myservice.IMQBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 

@@ -1,14 +1,17 @@
-package com.blackgaryc.library.service.impl;
+package com.blackgaryc.library.myservice.impl;
 
 import com.blackgaryc.library.core.register.UserRegisterFactory;
 import com.blackgaryc.library.entity.UserEntity;
-import com.blackgaryc.library.mapper.UserMapper;
-import com.blackgaryc.library.service.IUserRegisterService;
+import com.blackgaryc.library.myservice.IUserService;
+import com.blackgaryc.library.myservice.IUserRegisterService;
+import com.blackgaryc.library.service.UserService;
 import com.blackgaryc.library.tools.StringTools;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+
+import javax.annotation.Resource;
 
 /**
  * abstract class to register new user
@@ -16,12 +19,14 @@ import org.springframework.beans.factory.InitializingBean;
 public abstract class AbstractUserRegisterService implements IUserRegisterService, InitializingBean {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PasswordEncryptor passwordEncryptor;
-    private final UserMapper userMapper;
+    @Resource
+    IUserService iUserService;
+    @Resource
+    UserService userService;
     private final UserRegisterFactory userRegisterFactory;
 
-    public AbstractUserRegisterService(PasswordEncryptor passwordEncryptor, UserMapper userMapper, UserRegisterFactory userRegisterFactory) {
+    public AbstractUserRegisterService(PasswordEncryptor passwordEncryptor, UserRegisterFactory userRegisterFactory) {
         this.passwordEncryptor = passwordEncryptor;
-        this.userMapper = userMapper;
         this.userRegisterFactory = userRegisterFactory;
     }
 
@@ -33,7 +38,7 @@ public abstract class AbstractUserRegisterService implements IUserRegisterServic
      */
     @Override
     public boolean isUserRegistered(String user) {
-        return userMapper.existUserByAccount(user);
+        return iUserService.existAccountOrNot(user);
     }
 
     /**
@@ -57,7 +62,7 @@ public abstract class AbstractUserRegisterService implements IUserRegisterServic
         if (null == nickname || nickname.isEmpty() || nickname.isBlank()) {
             user.setNickname("用户-" + StringTools.randNumberString(4));
         }
-        if (1 != userMapper.insert(user)) {
+        if (userService.save(user)) {
             throw new RuntimeException("unable to insert new user");
         }
     }

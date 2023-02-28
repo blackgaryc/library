@@ -14,7 +14,7 @@
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="createdUid" column="created_uid" jdbcType="BIGINT"/>
             <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
-            <result property="isbn" column="isbn" jdbcType="VARCHAR"/>
+            <result property="isbn10" column="isbn10" jdbcType="VARCHAR"/>
             <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -23,6 +23,6 @@
         id,title,description,
         language,category_id,thumbnail,
         status,created_uid,publisher_id,
-        isbn,isbn13,create_time
+        isbn10,isbn13,create_time
     </sql>
 </mapper>

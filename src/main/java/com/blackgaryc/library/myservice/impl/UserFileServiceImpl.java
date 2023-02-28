@@ -5,7 +5,7 @@ import com.blackgaryc.library.core.error.FileDownloadTimesEndException;
 import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.myservice.UserFileService;
 import com.blackgaryc.library.service.FileService;
-import com.blackgaryc.library.service.MinioClientService;
+import com.blackgaryc.library.myservice.MinioClientService;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.errors.*;
 import io.minio.http.Method;
@@ -13,18 +13,18 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -93,6 +93,11 @@ public class UserFileServiceImpl implements UserFileService {
             throw new RuntimeException(e);
         }
         return preSignedUrl;
+    }
+
+    @Override
+    public <T extends Serializable> List<FileEntity> getFileEntitiesByIds(Collection<T> ids) {
+        return fileService.listByIds(ids);
     }
 
     private void checkDownloadTimes(String key,int maxDownloadTimes) throws FileDownloadTimesEndException {

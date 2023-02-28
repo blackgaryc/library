@@ -1,9 +1,8 @@
-package com.blackgaryc.library.service.impl;
+package com.blackgaryc.library.myservice.impl;
 
 import com.blackgaryc.library.core.minio.IObjectKey;
 import com.blackgaryc.library.core.minio.MinioProperty;
-import com.blackgaryc.library.service.MinioClientService;
-import com.blackgaryc.library.tools.FileTool;
+import com.blackgaryc.library.myservice.MinioClientService;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.http.Method;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;

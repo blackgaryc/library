@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author alex
 * @description 针对表【user_roles】的数据库操作Service实现
-* @createDate 2023-02-23 15:34:04
+* @createDate 2023-02-28 16:08:18
 */
 @Service
 public class UserRolesServiceImpl extends ServiceImpl<UserRolesMapper, UserRolesEntity>
