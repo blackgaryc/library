@@ -35,4 +35,10 @@ public class IUserServiceImpl implements IUserService {
         entity.setPassword("");
         return entity;
     }
+
+    @Override
+    public Long getUserIdByGithubId(String id) {
+        return userService.lambdaQuery().select(UserEntity::getId)
+                .eq(UserEntity::getGithubId,id).last("limit 1").list().get(0).getId();
+    }
 }

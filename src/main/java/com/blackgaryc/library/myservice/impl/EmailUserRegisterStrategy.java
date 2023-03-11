@@ -17,10 +17,11 @@ public class EmailUserRegisterStrategy extends AbstractUserRegisterService {
      *
      * @param user     account
      * @param password password
+     * @param type
      * @return new user uid
      */
     @Override
-    public Long registerUser(String user, String password) {
+    public Long registerUser(String user, String password, String type) {
         //save user
         UserEntity entity = new UserEntity();
         entity.setEmail(user);

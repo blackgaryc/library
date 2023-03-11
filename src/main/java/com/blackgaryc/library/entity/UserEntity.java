@@ -48,6 +48,12 @@ public class UserEntity implements Serializable {
     @TableField(value = "avatar")
     private String avatar;
 
+    /**
+     * 
+     */
+    @TableField(value = "github_id")
+    private String githubId;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -135,6 +141,20 @@ public class UserEntity implements Serializable {
         this.avatar = avatar;
     }
 
+    /**
+     * 
+     */
+    public String getGithubId() {
+        return githubId;
+    }
+
+    /**
+     * 
+     */
+    public void setGithubId(String githubId) {
+        this.githubId = githubId;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -152,7 +172,8 @@ public class UserEntity implements Serializable {
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
-            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()));
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
+            && (this.getGithubId() == null ? other.getGithubId() == null : this.getGithubId().equals(other.getGithubId()));
     }
 
     @Override
@@ -165,6 +186,7 @@ public class UserEntity implements Serializable {
         result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
+        result = prime * result + ((getGithubId() == null) ? 0 : getGithubId().hashCode());
         return result;
     }
 
@@ -180,6 +202,7 @@ public class UserEntity implements Serializable {
         sb.append(", nickname=").append(nickname);
         sb.append(", account=").append(account);
         sb.append(", avatar=").append(avatar);
+        sb.append(", githubId=").append(githubId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

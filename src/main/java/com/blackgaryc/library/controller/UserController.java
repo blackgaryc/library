@@ -125,7 +125,7 @@ public class UserController {
             }
             emailVerificationStrategy.check(form.getAccount(), form.getCode());
             //user service to create user;
-            Long uid = service.registerUser(form.getAccount(), form.getPassword());
+            Long uid = service.registerUser(form.getAccount(), form.getPassword(),null );
             //sa login as new user
             StpUtil.login(uid);
             return Results.successData(StpUtil.getTokenInfo());
