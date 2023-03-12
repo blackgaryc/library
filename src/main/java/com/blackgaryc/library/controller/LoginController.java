@@ -56,6 +56,7 @@ public class LoginController {
             uid = service.registerUser(id, null, type);
         }
         StpUtil.login(uid);
-        return Results.success();
+        //跳转到主页面
+        return new RedirectView("/");
     }
 }
