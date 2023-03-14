@@ -21,7 +21,7 @@ public class CategoryNode implements Serializable {
         this.children = children;
     }
 
-    public void setChildren(List<CategoryNode> children) {
+    private void setChildren(List<CategoryNode> children) {
         this.children = children;
     }
 

@@ -1,12 +1,9 @@
 package com.blackgaryc.library.controller;
 
-
 import cn.dev33.satoken.stp.StpUtil;
-import com.blackgaryc.library.core.error.RegisterUserAlreadyExistException;
 import com.blackgaryc.library.core.oauth2.OAuth2Service;
 import com.blackgaryc.library.core.register.RegisterTypeEnum;
 import com.blackgaryc.library.core.register.UserRegisterFactory;
-import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.myservice.IUserService;
 import com.blackgaryc.library.myservice.impl.AbstractUserRegisterService;
 import org.slf4j.Logger;
@@ -20,28 +17,24 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-
 @RestController
 @RequestMapping("login")
 public class LoginController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     @Resource
     OAuth2Service oAuth2Service;
-    @GetMapping("oauth2/authorization/{type}")
-    public RedirectView login(@PathVariable String type) {
-        String authRedirectUrl = oAuth2Service.getAuthRedirectUrl(type);
-        log.info(authRedirectUrl);
-        return new RedirectView(authRedirectUrl);
-    }
-
     @Resource
     UserRegisterFactory userRegisterFactory;
-
     @Resource
     IUserService userService;
 
+    @GetMapping("oauth2/authorization/{type}")
+    public RedirectView login(@PathVariable String type) {
+        return new RedirectView(oAuth2Service.getAuthRedirectUrl(type));
+    }
+
     @GetMapping("oauth2/code/{type}")
-    public Object codeLogin(HttpServletRequest httpServletRequest, @PathVariable String type) throws RegisterUserAlreadyExistException {
+    public Object codeLogin(HttpServletRequest httpServletRequest, @PathVariable String type) {
         // Parse the authorisation response from the callback URI
         String str = httpServletRequest.getRequestURI() + "?" + httpServletRequest.getQueryString();
         String id = oAuth2Service.getId(type, str);
@@ -53,8 +46,10 @@ public class LoginController {
         if (userRegistered){
             uid = userService.getUserIdByGithubId(id);
         }else{
+            //对于没有注册过的第三方登录用户，创建并绑定第三方登录账户
             uid = service.registerUser(id, null, type);
         }
+        //完成登录
         StpUtil.login(uid);
         //跳转到主页面
         return new RedirectView("/");

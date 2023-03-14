@@ -30,7 +30,7 @@ public class AdminFileUploadServiceImpl implements AdminFileUploadService {
         Page<BookUploadRequestEntity> page = bookUploadRequestService.lambdaQuery()
                 .eq(BookUploadRequestEntity::getStatus, status.getCode())
                 .orderByDesc(BookUploadRequestEntity::getId).page(ipage);
-        return Results.successPageableData(page, UserHistoryUploadedBook::new);
+        return Results.successMybatisPageData(page, UserHistoryUploadedBook::new);
     }
 
     @Override

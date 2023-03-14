@@ -2,22 +2,19 @@ package com.blackgaryc.library.controller;
 
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.core.result.Results;
-import com.blackgaryc.library.domain.publisher.Publisher;
-import com.blackgaryc.library.domain.publisher.SearchPublisher;
-import com.blackgaryc.library.domain.publisher.SimplePublisher;
-import com.blackgaryc.library.entity.PublisherEntity;
-import com.blackgaryc.library.service.PublisherService;
-import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import com.blackgaryc.library.myservice.UserPublisherService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("publisher")
 public class PublisherController {
     @Resource
-    PublisherService publisherService;
+    UserPublisherService userPublisherService;
 
     /**
      * 获取所有出版社
@@ -25,20 +22,17 @@ public class PublisherController {
      */
     @GetMapping("list")
     public BaseResult getList(){
-        List<PublisherEntity> list = publisherService.lambdaQuery().list();
-        List<SimplePublisher> list1 = list.stream().map(SimplePublisher::new).toList();
-        return Results.successData(list1);
+        return Results.successData(userPublisherService.getSimplePublisherList());
     }
 
     /**
      * 获取出版社的详细信息
+     * @param id 出版社id
+     * @return 返回出版社的具体信息
      */
     @GetMapping("{id}")
     public BaseResult getOne(@PathVariable(value = "id") Integer id){
-        PublisherEntity byId = publisherService.getById(id);
-        Publisher target = new Publisher();
-        BeanUtils.copyProperties(byId, target);
-        return Results.successData(target);
+        return Results.successData(userPublisherService.getPublisherDetail(id));
     }
 
 }

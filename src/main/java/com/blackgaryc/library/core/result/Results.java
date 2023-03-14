@@ -1,7 +1,6 @@
 package com.blackgaryc.library.core.result;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.blackgaryc.library.entity.BookUploadRequestEntity;
 
 import java.util.List;
 import java.util.function.Function;
@@ -70,12 +69,15 @@ public class Results {
      * @param <T>
      * @param <R>
      */
-    public static <T,R> PageableResult<R> successPageableData(Page<T> pageResult,  Function<? super T, ? extends R> mapper) {
+    public static <T,R> PageableResult<R> successMybatisPageData(Page<T> pageResult, Function<? super T, ? extends R> mapper) {
         List<R> collect = pageResult.getRecords().stream().map(mapper).collect(Collectors.toList());
         return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), collect);
     }
 
-    public static <T> PageableResult<T> successPageableData(Page<T> pageResult) {
+    public static <T> PageableResult<T> successMybatisPageData(Page<T> pageResult) {
         return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), pageResult.getRecords());
+    }
+    public static <T> PageableResult<T> successSpringbootPageData(org.springframework.data.domain.Page<T> page){
+        return new PageableResult<>(page.getPageable().getPageNumber(), page.getTotalPages(), page.getTotalElements(),page.getContent());
     }
 }

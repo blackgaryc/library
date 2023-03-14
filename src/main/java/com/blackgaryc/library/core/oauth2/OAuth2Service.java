@@ -1,6 +1,5 @@
 package com.blackgaryc.library.core.oauth2;
 
-import com.blackgaryc.library.core.result.Results;
 import com.nimbusds.oauth2.sdk.*;
 import com.nimbusds.oauth2.sdk.auth.ClientAuthentication;
 import com.nimbusds.oauth2.sdk.auth.ClientSecretBasic;

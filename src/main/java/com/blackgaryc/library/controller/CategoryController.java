@@ -2,26 +2,27 @@ package com.blackgaryc.library.controller;
 
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.core.result.Results;
-import com.blackgaryc.library.domain.category.Category;
-import com.blackgaryc.library.domain.category.CategoryNode;
-import com.blackgaryc.library.service.CategoryService;
+import com.blackgaryc.library.myservice.UserCategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("category")
 public class CategoryController {
     @Resource
-    CategoryService categoryService;
+    UserCategoryService userCategoryService;
 
+    /**
+     * 查询分类
+     * @param id 分类的父级id，id不存在或者非法时，id为0
+     * @return 返回树状分类结果
+     */
     @GetMapping("tree")
     public BaseResult getTree(@RequestParam Integer id) {
-        List<Category> categories = categoryService.list().stream().map(Category::new).toList();
-        return Results.successData(CategoryNode.list2Node(categories, id));
+        return Results.successData(userCategoryService.getCategoryNode(id));
     }
 }
