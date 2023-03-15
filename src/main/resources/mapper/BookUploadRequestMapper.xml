@@ -23,4 +23,18 @@
         uid,upload_time,book_id,
         file_id
     </sql>
+    <select id="getRankList" resultType="com.blackgaryc.library.domain.file.UploadRankResult">
+        SELECT
+            `u`.nickname AS name,
+            `u`.avatar AS avatar,
+            COUNT( `b`.id ) AS total
+        FROM
+            book_upload_request AS b
+                INNER JOIN `user` AS u ON `b`.uid = `u`.id
+        WHERE
+            `b`.`status` = 2 AND b.upload_time > #{date}
+        GROUP BY
+            `u`.id
+        LIMIT 20
+    </select>
 </mapper>

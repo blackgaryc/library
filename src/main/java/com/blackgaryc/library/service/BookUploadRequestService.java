@@ -1,7 +1,11 @@
 package com.blackgaryc.library.service;
 
+import com.blackgaryc.library.domain.file.UploadRankResult;
 import com.blackgaryc.library.entity.BookUploadRequestEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * @author alex
