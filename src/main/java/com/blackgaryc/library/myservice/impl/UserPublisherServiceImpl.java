@@ -20,8 +20,7 @@ public class UserPublisherServiceImpl implements UserPublisherService {
     @Override
     public List<SimplePublisher> getSimplePublisherList() {
         List<PublisherEntity> list = publisherService.lambdaQuery().list();
-        List<SimplePublisher> list1 = list.stream().map(SimplePublisher::new).toList();
-        return list1;
+        return list.stream().map(SimplePublisher::new).filter(simplePublisher -> simplePublisher.getId() > 0).toList();
     }
 
     @Override
