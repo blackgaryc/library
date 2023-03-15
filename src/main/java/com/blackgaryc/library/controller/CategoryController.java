@@ -22,7 +22,7 @@ public class CategoryController {
      * @return 返回树状分类结果
      */
     @GetMapping("tree")
-    public BaseResult getTree(@RequestParam Integer id) {
+    public BaseResult getTree(@RequestParam(defaultValue = "0") Integer id) {
         return Results.successData(userCategoryService.getCategoryNode(id));
     }
 }

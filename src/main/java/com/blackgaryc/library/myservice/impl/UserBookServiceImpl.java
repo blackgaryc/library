@@ -57,10 +57,9 @@ public class UserBookServiceImpl implements UserBookService {
         return bookDetailService.lambdaQuery().eq(BookDetailEntity::getBookId, bookEntity.getId()).list();
     }
 
-    @Cacheable(cacheNames = "book::query::latest")
+    @Cacheable(cacheNames = "book:query:latest")
     @Override
     public List<SimpleBook> getLatestBooks() {
-        System.out.println("do query");
         return bookService.lambdaQuery()
                 .orderByDesc(true, BookEntity::getCreateTime)
                 .eq(BookEntity::getStatus, BookStatusEnum.ENABLE.getCode())
