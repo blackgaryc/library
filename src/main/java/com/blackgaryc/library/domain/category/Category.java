@@ -11,7 +11,6 @@ public class Category implements Serializable {
     private final String name;
 
     public Category(CategoryEntity entity) {
-        System.out.println("entity = " + entity);
         this.id = entity.getId();
         //父节点为空时置为-1
         this.parentId = entity.getParentId() == null ? -1 : entity.getParentId();

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Calendar;
 
+/**
+ * 排行榜相关接口
+ */
 @RestController
-@RequestMapping("/rank")
+@RequestMapping("rank")
 public class RankController {
     @Resource
     UserRankService userRankService;
@@ -23,12 +26,14 @@ public class RankController {
      * @return 结果
      */
     @GetMapping("book/upload")
-    public BaseResult getBookUploadRank(@RequestParam(defaultValue = "week") String type){
+    public BaseResult getBookUploadRank(@RequestParam(defaultValue = "week") String type,
+                                        @RequestParam(defaultValue = "1") Integer num){
         Calendar calendar = Calendar.getInstance();
+        int amount = -1 * num;
         switch (type) {
-            case "day" -> calendar.roll(Calendar.DAY_OF_YEAR,-1);
-            case "week" -> calendar.roll(Calendar.WEEK_OF_YEAR, -1);
-            case "month" -> calendar.roll(Calendar.MONTH, -1);
+            case "day" -> calendar.roll(Calendar.DAY_OF_YEAR, amount);
+            case "week" -> calendar.roll(Calendar.WEEK_OF_YEAR, amount);
+            case "month" -> calendar.roll(Calendar.MONTH, amount);
         }
         return Results.successData(userRankService.getRankList(calendar.getTime()));
     }
