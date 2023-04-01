@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName publisher
+ * @TableName basics_publisher
  */
-@TableName(value ="publisher")
+@TableName(value ="basics_publisher")
 public class PublisherEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 
+     * 出版社名称
      */
     @TableField(value = "name")
     private String name;
@@ -64,28 +64,28 @@ public class PublisherEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 出版社名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
+     * 出版社名称
      */
     public void setName(String name) {
         this.name = name;

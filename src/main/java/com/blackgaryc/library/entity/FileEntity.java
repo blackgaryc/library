@@ -8,54 +8,54 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName file
+ * @TableName basics_file
  */
-@TableName(value ="file")
+@TableName(value ="basics_file")
 public class FileEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id")
     private String id;
 
     /**
-     * 
+     * 文件名称
      */
     @TableField(value = "filename")
     private String filename;
 
     /**
-     * 
+     * 文件扩展名
      */
     @TableField(value = "extension")
     private String extension;
 
     /**
-     * 
+     * 文件mime
      */
     @TableField(value = "mimetype")
     private String mimetype;
 
     /**
-     * 
+     * 对象存储位置
      */
     @TableField(value = "object")
     private String object;
 
     /**
-     * 
+     * md5散列值
      */
     @TableField(value = "md5")
     private String md5;
 
     /**
-     * 
+     * 上传用户id
      */
     @TableField(value = "uid")
     private Long uid;
 
     /**
-     * 
+     * 文件大小
      */
     @TableField(value = "size")
     private Long size;
@@ -64,112 +64,112 @@ public class FileEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 文件名称
      */
     public String getFilename() {
         return filename;
     }
 
     /**
-     * 
+     * 文件名称
      */
     public void setFilename(String filename) {
         this.filename = filename;
     }
 
     /**
-     * 
+     * 文件扩展名
      */
     public String getExtension() {
         return extension;
     }
 
     /**
-     * 
+     * 文件扩展名
      */
     public void setExtension(String extension) {
         this.extension = extension;
     }
 
     /**
-     * 
+     * 文件mime
      */
     public String getMimetype() {
         return mimetype;
     }
 
     /**
-     * 
+     * 文件mime
      */
     public void setMimetype(String mimetype) {
         this.mimetype = mimetype;
     }
 
     /**
-     * 
+     * 对象存储位置
      */
     public String getObject() {
         return object;
     }
 
     /**
-     * 
+     * 对象存储位置
      */
     public void setObject(String object) {
         this.object = object;
     }
 
     /**
-     * 
+     * md5散列值
      */
     public String getMd5() {
         return md5;
     }
 
     /**
-     * 
+     * md5散列值
      */
     public void setMd5(String md5) {
         this.md5 = md5;
     }
 
     /**
-     * 
+     * 上传用户id
      */
     public Long getUid() {
         return uid;
     }
 
     /**
-     * 
+     * 上传用户id
      */
     public void setUid(Long uid) {
         this.uid = uid;
     }
 
     /**
-     * 
+     * 文件大小
      */
     public Long getSize() {
         return size;
     }
 
     /**
-     * 
+     * 文件大小
      */
     public void setSize(Long size) {
         this.size = size;

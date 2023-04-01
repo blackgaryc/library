@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * 图书收藏表
- * @TableName basics_book_fav_list
+ * 
+ * @TableName sys_log_file_download
  */
-@TableName(value ="basics_book_fav_list")
-public class BookFavListEntity implements Serializable {
+@TableName(value ="sys_log_file_download")
+public class LogFileDownloadEntity implements Serializable {
     /**
-     * id
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -25,23 +26,35 @@ public class BookFavListEntity implements Serializable {
     private Long uid;
 
     /**
-     * 图书id
+     * 文件id
      */
-    @TableField(value = "book_id")
-    private Long bookId;
+    @TableField(value = "file_id")
+    private String fileId;
+
+    /**
+     * 书名
+     */
+    @TableField(value = "book_name")
+    private String bookName;
+
+    /**
+     * 下载时间
+     */
+    @TableField(value = "time")
+    private LocalDateTime time;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
-     * id
+     * 主键
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * id
+     * 主键
      */
     public void setId(Long id) {
         this.id = id;
@@ -62,17 +75,45 @@ public class BookFavListEntity implements Serializable {
     }
 
     /**
-     * 图书id
+     * 文件id
      */
-    public Long getBookId() {
-        return bookId;
+    public String getFileId() {
+        return fileId;
     }
 
     /**
-     * 图书id
+     * 文件id
      */
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
+    /**
+     * 书名
+     */
+    public String getBookName() {
+        return bookName;
+    }
+
+    /**
+     * 书名
+     */
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    /**
+     * 下载时间
+     */
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    /**
+     * 下载时间
+     */
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     @Override
@@ -86,10 +127,12 @@ public class BookFavListEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        BookFavListEntity other = (BookFavListEntity) that;
+        LogFileDownloadEntity other = (LogFileDownloadEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
-            && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()));
+            && (this.getFileId() == null ? other.getFileId() == null : this.getFileId().equals(other.getFileId()))
+            && (this.getBookName() == null ? other.getBookName() == null : this.getBookName().equals(other.getBookName()))
+            && (this.getTime() == null ? other.getTime() == null : this.getTime().equals(other.getTime()));
     }
 
     @Override
@@ -98,7 +141,9 @@ public class BookFavListEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
-        result = prime * result + ((getBookId() == null) ? 0 : getBookId().hashCode());
+        result = prime * result + ((getFileId() == null) ? 0 : getFileId().hashCode());
+        result = prime * result + ((getBookName() == null) ? 0 : getBookName().hashCode());
+        result = prime * result + ((getTime() == null) ? 0 : getTime().hashCode());
         return result;
     }
 
@@ -110,7 +155,9 @@ public class BookFavListEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", uid=").append(uid);
-        sb.append(", bookId=").append(bookId);
+        sb.append(", fileId=").append(fileId);
+        sb.append(", bookName=").append(bookName);
+        sb.append(", time=").append(time);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

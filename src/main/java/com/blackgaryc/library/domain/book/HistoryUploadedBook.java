@@ -1,7 +1,7 @@
 package com.blackgaryc.library.domain.book;
 
-import com.blackgaryc.library.entity.BookUploadRequestEntity;
 import com.blackgaryc.library.entity.BookUploadRequestStatusEnum;
+import com.blackgaryc.library.entity.LogFileUploadEntity;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ public class HistoryUploadedBook {
         return statusCode;
     }
 
-    public HistoryUploadedBook(BookUploadRequestEntity entity) {
+    public HistoryUploadedBook(LogFileUploadEntity entity) {
         this.filename = entity.getFilename();
         this.message = entity.getMessage();
         this.statusCode = entity.getStatus();

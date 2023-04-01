@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName book_upload_request
+ * @TableName sys_log_file_upload
  */
-@TableName(value ="book_upload_request")
-public class BookUploadRequestEntity implements Serializable {
+@TableName(value ="sys_log_file_upload")
+public class LogFileUploadEntity implements Serializable {
     /**
      * 主键
      */
@@ -62,13 +62,13 @@ public class BookUploadRequestEntity implements Serializable {
     private LocalDateTime uploadTime;
 
     /**
-     * 
+     * 图书id
      */
     @TableField(value = "book_id")
     private Long bookId;
 
     /**
-     * 
+     * 文件id
      */
     @TableField(value = "file_id")
     private String fileId;
@@ -189,28 +189,28 @@ public class BookUploadRequestEntity implements Serializable {
     }
 
     /**
-     * 
+     * 图书id
      */
     public Long getBookId() {
         return bookId;
     }
 
     /**
-     * 
+     * 图书id
      */
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
     /**
-     * 
+     * 文件id
      */
     public String getFileId() {
         return fileId;
     }
 
     /**
-     * 
+     * 文件id
      */
     public void setFileId(String fileId) {
         this.fileId = fileId;
@@ -227,7 +227,7 @@ public class BookUploadRequestEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        BookUploadRequestEntity other = (BookUploadRequestEntity) that;
+        LogFileUploadEntity other = (LogFileUploadEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getFilename() == null ? other.getFilename() == null : this.getFilename().equals(other.getFilename()))
             && (this.getMd5() == null ? other.getMd5() == null : this.getMd5().equals(other.getMd5()))

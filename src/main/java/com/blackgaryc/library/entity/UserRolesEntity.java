@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName user_roles
+ * @TableName sys_user_roles
  */
-@TableName(value ="user_roles")
+@TableName(value ="sys_user_roles")
 public class UserRolesEntity implements Serializable {
     /**
-     * 
+     * 用户id
      */
     @TableField(value = "uid")
     private Long uid;
 
     /**
-     * 
+     * 角色id
      */
     @TableField(value = "role_id")
     private Integer roleId;
@@ -28,28 +28,28 @@ public class UserRolesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 用户id
      */
     public Long getUid() {
         return uid;
     }
 
     /**
-     * 
+     * 用户id
      */
     public void setUid(Long uid) {
         this.uid = uid;
     }
 
     /**
-     * 
+     * 角色id
      */
     public Integer getRoleId() {
         return roleId;
     }
 
     /**
-     * 
+     * 角色id
      */
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;

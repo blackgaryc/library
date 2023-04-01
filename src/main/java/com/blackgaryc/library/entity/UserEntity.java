@@ -8,48 +8,48 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName user
+ * @TableName sys_user
  */
-@TableName(value ="user")
+@TableName(value ="sys_user")
 public class UserEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 
+     * 邮箱
      */
     @TableField(value = "email")
     private String email;
 
     /**
-     * 
+     * 密码
      */
     @TableField(value = "password")
     private String password;
 
     /**
-     * 
+     * 昵称
      */
     @TableField(value = "nickname")
     private String nickname;
 
     /**
-     * 
+     * 账户
      */
     @TableField(value = "account")
     private String account;
 
     /**
-     * 
+     * 头像
      */
     @TableField(value = "avatar")
     private String avatar;
 
     /**
-     * 
+     * 第三方账号id
      */
     @TableField(value = "github_id")
     private String githubId;
@@ -58,98 +58,98 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 邮箱
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * 
+     * 邮箱
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * 
+     * 密码
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * 
+     * 密码
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * 
+     * 昵称
      */
     public String getNickname() {
         return nickname;
     }
 
     /**
-     * 
+     * 昵称
      */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
     /**
-     * 
+     * 账户
      */
     public String getAccount() {
         return account;
     }
 
     /**
-     * 
+     * 账户
      */
     public void setAccount(String account) {
         this.account = account;
     }
 
     /**
-     * 
+     * 头像
      */
     public String getAvatar() {
         return avatar;
     }
 
     /**
-     * 
+     * 头像
      */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
     /**
-     * 
+     * 第三方账号id
      */
     public String getGithubId() {
         return githubId;
     }
 
     /**
-     * 
+     * 第三方账号id
      */
     public void setGithubId(String githubId) {
         this.githubId = githubId;

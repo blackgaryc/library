@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName book_tags
+ * @TableName basics_book_tags
  */
-@TableName(value ="book_tags")
+@TableName(value ="basics_book_tags")
 public class BookTagsEntity implements Serializable {
     /**
-     * 
+     * 图书id
      */
     @TableField(value = "book_id")
     private Long bookId;
 
     /**
-     * 
+     * 标签id
      */
     @TableField(value = "tag_id")
     private Integer tagId;
@@ -28,28 +28,28 @@ public class BookTagsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 图书id
      */
     public Long getBookId() {
         return bookId;
     }
 
     /**
-     * 
+     * 图书id
      */
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
     /**
-     * 
+     * 标签id
      */
     public Integer getTagId() {
         return tagId;
     }
 
     /**
-     * 
+     * 标签id
      */
     public void setTagId(Integer tagId) {
         this.tagId = tagId;

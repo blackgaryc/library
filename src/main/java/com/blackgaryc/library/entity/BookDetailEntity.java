@@ -8,30 +8,30 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName book_detail
+ * @TableName basics_book_detail
  */
-@TableName(value ="book_detail")
+@TableName(value ="basics_book_detail")
 public class BookDetailEntity implements Serializable {
     /**
-     * 
+     * 图书id
      */
     @TableField(value = "book_id")
     private Long bookId;
 
     /**
-     * 
+     * 文件id
      */
     @TableField(value = "file_id")
     private String fileId;
 
     /**
-     * 
+     * 文件页数
      */
     @TableField(value = "page")
     private Integer page;
 
     /**
-     * 
+     * 文件大小
      */
     @TableField(value = "size")
     private Long size;
@@ -40,56 +40,56 @@ public class BookDetailEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 图书id
      */
     public Long getBookId() {
         return bookId;
     }
 
     /**
-     * 
+     * 图书id
      */
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
     /**
-     * 
+     * 文件id
      */
     public String getFileId() {
         return fileId;
     }
 
     /**
-     * 
+     * 文件id
      */
     public void setFileId(String fileId) {
         this.fileId = fileId;
     }
 
     /**
-     * 
+     * 文件页数
      */
     public Integer getPage() {
         return page;
     }
 
     /**
-     * 
+     * 文件页数
      */
     public void setPage(Integer page) {
         this.page = page;
     }
 
     /**
-     * 
+     * 文件大小
      */
     public Long getSize() {
         return size;
     }
 
     /**
-     * 
+     * 文件大小
      */
     public void setSize(Long size) {
         this.size = size;

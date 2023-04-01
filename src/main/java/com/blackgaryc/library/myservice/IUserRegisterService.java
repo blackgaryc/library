@@ -28,5 +28,9 @@ public interface IUserRegisterService {
      */
     Long registerUser(String user, String password,String type);
 
+    /**
+     *
+     * @return
+     */
     RegisterTypeEnum getType();
 }

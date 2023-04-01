@@ -9,78 +9,84 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @TableName book
+ * @TableName basics_book
  */
-@TableName(value ="book")
+@TableName(value ="basics_book")
 public class BookEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 
+     * 书名
      */
     @TableField(value = "title")
     private String title;
 
     /**
-     * 
+     * 作者名称
+     */
+    @TableField(value = "author")
+    private String author;
+
+    /**
+     * 图书描述
      */
     @TableField(value = "description")
     private String description;
 
     /**
-     * 
+     * 语言
      */
     @TableField(value = "language")
     private String language;
 
     /**
-     * 
+     * 图书分类id
      */
     @TableField(value = "category_id")
     private Integer categoryId;
 
     /**
-     * 
+     * 图书缩略图
      */
     @TableField(value = "thumbnail")
     private String thumbnail;
 
     /**
-     * 
+     * 图书状态
      */
     @TableField(value = "status")
     private Integer status;
 
     /**
-     * 
+     * 创建者id
      */
     @TableField(value = "created_uid")
     private Long createdUid;
 
     /**
-     * 
+     * 出版社id
      */
     @TableField(value = "publisher_id")
     private Integer publisherId;
 
     /**
-     * 
+     * 图书的ISBN10
      */
     @TableField(value = "isbn10")
     private String isbn10;
 
     /**
-     * 
+     * 图书的ISBN13
      */
     @TableField(value = "isbn13")
     private String isbn13;
 
     /**
-     * 
+     * 创建时间
      */
     @TableField(value = "create_time")
     private LocalDateTime createTime;
@@ -89,168 +95,182 @@ public class BookEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 书名
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * 
+     * 书名
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * 
+     * 作者名称
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * 作者名称
+     */
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    /**
+     * 图书描述
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * 
+     * 图书描述
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * 
+     * 语言
      */
     public String getLanguage() {
         return language;
     }
 
     /**
-     * 
+     * 语言
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
     /**
-     * 
+     * 图书分类id
      */
     public Integer getCategoryId() {
         return categoryId;
     }
 
     /**
-     * 
+     * 图书分类id
      */
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
     /**
-     * 
+     * 图书缩略图
      */
     public String getThumbnail() {
         return thumbnail;
     }
 
     /**
-     * 
+     * 图书缩略图
      */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
     /**
-     * 
+     * 图书状态
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 
+     * 图书状态
      */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
     /**
-     * 
+     * 创建者id
      */
     public Long getCreatedUid() {
         return createdUid;
     }
 
     /**
-     * 
+     * 创建者id
      */
     public void setCreatedUid(Long createdUid) {
         this.createdUid = createdUid;
     }
 
     /**
-     * 
+     * 出版社id
      */
     public Integer getPublisherId() {
         return publisherId;
     }
 
     /**
-     * 
+     * 出版社id
      */
     public void setPublisherId(Integer publisherId) {
         this.publisherId = publisherId;
     }
 
     /**
-     * 
+     * 图书的ISBN10
      */
     public String getIsbn10() {
         return isbn10;
     }
 
     /**
-     * 
+     * 图书的ISBN10
      */
     public void setIsbn10(String isbn10) {
         this.isbn10 = isbn10;
     }
 
     /**
-     * 
+     * 图书的ISBN13
      */
     public String getIsbn13() {
         return isbn13;
     }
 
     /**
-     * 
+     * 图书的ISBN13
      */
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
 
     /**
-     * 
+     * 创建时间
      */
     public LocalDateTime getCreateTime() {
         return createTime;
     }
 
     /**
-     * 
+     * 创建时间
      */
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
@@ -270,6 +290,7 @@ public class BookEntity implements Serializable {
         BookEntity other = (BookEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
+            && (this.getAuthor() == null ? other.getAuthor() == null : this.getAuthor().equals(other.getAuthor()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getLanguage() == null ? other.getLanguage() == null : this.getLanguage().equals(other.getLanguage()))
             && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
@@ -288,6 +309,7 @@ public class BookEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
+        result = prime * result + ((getAuthor() == null) ? 0 : getAuthor().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getLanguage() == null) ? 0 : getLanguage().hashCode());
         result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
@@ -309,6 +331,7 @@ public class BookEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
+        sb.append(", author=").append(author);
         sb.append(", description=").append(description);
         sb.append(", language=").append(language);
         sb.append(", categoryId=").append(categoryId);

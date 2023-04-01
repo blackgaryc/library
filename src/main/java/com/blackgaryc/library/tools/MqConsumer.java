@@ -13,7 +13,7 @@ import com.blackgaryc.library.core.mq.resut.S3Notify;
 import com.blackgaryc.library.entity.*;
 import com.blackgaryc.library.myservice.MinioClientService;
 import com.blackgaryc.library.service.*;
-import com.blackgaryc.library.tools.entity.BookUploadRequestEntityTool;
+import com.blackgaryc.library.tools.entity.LogFileUploadEntityTool;
 import com.blackgaryc.library.tools.entity.FileEntityTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
@@ -59,7 +59,7 @@ public class MqConsumer {
     ObjectMapper objectMapper;
 
     @Resource
-    BookUploadRequestService bookUploadRequestService;
+    LogFileUploadService bookUploadRequestService;
     @Resource
     ProcessorFactory processorFactory;
     @Resource
@@ -88,7 +88,7 @@ public class MqConsumer {
                 message = "未知错误";
                 exception.printStackTrace();
             }
-            BookUploadRequestEntity entity = BookUploadRequestEntityTool.getBy(record);
+            LogFileUploadEntity entity = LogFileUploadEntityTool.getBy(record);
             if (null == processBaseResult) {
                 String msg = "无法获得文件处理结果";
                 message = Objects.nonNull(message) ? msg + "," + message : msg;
@@ -98,7 +98,7 @@ public class MqConsumer {
 
             //尝试检查文件是否被上传过。通常md5是不会为空的。
             boolean exists = bookUploadRequestService.lambdaQuery()
-                    .eq(BookUploadRequestEntity::getMd5, entity.getMd5()).exists();
+                    .eq(LogFileUploadEntity::getMd5, entity.getMd5()).exists();
             if (exists) {
                 // 保存之前如果存在相同md5的数据，则说明已经被上传过，这样同一本被拒绝的书不会被多次审核
                 entity.setStatus(BookUploadRequestStatusEnum.REFUSED.getCode());

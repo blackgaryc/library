@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="language" column="language" jdbcType="VARCHAR"/>
             <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
@@ -20,9 +21,10 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,title,description,
-        language,category_id,thumbnail,
-        status,created_uid,publisher_id,
-        isbn10,isbn13,create_time
+        id,title,author,
+        description,language,category_id,
+        thumbnail,status,created_uid,
+        publisher_id,isbn10,isbn13,
+        create_time
     </sql>
 </mapper>

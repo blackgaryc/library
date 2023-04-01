@@ -3,17 +3,16 @@ package com.blackgaryc.library.tools.entity;
 import com.blackgaryc.library.core.file.processor.IFileProcessBaseResult;
 import com.blackgaryc.library.core.mq.resut.MinioObject;
 import com.blackgaryc.library.core.mq.resut.Record;
-import com.blackgaryc.library.entity.BookUploadRequestEntity;
 import com.blackgaryc.library.entity.BookUploadRequestStatusEnum;
+import com.blackgaryc.library.entity.LogFileUploadEntity;
 
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
-public class BookUploadRequestEntityTool {
-    public static BookUploadRequestEntity getBy(Record record){
-        BookUploadRequestEntity  entity= new BookUploadRequestEntity();
+public class LogFileUploadEntityTool {
+    public static LogFileUploadEntity getBy(Record record){
+        LogFileUploadEntity  entity= new LogFileUploadEntity();
         MinioObject object = record.getS3().getObject();
         //etag not md5
         entity.setMd5("");
@@ -25,8 +24,8 @@ public class BookUploadRequestEntityTool {
         return entity;
     }
 
-    public static BookUploadRequestEntity getBy(IFileProcessBaseResult result,Record record) {
-        BookUploadRequestEntity entity = getBy(record);
+    public static LogFileUploadEntity getBy(IFileProcessBaseResult result,Record record) {
+        LogFileUploadEntity entity = getBy(record);
         entity.setMd5(result.getMd5());
         return entity;
     }

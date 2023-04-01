@@ -8,36 +8,36 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName booklist
+ * @TableName basics_booklist
  */
-@TableName(value ="booklist")
+@TableName(value ="basics_booklist")
 public class BooklistEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id")
     private String id;
 
     /**
-     * 
+     * 用户id
      */
     @TableField(value = "uid")
     private Long uid;
 
     /**
-     * 
+     * 书单名称
      */
     @TableField(value = "name")
     private String name;
 
     /**
-     * 
+     * 书单描述
      */
     @TableField(value = "description")
     private String description;
 
     /**
-     * 
+     * 是否公开
      */
     @TableField(value = "published")
     private Integer published;
@@ -46,70 +46,70 @@ public class BooklistEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 用户id
      */
     public Long getUid() {
         return uid;
     }
 
     /**
-     * 
+     * 用户id
      */
     public void setUid(Long uid) {
         this.uid = uid;
     }
 
     /**
-     * 
+     * 书单名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
+     * 书单名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * 
+     * 书单描述
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * 
+     * 书单描述
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * 
+     * 是否公开
      */
     public Integer getPublished() {
         return published;
     }
 
     /**
-     * 
+     * 是否公开
      */
     public void setPublished(Integer published) {
         this.published = published;

@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName tag
+ * @TableName basics_tag
  */
-@TableName(value ="tag")
+@TableName(value ="basics_tag")
 public class TagEntity implements Serializable {
     /**
      * 

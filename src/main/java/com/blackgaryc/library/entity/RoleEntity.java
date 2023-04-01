@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName role
+ * @TableName sys_role
  */
-@TableName(value ="role")
+@TableName(value ="sys_role")
 public class RoleEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 
+     * 角色名称
      */
     @TableField(value = "name")
     private String name;
@@ -28,28 +28,28 @@ public class RoleEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 角色名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
+     * 角色名称
      */
     public void setName(String name) {
         this.name = name;

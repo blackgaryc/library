@@ -6,14 +6,11 @@
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookFavListEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="bookId" column="book_id" jdbcType="BIGINT"/>
-            <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
-            <result property="bookImg" column="book_img" jdbcType="VARCHAR"/>
             <result property="uid" column="uid" jdbcType="BIGINT"/>
+            <result property="bookId" column="book_id" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,book_id,book_name,
-        book_img,uid
+        id,uid,book_id
     </sql>
 </mapper>

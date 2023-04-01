@@ -1,7 +1,7 @@
 package com.blackgaryc.library.myservice.impl;
 
 import com.blackgaryc.library.domain.file.UploadRankResult;
-import com.blackgaryc.library.mapper.BookUploadRequestMapper;
+import com.blackgaryc.library.mapper.LogFileUploadMapper;
 import com.blackgaryc.library.myservice.UserRankService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class UserRankServiceImpl implements UserRankService {
     @Resource
-    BookUploadRequestMapper mapper;
+    LogFileUploadMapper mapper;
 
     @Override
     public List<UploadRankResult> getRankList(Date startDate) {

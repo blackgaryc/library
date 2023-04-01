@@ -11,10 +11,12 @@
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="account" column="account" jdbcType="VARCHAR"/>
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="githubId" column="github_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,email,password,
-        nickname,account,avatar
+        nickname,account,avatar,
+        github_id
     </sql>
 </mapper>

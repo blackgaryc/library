@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author alex
-* @description 针对表【book_fav_list(图书收藏表)】的数据库操作Mapper
-* @createDate 2023-03-19 11:25:27
+* @description 针对表【basics_book_fav_list(图书收藏表)】的数据库操作Mapper
+* @createDate 2023-04-01 14:09:17
 * @Entity com.blackgaryc.library.entity.BookFavListEntity
 */
 public interface BookFavListMapper extends BaseMapper<BookFavListEntity> {

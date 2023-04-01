@@ -35,8 +35,6 @@ public class FavBookController {
         }
         BookFavListEntity bookFavListEntity = new BookFavListEntity();
         bookFavListEntity.setBookId(byId.getId());
-        bookFavListEntity.setBookImg(byId.getThumbnail());
-        bookFavListEntity.setBookName(byId.getTitle());
         bookFavListEntity.setUid(StpUtil.getLoginIdAsLong());
         try {
             bookFavListService.save(bookFavListEntity);

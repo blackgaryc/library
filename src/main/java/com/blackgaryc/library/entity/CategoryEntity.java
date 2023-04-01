@@ -8,24 +8,24 @@ import java.io.Serializable;
 
 /**
  * 
- * @TableName category
+ * @TableName basics_category
  */
-@TableName(value ="category")
+@TableName(value ="basics_category")
 public class CategoryEntity implements Serializable {
     /**
-     * 
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 
+     * 分类名称
      */
     @TableField(value = "name")
     private String name;
 
     /**
-     * 
+     * 父级id
      */
     @TableField(value = "parent_id")
     private Integer parentId;
@@ -34,42 +34,42 @@ public class CategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     * 主键
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 
+     * 主键
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 
+     * 分类名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
+     * 分类名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * 
+     * 父级id
      */
     public Integer getParentId() {
         return parentId;
     }
 
     /**
-     * 
+     * 父级id
      */
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
