@@ -67,6 +67,6 @@ public class FavBookController {
      */
     @RequestMapping(value = "",method = RequestMethod.GET)
     public BaseResult list(){
-        return Results.successMybatisPageData(bookFavListService.page(HttpContextTool.getDefaultPage()));
+        return Results.successMybatisPageData(bookFavListService.getFavBooks(HttpContextTool.getDefaultPage()));
     }
 }

@@ -1,7 +1,10 @@
 package com.blackgaryc.library.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.entity.BookFavListEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.Map;
 
 /**
 * @author alex
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface BookFavListMapper extends BaseMapper<BookFavListEntity> {
 
+    Page<Map<String, Object>> getFavBooks(Page<Object> defaultPage);
 }
 
 

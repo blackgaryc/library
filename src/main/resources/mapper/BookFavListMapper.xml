@@ -5,12 +5,23 @@
 <mapper namespace="com.blackgaryc.library.mapper.BookFavListMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookFavListEntity">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="uid" column="uid" jdbcType="BIGINT"/>
-            <result property="bookId" column="book_id" jdbcType="BIGINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="uid" column="uid" jdbcType="BIGINT"/>
+        <result property="bookId" column="book_id" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,uid,book_id
     </sql>
+    <select id="getFavBooks" resultType="java.util.Map">
+        select uid,
+               book_id,
+               title,
+               author,
+               thumbnail,
+               isbn10,
+               isbn13
+        from basics_book_fav_list
+                 INNER JOIN basics_book ON basics_book_fav_list.book_id = basics_book.id
+    </select>
 </mapper>
