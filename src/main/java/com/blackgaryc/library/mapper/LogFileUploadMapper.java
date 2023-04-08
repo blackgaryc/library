@@ -3,6 +3,7 @@ package com.blackgaryc.library.mapper;
 import com.blackgaryc.library.domain.file.UploadRankResult;
 import com.blackgaryc.library.entity.LogFileUploadEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 * @Entity com.blackgaryc.library.entity.LogFileUploadEntity
 */
 public interface LogFileUploadMapper extends BaseMapper<LogFileUploadEntity> {
-    List<UploadRankResult> getRankList(Date date);
+    List<UploadRankResult> getRankList(@Param("date") Date date);
 }
 
 

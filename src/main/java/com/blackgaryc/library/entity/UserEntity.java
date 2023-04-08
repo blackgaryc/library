@@ -54,8 +54,23 @@ public class UserEntity implements Serializable {
     @TableField(value = "github_id")
     private String githubId;
 
+    /**
+     * 是否允许登陆
+     */
+    @TableField(value = "github_id")
+    private Boolean disabled;
+
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
+    }
 
     /**
      * 主键

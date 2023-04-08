@@ -42,6 +42,12 @@ public class BooklistEntity implements Serializable {
     @TableField(value = "published")
     private Integer published;
 
+    /**
+     * 
+     */
+    @TableField(value = "status")
+    private Integer status;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -115,6 +121,20 @@ public class BooklistEntity implements Serializable {
         this.published = published;
     }
 
+    /**
+     * 
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -131,7 +151,8 @@ public class BooklistEntity implements Serializable {
             && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getPublished() == null ? other.getPublished() == null : this.getPublished().equals(other.getPublished()));
+            && (this.getPublished() == null ? other.getPublished() == null : this.getPublished().equals(other.getPublished()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -143,6 +164,7 @@ public class BooklistEntity implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getPublished() == null) ? 0 : getPublished().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 
@@ -157,6 +179,7 @@ public class BooklistEntity implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", published=").append(published);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

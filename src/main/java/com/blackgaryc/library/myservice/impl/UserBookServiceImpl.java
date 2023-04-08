@@ -6,7 +6,7 @@ import com.blackgaryc.library.domain.book.Book;
 import com.blackgaryc.library.domain.book.SimpleBook;
 import com.blackgaryc.library.entity.BookDetailEntity;
 import com.blackgaryc.library.entity.BookEntity;
-import com.blackgaryc.library.entity.BookStatusEnum;
+import com.blackgaryc.library.entity.StatusEnum;
 import com.blackgaryc.library.entity.FileEntity;
 import com.blackgaryc.library.myservice.UserBookService;
 import com.blackgaryc.library.service.BookDetailService;
@@ -62,7 +62,7 @@ public class UserBookServiceImpl implements UserBookService {
     public List<SimpleBook> getLatestBooks() {
         return bookService.lambdaQuery()
                 .orderByDesc(true, BookEntity::getCreateTime)
-                .eq(BookEntity::getStatus, BookStatusEnum.ENABLE.getCode())
+                .eq(BookEntity::getStatus, StatusEnum.ENABLE.getCode())
                 .last("limit 50")
                 //转换
                 .list().stream().map(SimpleBook::new).toList();
@@ -72,12 +72,12 @@ public class UserBookServiceImpl implements UserBookService {
     public Book getBookDetail(Long id) throws BookNotExistException {
         BookEntity bookEntity = bookService.getById(id);
         if (null == bookEntity ||
-                bookEntity.getStatus() == BookStatusEnum.DISABLE.getCode() ||
-                bookEntity.getStatus() == BookStatusEnum.DELETED.getCode() ) {
+                bookEntity.getStatus() == StatusEnum.DISABLE.getCode() ||
+                bookEntity.getStatus() == StatusEnum.DELETED.getCode() ) {
             //被下架，抛出文件不存在的异常
             throw new BookNotExistException(id);
         }
-        if (bookEntity.getStatus() == BookStatusEnum.DEFAULT.getCode()) {
+        if (bookEntity.getStatus() == StatusEnum.DEFAULT.getCode()) {
             //待审核，检查是否当前用户为文件上传用户，如果是则允许访问
             if (!StpUtil.isLogin()){
                 //没有登陆返回书籍不存在

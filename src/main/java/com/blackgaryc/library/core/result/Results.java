@@ -71,13 +71,13 @@ public class Results {
      */
     public static <T,R> PageableResult<R> successMybatisPageData(Page<T> pageResult, Function<? super T, ? extends R> mapper) {
         List<R> collect = pageResult.getRecords().stream().map(mapper).collect(Collectors.toList());
-        return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), collect);
+        return new PageableResult<>(pageResult.getCurrent(), pageResult.getSize(), pageResult.getPages(), pageResult.getTotal(), collect);
     }
 
     public static <T> PageableResult<T> successMybatisPageData(Page<T> pageResult) {
-        return new PageableResult<>(pageResult.getCurrent(), pageResult.getPages(), pageResult.getTotal(), pageResult.getRecords());
+        return new PageableResult<>(pageResult.getCurrent(),pageResult.getSize(), pageResult.getPages(), pageResult.getTotal(), pageResult.getRecords());
     }
     public static <T> PageableResult<T> successSpringbootPageData(org.springframework.data.domain.Page<T> page){
-        return new PageableResult<>(page.getPageable().getPageNumber(), page.getTotalPages(), page.getTotalElements(),page.getContent());
+        return new PageableResult<>(page.getPageable().getPageNumber(),page.getSize(    ), page.getTotalPages(), page.getTotalElements(),page.getContent());
     }
 }

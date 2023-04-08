@@ -10,10 +10,11 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="published" column="published" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,uid,name,
-        description,published
+        description,published,status
     </sql>
 </mapper>

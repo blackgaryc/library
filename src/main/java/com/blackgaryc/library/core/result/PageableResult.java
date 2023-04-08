@@ -8,6 +8,7 @@ public class PageableResult<T> extends BaseResult {
     private long page;
     private long totalPage;
     private long totalResult;
+    private long size;
     private List<T> data;
 
     public long getPage() {
@@ -28,6 +29,14 @@ public class PageableResult<T> extends BaseResult {
 
     public long getTotalResult() {
         return totalResult;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public void setTotalResult(long totalResult) {
@@ -63,10 +72,11 @@ public class PageableResult<T> extends BaseResult {
     public PageableResult() {
     }
 
-    public PageableResult(long page, long totalPage, long totalResult, List<T> data) {
+    public PageableResult(long page,long size, long totalPage, long totalResult, List<T> data) {
         this.page = page;
         this.totalPage = totalPage;
         this.totalResult = totalResult;
         this.data = data;
+        this.size = size;
     }
 }

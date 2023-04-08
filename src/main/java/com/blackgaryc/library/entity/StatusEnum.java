@@ -1,6 +1,6 @@
 package com.blackgaryc.library.entity;
 
-public enum BookStatusEnum {
+public enum StatusEnum {
     DEFAULT(0,"待审核"),
     ENABLE(1,"状态正常"),
     DISABLE(2,"被下架"),
@@ -9,7 +9,7 @@ public enum BookStatusEnum {
 
     private final int code;
 
-    BookStatusEnum(int code,String message) {
+    StatusEnum(int code, String message) {
         this.message = message;
         this.code = code;
     }
@@ -21,7 +21,7 @@ public enum BookStatusEnum {
     public int getCode() {
         return code;
     }
-    public static BookStatusEnum valueOf(BookUploadRequestStatusEnum statusEnum){
+    public static StatusEnum valueOf(BookUploadRequestStatusEnum statusEnum){
         switch (statusEnum){
             case REFUSED -> {
                 return DELETED;

@@ -6,7 +6,7 @@ import com.blackgaryc.library.core.result.PageableResult;
 import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.admin.book.UserHistoryUploadedBook;
 import com.blackgaryc.library.entity.BookEntity;
-import com.blackgaryc.library.entity.BookStatusEnum;
+import com.blackgaryc.library.entity.StatusEnum;
 import com.blackgaryc.library.entity.BookUploadRequestStatusEnum;
 import com.blackgaryc.library.entity.LogFileUploadEntity;
 import com.blackgaryc.library.myservice.AdminFileUploadService;
@@ -59,7 +59,7 @@ public class AdminFileUploadServiceImpl implements AdminFileUploadService {
         Stream<Long> bookIds = collect.stream().map(LogFileUploadEntity::getBookId);
         bookService.lambdaUpdate()
                 .in(BookEntity::getId,bookIds.toList())
-                .set(BookEntity::getStatus, BookStatusEnum.valueOf(status).getCode())
+                .set(BookEntity::getStatus, StatusEnum.valueOf(status).getCode())
                 .update();
         return Results.success();
     }

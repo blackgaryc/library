@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 排行榜相关接口
@@ -35,6 +36,7 @@ public class RankController {
             case "week" -> calendar.roll(Calendar.WEEK_OF_YEAR, amount);
             case "month" -> calendar.roll(Calendar.MONTH, amount);
         }
-        return Results.successData(userRankService.getRankList(calendar.getTime()));
+        Date time = calendar.getTime();
+        return Results.successData(userRankService.getRankList(time));
     }
 }
