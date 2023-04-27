@@ -13,6 +13,9 @@ public class SimpleUserVO {
 
     private Boolean disabled;
 
+    public SimpleUserVO() {
+    }
+
     public SimpleUserVO(UserEntity user) {
         BeanUtils.copyProperties(user,this);
     }

@@ -57,7 +57,7 @@ public class UserEntity implements Serializable {
     /**
      * 是否允许登陆
      */
-    @TableField(value = "github_id")
+    @TableField(value = "disabled")
     private Boolean disabled;
 
 

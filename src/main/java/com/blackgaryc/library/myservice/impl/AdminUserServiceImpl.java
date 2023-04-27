@@ -2,11 +2,13 @@ package com.blackgaryc.library.myservice.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.core.error.LibraryException;
+import com.blackgaryc.library.domain.user.admin.SimpleUserVO;
 import com.blackgaryc.library.entity.UserEntity;
 import com.blackgaryc.library.myservice.AdminUserService;
 import com.blackgaryc.library.service.UserService;
 import com.blackgaryc.library.tools.context.HttpContextTool;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,4 +34,23 @@ public class AdminUserServiceImpl implements AdminUserService {
         userService.updateById(byId);
     }
 
+    @Override
+    public void enableUser(Long id) {
+        UserEntity byId = this.userService.getById(id);
+        byId.setDisabled(false);
+        userService.updateById(byId);
+    }
+
+    @Override
+    public SimpleUserVO getUserInfo(Long id) {
+        UserEntity byId = this.userService.getById(id);
+        return new SimpleUserVO(byId);
+    }
+
+    @Override
+    public void updateUserInfo(SimpleUserVO dto) {
+        UserEntity byId = userService.getById(dto.getId());
+        BeanUtils.copyProperties(dto,byId);
+        userService.updateById(byId);
+    }
 }
