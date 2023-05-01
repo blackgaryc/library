@@ -1,10 +1,13 @@
 package com.blackgaryc.library.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo;
 import com.blackgaryc.library.entity.PublisherEntity;
 import com.blackgaryc.library.service.PublisherService;
 import com.blackgaryc.library.mapper.PublisherMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -14,7 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class PublisherServiceImpl extends ServiceImpl<PublisherMapper, PublisherEntity>
     implements PublisherService{
-
+    @Override
+    public List<PublisherSelectVo> getSelectData() {
+        return this.baseMapper.getSelectData();
+    }
 }
 
 

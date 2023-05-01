@@ -5,19 +5,19 @@
 <mapper namespace="com.blackgaryc.library.mapper.BookMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.BookEntity">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="author" column="author" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="language" column="language" jdbcType="VARCHAR"/>
-            <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
-            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="createdUid" column="created_uid" jdbcType="BIGINT"/>
-            <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
-            <result property="isbn10" column="isbn10" jdbcType="VARCHAR"/>
-            <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="language" column="language" jdbcType="VARCHAR"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createdUid" column="created_uid" jdbcType="BIGINT"/>
+        <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
+        <result property="isbn10" column="isbn10" jdbcType="VARCHAR"/>
+        <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -27,4 +27,24 @@
         publisher_id,isbn10,isbn13,
         create_time
     </sql>
+    <resultMap id="BootInfoDtoMap" type="com.blackgaryc.library.domain.admin.book.BookDto">
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+        <result property="publisherId" column="publisher_id" jdbcType="INTEGER"/>
+        <result property="language" column="language" jdbcType="VARCHAR"/>
+        <result property="isbn10" column="isbn10" jdbcType="VARCHAR"/>
+        <result property="isbn13" column="isbn13" jdbcType="VARCHAR"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <collection property="tags" column="{id=id}" select="selectTagId"></collection>
+    </resultMap>
+    <select id="getBookInfo" resultMap="BootInfoDtoMap">
+        select <include refid="Base_Column_List"></include> from basics_book where id=#{id}
+    </select>
+    <select id="selectTagId" resultType="string">
+        select tag_id
+        from basics_book_tags
+        where book_id = #{id}
+    </select>
 </mapper>

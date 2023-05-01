@@ -1,8 +1,8 @@
-package com.blackgaryc.library.domain.user.admin;
+package com.blackgaryc.library.domain.admin.book;
 
 import java.util.List;
 
-public class BookUpdateDto {
+public class BookDto {
     private String title;
     private String author;
     private String thumbnail;
@@ -10,8 +10,8 @@ public class BookUpdateDto {
     private String language;
     private String isbn10;
     private String isbn13;
-    private Integer categoryId;
-    private List<Long> tags;
+    private String categoryId;
+    private List<String> tags;
     private String description;
 
     public String getTitle() {
@@ -70,19 +70,19 @@ public class BookUpdateDto {
         this.isbn13 = isbn13;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
-    public List<Long> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<Long> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

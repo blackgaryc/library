@@ -1,15 +1,20 @@
 package com.blackgaryc.library.myservice.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blackgaryc.library.domain.admin.book.BookDto;
+import com.blackgaryc.library.domain.user.admin.BookUpdateDto;
 import com.blackgaryc.library.domain.user.admin.SimpleBookVO;
 import com.blackgaryc.library.entity.BookEntity;
+import com.blackgaryc.library.entity.BookTagsEntity;
 import com.blackgaryc.library.entity.StatusEnum;
 import com.blackgaryc.library.myservice.AdminBookService;
 import com.blackgaryc.library.service.BookService;
+import com.blackgaryc.library.service.BookTagsService;
 import com.blackgaryc.library.tools.context.HttpContextTool;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +45,44 @@ public class AdminBookServiceImpl implements AdminBookService {
         }
         byId.setStatus(StatusEnum.DELETED.getCode());
         bookService.updateById(byId);
+    }
+
+    @Override
+    public BookDto getBookInfo(Long id) {
+        return bookService.getBookInfo(id);
+    }
+
+    @Override
+    public void changeStatus(Long id) {
+        BookEntity byId = bookService.getById(id);
+        if (null == byId){
+            return;
+        }
+        if (StatusEnum.DISABLE.getCode() == byId.getStatus()){
+            byId.setStatus(StatusEnum.ENABLE.getCode());
+        }else if (StatusEnum.ENABLE.getCode() == byId.getStatus()){
+            byId.setStatus(StatusEnum.DISABLE.getCode());
+        }
+        bookService.updateById(byId);
+    }
+
+    @Autowired
+    BookTagsService bookTagsService;
+    @Override
+    public void updateBookInfo(Long id, BookUpdateDto bookUpdateDto) {
+        BookEntity byId = bookService.getById(id);
+        if (null == byId){
+            return;
+        }
+        BeanUtils.copyProperties(bookUpdateDto,byId);
+        bookService.updateById(byId);
+        bookTagsService.deleteAllByBookId(id);
+        List<BookTagsEntity> collect = bookUpdateDto.getTags().stream().map(e -> {
+            BookTagsEntity bookTagsEntity = new BookTagsEntity();
+            bookTagsEntity.setBookId(id);
+            bookTagsEntity.setTagId((int) e.longValue());
+            return bookTagsEntity;
+        }).collect(Collectors.toList());
+        bookTagsService.saveBatch(collect);
     }
 }

@@ -1,6 +1,7 @@
 package com.blackgaryc.library.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blackgaryc.library.domain.admin.book.BookDto;
 import com.blackgaryc.library.entity.BookEntity;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.mapper.BookMapper;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, BookEntity>
     implements BookService{
-
+    @Override
+    public BookDto getBookInfo(Long id) {
+        return this.baseMapper.getBookInfo(id);
+    }
 }
 
 

@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookTagsServiceImpl extends ServiceImpl<BookTagsMapper, BookTagsEntity>
     implements BookTagsService{
-
+    @Override
+    public void deleteAllByBookId(Long id) {
+        this.baseMapper.deleteAllByBookId(id);
+    }
 }
 
 

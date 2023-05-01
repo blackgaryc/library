@@ -1,7 +1,10 @@
 package com.blackgaryc.library.mapper;
 
+import com.blackgaryc.library.domain.admin.tag.TagSelectVo;
 import com.blackgaryc.library.entity.TagEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface TagMapper extends BaseMapper<TagEntity> {
 
+    List<TagSelectVo> getSelectData();
 }
 
 

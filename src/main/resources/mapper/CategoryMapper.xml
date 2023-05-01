@@ -5,12 +5,23 @@
 <mapper namespace="com.blackgaryc.library.mapper.CategoryMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.CategoryEntity">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,name,parent_id
     </sql>
+    <resultMap id="CategorySelectVo" type="com.blackgaryc.library.domain.admin.category.CategorySelectVo">
+        <result property="label" column="name" />
+        <result property="value" column="id" />
+        <collection property="children" select="getSelectData" column="{pid=id}"/>
+    </resultMap>
+    <select id="getSelectData" resultMap="CategorySelectVo">
+        select name,id from basics_category
+        <if test="pid!=null and pid>=0">
+            where parent_id=#{pid}
+        </if>
+    </select>
 </mapper>

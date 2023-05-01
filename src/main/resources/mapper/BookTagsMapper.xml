@@ -12,4 +12,7 @@
     <sql id="Base_Column_List">
         book_id,tag_id
     </sql>
+    <delete id="deleteAllByBookId">
+        delete from basics_book_tags where book_id=#{id}
+    </delete>
 </mapper>

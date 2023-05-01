@@ -1,5 +1,6 @@
 package com.blackgaryc.library.mapper;
 
+import com.blackgaryc.library.domain.admin.book.BookDto;
 import com.blackgaryc.library.entity.BookEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface BookMapper extends BaseMapper<BookEntity> {
 
+    BookDto getBookInfo(Long id);
 }
 
 

@@ -12,4 +12,11 @@
     <sql id="Base_Column_List">
         id,name
     </sql>
+    <resultMap id="TagSelectVo" type="com.blackgaryc.library.domain.admin.tag.TagSelectVo">
+        <result property="value" column="id" />
+        <result property="label" column="name" />
+    </resultMap>
+    <select id="getSelectData" resultMap="TagSelectVo">
+        select <include refid="Base_Column_List"></include> from basics_tag
+    </select>
 </mapper>

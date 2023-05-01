@@ -1,7 +1,10 @@
 package com.blackgaryc.library.service;
 
+import com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo;
 import com.blackgaryc.library.entity.PublisherEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PublisherService extends IService<PublisherEntity> {
 
+    List<PublisherSelectVo> getSelectData();
 }

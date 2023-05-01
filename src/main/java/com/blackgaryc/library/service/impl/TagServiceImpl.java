@@ -1,10 +1,13 @@
 package com.blackgaryc.library.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blackgaryc.library.domain.admin.tag.TagSelectVo;
 import com.blackgaryc.library.entity.TagEntity;
 import com.blackgaryc.library.service.TagService;
 import com.blackgaryc.library.mapper.TagMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -14,7 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, TagEntity>
     implements TagService{
-
+    @Override
+    public List<TagSelectVo> getSelectData() {
+        return this.baseMapper.getSelectData();
+    }
 }
 
 

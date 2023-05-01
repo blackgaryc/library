@@ -1,7 +1,10 @@
 package com.blackgaryc.library.mapper;
 
+import com.blackgaryc.library.domain.admin.category.CategorySelectVo;
 import com.blackgaryc.library.entity.CategoryEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface CategoryMapper extends BaseMapper<CategoryEntity> {
 
+    List<CategorySelectVo> getSelectData(Integer pid);
 }
 
 

@@ -1,10 +1,13 @@
 package com.blackgaryc.library.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blackgaryc.library.domain.admin.category.CategorySelectVo;
 import com.blackgaryc.library.entity.CategoryEntity;
 import com.blackgaryc.library.service.CategoryService;
 import com.blackgaryc.library.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -14,7 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEntity>
     implements CategoryService{
-
+    @Override
+    public List<CategorySelectVo> getSelectData() {
+        return this.baseMapper.getSelectData(0);
+    }
 }
 
 

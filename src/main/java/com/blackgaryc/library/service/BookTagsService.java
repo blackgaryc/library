@@ -10,4 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BookTagsService extends IService<BookTagsEntity> {
 
+    void deleteAllByBookId(Long id);
 }

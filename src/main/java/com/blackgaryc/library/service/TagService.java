@@ -1,7 +1,10 @@
 package com.blackgaryc.library.service;
 
+import com.blackgaryc.library.domain.admin.tag.TagSelectVo;
 import com.blackgaryc.library.entity.TagEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author alex
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TagService extends IService<TagEntity> {
 
+    List<TagSelectVo> getSelectData();
 }

@@ -1,5 +1,6 @@
 package com.blackgaryc.library.service;
 
+import com.blackgaryc.library.domain.admin.book.BookDto;
 import com.blackgaryc.library.entity.BookEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BookService extends IService<BookEntity> {
 
+    BookDto getBookInfo(Long id);
 }
