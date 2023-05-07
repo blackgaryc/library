@@ -2,7 +2,7 @@ package com.blackgaryc.library.domain.booklist;
 
 public class CreateBookListRequest {
     private String name;
-    private Boolean publish;
+    private Boolean published;
     private String description;
 
     public String getName() {
@@ -13,12 +13,12 @@ public class CreateBookListRequest {
         this.name = name;
     }
 
-    public Boolean getPublish() {
-        return publish;
+    public Boolean getPublished() {
+        return published;
     }
 
-    public void setPublish(Boolean publish) {
-        this.publish = publish;
+    public void setPublished(Boolean publish) {
+        this.published = publish;
     }
 
     public String getDescription() {

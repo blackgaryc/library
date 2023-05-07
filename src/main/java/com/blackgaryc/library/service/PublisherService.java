@@ -1,6 +1,8 @@
 package com.blackgaryc.library.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo;
+import com.blackgaryc.library.domain.admin.publisher.PublisherVo;
 import com.blackgaryc.library.entity.PublisherEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +16,6 @@ import java.util.List;
 public interface PublisherService extends IService<PublisherEntity> {
 
     List<PublisherSelectVo> getSelectData();
+
+    Page<PublisherVo> getPageData();
 }

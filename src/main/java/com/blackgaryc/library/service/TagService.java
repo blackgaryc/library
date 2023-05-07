@@ -1,5 +1,6 @@
 package com.blackgaryc.library.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.domain.admin.tag.TagSelectVo;
 import com.blackgaryc.library.entity.TagEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -14,4 +15,6 @@ import java.util.List;
 public interface TagService extends IService<TagEntity> {
 
     List<TagSelectVo> getSelectData();
+
+    Page<TagSelectVo> getPageData(Page defaultPage);
 }

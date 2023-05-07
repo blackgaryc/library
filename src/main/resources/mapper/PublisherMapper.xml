@@ -23,4 +23,7 @@
     <select id="getSelectData" resultType="com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo">
         select id as value , name as label from basics_publisher
     </select>
+    <select id="getPageData" resultType="com.blackgaryc.library.domain.admin.publisher.PublisherVo">
+        select <include refid="Base_Column_List"></include> from basics_publisher
+    </select>
 </mapper>

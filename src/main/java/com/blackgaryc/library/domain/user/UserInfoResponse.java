@@ -3,7 +3,7 @@ package com.blackgaryc.library.domain.user;
 import com.blackgaryc.library.entity.UserEntity;
 
 public class UserInfoResponse {
-    private Long id;
+    private String id;
     private String nickname;
     private String avatar;
     private String email;
@@ -25,11 +25,11 @@ public class UserInfoResponse {
         this.phone = phone;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class UserInfoResponse {
     public UserInfoResponse() {
     }
     public UserInfoResponse(UserEntity userEntity) {
-        this.id = userEntity.getId();
+        this.id = userEntity.getAccount();
         this.avatar = userEntity.getAvatar();
         this.nickname = userEntity.getNickname();
         this.phone = "";

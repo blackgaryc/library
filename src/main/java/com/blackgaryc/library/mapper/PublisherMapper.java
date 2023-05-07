@@ -1,8 +1,11 @@
 package com.blackgaryc.library.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo;
+import com.blackgaryc.library.domain.admin.publisher.PublisherVo;
 import com.blackgaryc.library.entity.PublisherEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,6 +18,8 @@ import java.util.List;
 public interface PublisherMapper extends BaseMapper<PublisherEntity> {
 
     List<PublisherSelectVo> getSelectData();
+
+    Page<PublisherVo> getPageData(@Param(value = "page") Page page);
 }
 
 

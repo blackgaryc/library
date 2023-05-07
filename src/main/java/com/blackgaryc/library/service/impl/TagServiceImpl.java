@@ -1,5 +1,6 @@
 package com.blackgaryc.library.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blackgaryc.library.domain.admin.tag.TagSelectVo;
 import com.blackgaryc.library.entity.TagEntity;
@@ -20,6 +21,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, TagEntity>
     @Override
     public List<TagSelectVo> getSelectData() {
         return this.baseMapper.getSelectData();
+    }
+
+    @Override
+    public Page<TagSelectVo> getPageData(Page page) {
+        return this.baseMapper.getPageData(page);
     }
 }
 

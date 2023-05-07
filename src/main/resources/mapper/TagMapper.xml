@@ -19,4 +19,7 @@
     <select id="getSelectData" resultMap="TagSelectVo">
         select <include refid="Base_Column_List"></include> from basics_tag
     </select>
+    <select id="getPageData" resultMap="TagSelectVo">
+        select <include refid="Base_Column_List"></include> from basics_tag
+    </select>
 </mapper>

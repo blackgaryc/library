@@ -6,7 +6,7 @@ public class UpdateBookListRequest implements Serializable {
     private String id;
     private String name;
     private String description;
-    private Boolean publish;
+    private Boolean published;
 
     public String getId() {
         return id;
@@ -32,11 +32,11 @@ public class UpdateBookListRequest implements Serializable {
         this.description = description;
     }
 
-    public Boolean getPublish() {
-        return publish;
+    public Boolean getPublished() {
+        return published;
     }
 
-    public void setPublish(Boolean publish) {
-        this.publish = publish;
+    public void setPublished(Boolean publish) {
+        this.published = publish;
     }
 }

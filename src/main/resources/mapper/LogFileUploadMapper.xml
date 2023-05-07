@@ -32,7 +32,7 @@
             `sys_log_file_upload` AS b
                 INNER JOIN `sys_user` AS u ON `b`.uid = `u`.id
         WHERE
-            `b`.`status` = 2 AND b.upload_time > #{date}
+            `b`.`status` = 2 AND b.upload_time >= #{date}
         GROUP BY
             `u`.id
     </select>

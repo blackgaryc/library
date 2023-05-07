@@ -65,4 +65,6 @@ public interface UserBookListService {
     void deleteBookList(String id) throws LibraryException;
 
     Page<BooklistEntity> getAllPublishedBookList();
+
+    BooklistEntity getInfo(Long id);
 }

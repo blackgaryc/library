@@ -6,6 +6,7 @@ import com.blackgaryc.library.myservice.UserRankService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class UserRankServiceImpl implements UserRankService {
 
     @Override
     public List<UploadRankResult> getRankList(Date startDate) {
-        return mapper.getRankList(startDate);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(startDate);
+            return mapper.getRankList(format);
     }
 }

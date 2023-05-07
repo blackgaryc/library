@@ -15,7 +15,7 @@ import java.util.List;
 * @Entity com.blackgaryc.library.entity.LogFileUploadEntity
 */
 public interface LogFileUploadMapper extends BaseMapper<LogFileUploadEntity> {
-    List<UploadRankResult> getRankList(@Param("date") Date date);
+    List<UploadRankResult> getRankList(@Param("date") String date);
 }
 
 

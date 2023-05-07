@@ -34,6 +34,10 @@ public class BookListController {
         return Results.successMybatisPageData(userBookListService.listByPage());
     }
 
+    @RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
+    public BaseResult getInfo(@PathVariable Long id) {
+        return Results.successData(userBookListService.getInfo(id));
+    }
     /**
      * 更新单个书单信息
      *

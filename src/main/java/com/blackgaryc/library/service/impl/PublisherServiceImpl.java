@@ -1,10 +1,13 @@
 package com.blackgaryc.library.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blackgaryc.library.domain.admin.publisher.PublisherSelectVo;
+import com.blackgaryc.library.domain.admin.publisher.PublisherVo;
 import com.blackgaryc.library.entity.PublisherEntity;
 import com.blackgaryc.library.service.PublisherService;
 import com.blackgaryc.library.mapper.PublisherMapper;
+import com.blackgaryc.library.tools.context.HttpContextTool;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,11 @@ public class PublisherServiceImpl extends ServiceImpl<PublisherMapper, Publisher
     @Override
     public List<PublisherSelectVo> getSelectData() {
         return this.baseMapper.getSelectData();
+    }
+
+    @Override
+    public Page<PublisherVo> getPageData() {
+        return this.baseMapper.getPageData(HttpContextTool.getDefaultPage());
     }
 }
 

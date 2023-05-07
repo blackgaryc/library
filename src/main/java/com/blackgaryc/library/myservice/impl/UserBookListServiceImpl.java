@@ -40,7 +40,7 @@ public class UserBookListServiceImpl implements UserBookListService {
         booklistEntity.setName(req.getName());
         booklistEntity.setDescription(req.getDescription());
         booklistEntity.setUid(StpUtil.getLoginIdAsLong());
-        booklistEntity.setPublished(req.getPublish() ? 1 : 0);
+        booklistEntity.setPublished(req.getPublished() ? 1 : 0);
         booklistService.save(booklistEntity);
     }
 
@@ -56,7 +56,7 @@ public class UserBookListServiceImpl implements UserBookListService {
     @Override
     public void update(UpdateBookListRequest req) throws LibraryException {
         BooklistEntity byId = this.getById(req.getId());
-        byId.setPublished(req.getPublish() ? 1 : 0);
+        byId.setPublished(req.getPublished() ? 1 : 0);
         byId.setDescription(req.getDescription());
         byId.setName(req.getName());
         booklistService.updateById(byId);
@@ -133,6 +133,11 @@ public class UserBookListServiceImpl implements UserBookListService {
                 .eq(BooklistEntity::getPublished,1)
                 .page(HttpContextTool.getDefaultPage());
         return page;
+    }
+
+    @Override
+    public BooklistEntity getInfo(Long id) {
+        return booklistService.getById(id);
     }
 
     private BookEntity getBookEntityById(Long bookId) throws LibraryException {
