@@ -31,8 +31,8 @@ public class AdminBookListController {
         return Results.success();
     }
     @RequestMapping(value = "{id}",method = RequestMethod.PUT)
-    public BaseResult indexDelete(@PathVariable Long id,
-                                  @RequestBody BookUpdateDto bookUpdateDto) throws LibraryException {
+    public BaseResult indexPut(@PathVariable Long id) throws LibraryException {
+        this.adminBookListService.enableBookList(id);
         return Results.success();
     }
 

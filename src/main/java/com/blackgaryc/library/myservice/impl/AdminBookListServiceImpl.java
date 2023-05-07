@@ -25,6 +25,15 @@ public class AdminBookListServiceImpl implements AdminBookListService {
 
     @Override
     public void deleteBookList(Long id) {
+        BooklistEntity byId = booklistService.getById(id);
+        byId.setStatus(StatusEnum.DISABLE.getCode());
+        booklistService.updateById(byId);
+    }
 
+    @Override
+    public void enableBookList(Long id) {
+        BooklistEntity byId = booklistService.getById(id);
+        byId.setStatus(StatusEnum.ENABLE.getCode());
+        booklistService.updateById(byId);
     }
 }
