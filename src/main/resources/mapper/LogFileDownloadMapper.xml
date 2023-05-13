@@ -5,15 +5,25 @@
 <mapper namespace="com.blackgaryc.library.mapper.LogFileDownloadMapper">
 
     <resultMap id="BaseResultMap" type="com.blackgaryc.library.entity.LogFileDownloadEntity">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="uid" column="uid" jdbcType="BIGINT"/>
-            <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
-            <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
-            <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="uid" column="uid" jdbcType="BIGINT"/>
+        <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
+        <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,uid,file_id,
         book_name,time
     </sql>
+    <select id="getBookDownloadHistory" resultType="java.util.Map">
+        select *
+        from basics_book
+        where id in (select book_id
+                     from basics_book_detail
+                     where file_id in (select file_id
+                                       from sys_log_file_download
+                                       where uid = #{uid}
+                                       order by id desc))
+    </select>
 </mapper>

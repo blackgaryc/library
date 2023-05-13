@@ -9,6 +9,7 @@ import com.blackgaryc.library.entity.FileEntity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -23,4 +24,6 @@ public interface UserBookService {
 
     List<SimpleBook> getLatestBooks();
     Book getBookDetail(Long id) throws BookNotExistException;
+
+    List<Map<String,Object>> getBookDownloadHistory();
 }

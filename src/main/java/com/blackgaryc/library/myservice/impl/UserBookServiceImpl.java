@@ -8,10 +8,13 @@ import com.blackgaryc.library.entity.BookDetailEntity;
 import com.blackgaryc.library.entity.BookEntity;
 import com.blackgaryc.library.entity.StatusEnum;
 import com.blackgaryc.library.entity.FileEntity;
+import com.blackgaryc.library.mapper.LogFileDownloadMapper;
 import com.blackgaryc.library.myservice.UserBookService;
 import com.blackgaryc.library.service.BookDetailService;
 import com.blackgaryc.library.service.BookService;
 import com.blackgaryc.library.service.FileService;
+import com.blackgaryc.library.service.LogFileDownloadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -100,5 +103,12 @@ public class UserBookServiceImpl implements UserBookService {
         List<FileEntity> fileEntities = fileService.listByIds(bookDetails.stream().map(BookDetailEntity::getFileId).toList());
         Book book = Book.HasFiles(bookEntity, fileEntities);
         return book;
+    }
+
+    @Autowired
+    LogFileDownloadMapper logFileDownloadMapper;
+    @Override
+    public List<Map<String, Object>> getBookDownloadHistory() {
+        return logFileDownloadMapper.getBookDownloadHistory(StpUtil.getLoginIdAsLong());
     }
 }

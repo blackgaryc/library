@@ -1,5 +1,6 @@
 package com.blackgaryc.library.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.core.error.LibraryException;
 import com.blackgaryc.library.core.result.BaseResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
+@SaCheckRole("admin")
 @RequestMapping("admin/book")
 public class AdminBookController {
     @Resource

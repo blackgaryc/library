@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.entity.BooklistEntity;
 
 public interface AdminBookListService {
-    Page<BooklistEntity> getPageList(String name);
+    Page<BooklistEntity> getPageList(Integer published, String name);
 
     void deleteBookList(Long id);
 

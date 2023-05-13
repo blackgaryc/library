@@ -2,6 +2,10 @@ package com.blackgaryc.library.mapper;
 
 import com.blackgaryc.library.entity.LogFileDownloadEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author alex
@@ -11,6 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface LogFileDownloadMapper extends BaseMapper<LogFileDownloadEntity> {
 
+    List<Map<String, Object>> getBookDownloadHistory(@Param(value = "uid") Long uid);
 }
 
 

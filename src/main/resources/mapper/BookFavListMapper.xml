@@ -22,6 +22,6 @@
                isbn10,
                isbn13
         from basics_book_fav_list
-                 INNER JOIN basics_book ON basics_book_fav_list.book_id = basics_book.id
+                 INNER JOIN basics_book ON basics_book_fav_list.book_id = basics_book.id where uid=#{uid}
     </select>
 </mapper>

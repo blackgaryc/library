@@ -20,7 +20,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public Page<UserEntity> getPageList(String name) {
         return userService.lambdaQuery()
-                .like(Strings.isNotBlank(name),UserEntity::getAccount,name)
+                .like(Strings.isNotBlank(name),UserEntity::getAccount,"%"+name+"%")
                 .page(HttpContextTool.getDefaultPage());
     }
 

@@ -80,5 +80,11 @@ public class BookController {
     public BaseResult latestBooks() {
         return Results.successData(userBookService.getLatestBooks());
     }
+
+    @GetMapping("download/history")
+    @SaIgnore
+    public BaseResult getBookDownloadHistory() {
+        return Results.successData(userBookService.getBookDownloadHistory());
+    }
 }
 

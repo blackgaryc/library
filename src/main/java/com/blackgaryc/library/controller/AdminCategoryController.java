@@ -1,5 +1,7 @@
 package com.blackgaryc.library.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaIgnore;
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.core.result.Results;
 import com.blackgaryc.library.domain.admin.category.CategorySelectVo;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SaCheckRole("admin")
 @RequestMapping("admin/category")
 public class AdminCategoryController {
     @Autowired
     AdminCategoryService adminCategoryService;
+    @SaIgnore
     @RequestMapping(value = "select",method = RequestMethod.GET)
     public BaseResult getSelectData(){
         List<CategorySelectVo> list = adminCategoryService.getSelectData();

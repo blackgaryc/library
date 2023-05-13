@@ -10,14 +10,17 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class AdminBookListServiceImpl implements AdminBookListService {
     @Autowired
     BooklistService booklistService;
     @Override
-    public Page<BooklistEntity> getPageList(String name) {
+    public Page<BooklistEntity> getPageList(Integer published, String name) {
 
         return booklistService.lambdaQuery()
+                .eq(Objects.nonNull(published),BooklistEntity::getPublished,published)
                 .like(Strings.isNotBlank(name),BooklistEntity::getName,name)
                 .ne(BooklistEntity::getStatus, StatusEnum.DELETED.getCode())
                 .page(HttpContextTool.getDefaultPage());

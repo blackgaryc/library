@@ -1,5 +1,6 @@
 package com.blackgaryc.library.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blackgaryc.library.core.result.BaseResult;
 import com.blackgaryc.library.domain.admin.bookfile.UpdateBookFileRequest;
@@ -14,6 +15,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("admin")
+@SaCheckRole("admin")
 public class AdminController {
     @Resource
     AdminFileUploadService adminFileUploadService;

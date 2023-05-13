@@ -3,9 +3,11 @@ package com.blackgaryc.library.myservice.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.error.FileDownloadTimesEndException;
 import com.blackgaryc.library.entity.FileEntity;
+import com.blackgaryc.library.entity.LogFileDownloadEntity;
 import com.blackgaryc.library.myservice.UserFileService;
 import com.blackgaryc.library.service.FileService;
 import com.blackgaryc.library.myservice.MinioClientService;
+import com.blackgaryc.library.service.LogFileDownloadService;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.errors.*;
 import io.minio.http.Method;
@@ -44,8 +46,18 @@ public class UserFileServiceImpl implements UserFileService {
         this.minioClientService = minioClientService;
     }
 
+    @Autowired
+    LogFileDownloadService logFileDownloadService;
     @Override
     public String download(String fileId) throws FileDownloadTimesEndException {
+        //log in db
+        if (StpUtil.isLogin()){
+            //login
+            LogFileDownloadEntity entity = new LogFileDownloadEntity();
+            entity.setFileId(fileId);
+            entity.setUid(StpUtil.getLoginIdAsLong());
+            logFileDownloadService.save(entity);
+        }
         // limit download times
         //when no user login, update download times by redis, use user's real ip address
         if (!StpUtil.isLogin()) {

@@ -45,5 +45,4 @@ public class AdminUserController {
         adminUserService.updateUserInfo(dto);
         return Results.success();
     }
-
 }

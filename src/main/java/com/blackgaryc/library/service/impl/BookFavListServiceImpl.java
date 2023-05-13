@@ -1,5 +1,6 @@
 package com.blackgaryc.library.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blackgaryc.library.entity.BookFavListEntity;
@@ -20,7 +21,7 @@ public class BookFavListServiceImpl extends ServiceImpl<BookFavListMapper, BookF
     @Override
     public Page<Map<String, Object>> getFavBooks(Page<Object> defaultPage) {
 
-        return baseMapper.getFavBooks(defaultPage);
+        return baseMapper.getFavBooks(defaultPage, StpUtil.getLoginIdAsLong());
     }
 }
 
