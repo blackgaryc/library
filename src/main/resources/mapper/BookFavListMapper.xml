@@ -14,14 +14,14 @@
         id,uid,book_id
     </sql>
     <select id="getFavBooks" resultType="java.util.Map">
-        select uid,
-               book_id,
-               title,
-               author,
-               thumbnail,
-               isbn10,
-               isbn13
-        from basics_book_fav_list
-                 INNER JOIN basics_book ON basics_book_fav_list.book_id = basics_book.id where uid=#{uid}
+        select * from (select uid,
+                              book_id,
+                              title,
+                              author,
+                              thumbnail,
+                              isbn10,
+                              isbn13
+                       from basics_book_fav_list
+                                INNER JOIN basics_book ON basics_book_fav_list.book_id = basics_book.id) as tmp where uid=#{uid}
     </select>
 </mapper>
