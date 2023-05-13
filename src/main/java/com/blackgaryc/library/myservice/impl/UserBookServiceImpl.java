@@ -4,16 +4,10 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.blackgaryc.library.core.error.BookNotExistException;
 import com.blackgaryc.library.domain.book.Book;
 import com.blackgaryc.library.domain.book.SimpleBook;
-import com.blackgaryc.library.entity.BookDetailEntity;
-import com.blackgaryc.library.entity.BookEntity;
-import com.blackgaryc.library.entity.StatusEnum;
-import com.blackgaryc.library.entity.FileEntity;
+import com.blackgaryc.library.entity.*;
 import com.blackgaryc.library.mapper.LogFileDownloadMapper;
 import com.blackgaryc.library.myservice.UserBookService;
-import com.blackgaryc.library.service.BookDetailService;
-import com.blackgaryc.library.service.BookService;
-import com.blackgaryc.library.service.FileService;
-import com.blackgaryc.library.service.LogFileDownloadService;
+import com.blackgaryc.library.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -102,9 +96,25 @@ public class UserBookServiceImpl implements UserBookService {
         }
         List<FileEntity> fileEntities = fileService.listByIds(bookDetails.stream().map(BookDetailEntity::getFileId).toList());
         Book book = Book.HasFiles(bookEntity, fileEntities);
+        if(Objects.nonNull(book.getPublisherId())){
+            PublisherEntity byId = publisherService.getById(book.getPublisherId());
+            if (Objects.nonNull(byId)){
+                book.setPublisher(byId.getName());
+            }
+        }
+        if(Objects.nonNull(book.getCategoryId())){
+            CategoryEntity byId = categoryService.getById(book.getCategoryId());
+            if (Objects.nonNull(byId)){
+                book.setCategory(byId.getName());
+            }
+        }
         return book;
     }
 
+    @Autowired
+    PublisherService publisherService;
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     LogFileDownloadMapper logFileDownloadMapper;
     @Override

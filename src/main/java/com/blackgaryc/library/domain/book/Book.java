@@ -3,6 +3,7 @@ package com.blackgaryc.library.domain.book;
 import com.blackgaryc.library.entity.BookEntity;
 import com.blackgaryc.library.entity.FileEntity;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,11 +14,40 @@ public class Book {
     private String description;
     private String language;
     private Integer categoryId;
+    private String category;
     private String thumbnail;
     private Integer publisherId;
+    private String publisher;
     private String isbn;
     private String isbn13;
+    private String author;
+
     private List<BookFile> file;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getThumbnail() {
         return thumbnail;
     }
@@ -25,7 +55,6 @@ public class Book {
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
-
 
     public Book(BookEntity bookEntity) {
         this.setId(bookEntity.getId());
@@ -39,6 +68,9 @@ public class Book {
             this.setIsbn(bookEntity.getIsbn10());
         if (Strings.isNotBlank(bookEntity.getIsbn13()))
             this.setIsbn13(bookEntity.getIsbn13());
+        this.setAuthor(bookEntity.getAuthor());
+
+
     }
 
     public static Book NoFiles(BookEntity book) {
