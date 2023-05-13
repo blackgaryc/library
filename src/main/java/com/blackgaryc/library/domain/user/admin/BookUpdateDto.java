@@ -6,7 +6,7 @@ public class BookUpdateDto {
     private String title;
     private String author;
     private String thumbnail;
-    private String publisherId;
+    private Integer publisherId;
     private String language;
     private String isbn10;
     private String isbn13;
@@ -38,11 +38,11 @@ public class BookUpdateDto {
         this.thumbnail = thumbnail;
     }
 
-    public String getPublisherId() {
+    public Integer getPublisherId() {
         return publisherId;
     }
 
-    public void setPublisherId(String publisherId) {
+    public void setPublisherId(Integer publisherId) {
         this.publisherId = publisherId;
     }
 

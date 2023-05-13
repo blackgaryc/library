@@ -6,7 +6,7 @@ import com.blackgaryc.library.domain.user.admin.BookUpdateDto;
 import com.blackgaryc.library.domain.user.admin.SimpleBookVO;
 
 public interface AdminBookService{
-    Page<SimpleBookVO> getPageList(String name);
+    Page<SimpleBookVO> getPageList(String name, Integer categoryId, Integer publisherId);
 
     void deleteBook(Long id);
 

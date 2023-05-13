@@ -98,6 +98,7 @@ public class UserBookServiceImpl implements UserBookService {
             return Book.NoFiles(bookEntity);
         }
         List<FileEntity> fileEntities = fileService.listByIds(bookDetails.stream().map(BookDetailEntity::getFileId).toList());
-        return Book.HasFiles(bookEntity,fileEntities);
+        Book book = Book.HasFiles(bookEntity, fileEntities);
+        return book;
     }
 }

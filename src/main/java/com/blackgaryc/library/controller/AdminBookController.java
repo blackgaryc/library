@@ -19,8 +19,8 @@ public class AdminBookController {
     AdminBookService adminBookService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public BaseResult getList(String name){
-        Page<SimpleBookVO> pageList=this.adminBookService.getPageList(name);
+    public BaseResult getList(String name,Integer categoryId,Integer publisherId){
+        Page<SimpleBookVO> pageList=this.adminBookService.getPageList(name,categoryId,publisherId);
         return Results.successMybatisPageData(pageList);
     }
 

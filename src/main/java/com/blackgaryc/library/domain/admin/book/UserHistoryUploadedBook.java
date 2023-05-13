@@ -12,6 +12,15 @@ public class UserHistoryUploadedBook {
     private final String status;
     private final int statusCode;
     private final Long bookId;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getStatusCode() {
         return statusCode;
@@ -29,6 +38,7 @@ public class UserHistoryUploadedBook {
                 ).findFirst()
                 .orElse(BookUploadRequestStatusEnum.REFUSED).getMessage();
         this.bookId = entity.getBookId();
+        this.url = entity.getFileId();
     }
 
     public String getFilename() {

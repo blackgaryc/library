@@ -14,10 +14,10 @@ import com.blackgaryc.library.tools.context.HttpContextTool;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,9 +25,11 @@ public class AdminBookServiceImpl implements AdminBookService {
     @Autowired
     BookService bookService;
     @Override
-    public Page<SimpleBookVO> getPageList(String name) {
+    public Page<SimpleBookVO> getPageList(String name, Integer categoryId, Integer publisherId) {
         Page<BookEntity> page = this.bookService.lambdaQuery()
                 .ne(BookEntity::getStatus, StatusEnum.DELETED.getCode())
+                .eq(Objects.nonNull(categoryId),BookEntity::getCategoryId,categoryId)
+                .eq(Objects.nonNull(publisherId),BookEntity::getPublisherId,publisherId)
                 .like(Strings.isNotBlank(name), BookEntity::getTitle, name)
                 .page(HttpContextTool.getDefaultPage());
         Page<SimpleBookVO> simpleBookVOPage = new Page<>();

@@ -2,6 +2,7 @@ package com.blackgaryc.library.domain.book;
 
 import com.blackgaryc.library.entity.BookEntity;
 import com.blackgaryc.library.entity.FileEntity;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,11 @@ public class Book {
         this.setLanguage(bookEntity.getLanguage());
         this.setCategoryId(bookEntity.getCategoryId());
         this.setThumbnail(bookEntity.getThumbnail());
+        this.setPublisherId(bookEntity.getPublisherId());
+        if (Strings.isNotBlank(bookEntity.getIsbn10()))
+            this.setIsbn(bookEntity.getIsbn10());
+        if (Strings.isNotBlank(bookEntity.getIsbn13()))
+            this.setIsbn13(bookEntity.getIsbn13());
     }
 
     public static Book NoFiles(BookEntity book) {
